@@ -263,6 +263,22 @@ class Coordinator extends CI_Controller
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['user_id']	= $this->session->user_id;
+		$data['user_office']	= $this->session->office;
+		$data['user_dept']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+	
+		if(isset($_GET['proposal_id'])){
+			$this->load->model('Proposal_AB');
+			$data["proposal"] = $this->Proposal_AB->getProposalDetails($_GET['proposal_id']);
+		    $data["proposal_id"] = $_GET['proposal_id'];
+		}
+		if(isset($_GET['form_type']))
+		{
+			$data['form_type'] = 1;
+		}else{
+			$data['form_type'] = 0;
+		}
 
 		$this->load->view('forms/form_c', $data);
 	}
