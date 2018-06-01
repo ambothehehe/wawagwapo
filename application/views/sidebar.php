@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+f<!DOCTYPE html>
 <html>
 
 <body>
@@ -29,6 +29,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo site_url('Representative/profile_settings');?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         &nbsp;&nbsp;&nbsp; Profile Settings
@@ -44,7 +50,20 @@
                         &nbsp;&nbsp;&nbsp; My Proposals
                     </a>
                 </li>
-               
+                <?php if (strlen($organization) > 0) { ?>
+                <li>
+                    <a href="<?php echo site_url('Faculty/proposals_to_be_noted');?>">
+                        <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Proposals to be noted
+                    </a>
+                </li>
+                <?php } ?>
+               <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
+                    </a>
+                </li>
                 <li>
                     <a href="<?php echo site_url('Faculty/profile_settings');?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -60,7 +79,12 @@
                         &nbsp;&nbsp;&nbsp; My Proposals
                     </a>
                 </li>
-               
+               <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
+                    </a>
+                </li>
                 <li>
                     <a href="<?php echo site_url('ExtraCurricular/profile_settings');?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -78,7 +102,12 @@
                         &nbsp;&nbsp;&nbsp; My Proposals
                     </a>
                 </li>
-               
+               <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
+                    </a>
+                </li>
                 <li>
                     <a href="<?php echo site_url('CoCurricular/profile_settings');?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -102,6 +131,12 @@
                     <a href="<?php echo site_url('Coordinator/reports');?>">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                         &nbsp;&nbsp;&nbsp; Reports
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
                     </a>
                 </li>
                 <li>
@@ -129,6 +164,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo site_url('Chair/profile_settings');?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         &nbsp;&nbsp;&nbsp; Profile Settings
@@ -149,6 +190,12 @@
                     <a href="<?php echo site_url('Dean/reports');?>">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                         &nbsp;&nbsp;&nbsp; Reports
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
                     </a>
                 </li>
                 <li>
@@ -175,11 +222,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo site_url('Director/manage_accounts');?>">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         &nbsp;&nbsp;&nbsp; Manage Accounts
                     </a>
                 </li>
+
                 <li>
                     <a href="<?php echo site_url('Director/profile_settings');?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -189,12 +243,7 @@
                 <?php } ?>
 
                  
-                <li>
-                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
-                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
-                        &nbsp;&nbsp;&nbsp; Approved Proposals
-                    </a>
-                </li>
+               
                 
 
 
@@ -212,12 +261,14 @@
                         &nbsp;&nbsp;&nbsp; Reports
                     </a>
                 </li>
+                 
                 <li>
                     <a href="<?php echo site_url('Vpaa/profile_settings');?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         &nbsp;&nbsp;&nbsp; Profile Settings
                     </a>
                 </li>
+
                 <?php } ?>
 
                 <!-- Sidebar options for Student Organization Representative -->
@@ -231,7 +282,9 @@
                         &nbsp;&nbsp;&nbsp; Logout
                     </a>
                 </li>
+
             </ul>
+
         </div>
     </nav>
     

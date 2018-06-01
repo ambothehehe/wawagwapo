@@ -40,22 +40,15 @@ class Representative extends CI_Controller
 
 	public function send()
 	{
-		?><script> alert("yuck fou6");</script><?php
-		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 6)
-		{
-
-			$this->load->model('Proposal_A');
-		
+		?><script> alert("PASOK MGA SUKI");</script><?php
 			
-			
-			?><script> alert("yuck fou7");</script><?php
-			$this->load->model('Proposal_AB');
+			//$this->load->model('Proposal_AB');
 
 
-			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+			/*$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
 			?><script> alert("yuck fou8");</script><?php
 			
-			echo $data['email'];
+			echo $data['email'];*/
 
 			$this->load->library('email');
 
@@ -65,9 +58,9 @@ class Representative extends CI_Controller
 
 			$config['smtp_port']    = '465';
 
-			$config['smtp_timeout'] = '7';
+			// $config['smtp_timeout'] = '7';
 
-			$config['smtp_user']    = 'chiwawaplease@gmail.com';
+			$config['smtp_user']    = 'alexandriathegreatandpowerful@gmail.com';
 
 			$config['smtp_pass']    = 'wawa2015';
 
@@ -82,25 +75,17 @@ class Representative extends CI_Controller
 			$this->email->initialize($config);
 
 
-			$this->email->from('chiwawaplease@gmail.com', 'CES PPMS');
-			$this->email->to($data['email']); 
+			$this->email->from('donotreply24xd@gmail.com', 'CES PPMS');
+			$this->email->to('joshualouis.jls@gmail.com'); 
 
 
 			$this->email->subject('CES Proposal Notification');
 
-			$this->email->message('Good day!');   
+			$this->email->message('Good day! NA ABOT NA INTAWUN ANG GI CREATE NA PROPOSAL NI REPRESENTATIVE SHET MEMENG');   
 			  
-		  	if($this->email->send())
-		  	{
-		  		// mail sent
-        		redirect(site_url());
-		  	}
-		  	else
-		  	{
-        		redirect(site_url());
-		  	}
-		}
+		
 	}
+
 	public function reports() {
 		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 6)
 		{	
@@ -244,14 +229,18 @@ class Representative extends CI_Controller
 
 //for form d create report form D
 	public function form_d() {
+
 		$this->load->model('Reports');
+
 		$data['fname'] = $this->session->firstname;
 		$data['lname'] = $this->session->lastname;
 		$data['role']	= $this->session->designation;
 		$data['department'] = $this->session->department;
 		$data['creator_id'] = $this->session->user_id;
 		$data['creators_school']	= $this->session->office;
+
 		$proposal_array = array();
+
 		$proposals2 = $this->Reports->get_title($data['creator_id']);
 		
 		foreach($proposals2 as $prop)
@@ -285,7 +274,6 @@ public function addFormd() {
 			$data['lname'] = $this->session->lastname;
 			$data['department'] = $this->session->department;
 			$data['creator_id'] = $this->session->user_id;
-
 
 			// $data['titles'] = $this->Reports->get_title();
 			// // $datum['titles']= $this->Reports->get_title();
@@ -321,7 +309,10 @@ public function addFormd() {
 			$proposal_json_format = (object)json_decode($specprop[0]->proposal_json_format);
 			$p->fd_title = $proposal_json_format->title;
 			//echo "<br/>".$p->fd_title;
+
 			$result=$p->AddFormD();
+			$result1=$p->isreported();
+
 			if(!$result){
 				$this->session->set_flashdata('error_msg',
 					'<strong>Something Went Wrong!</strong> An Error occured while saving your report.');
@@ -454,6 +445,10 @@ public function addFormd() {
 		$p->title_of_program=$this->input->post('title_of_program');
 		$p->unit_responsible=$this->input->post('unit_responsible');
 		$p->program_duration=$this->input->post('program_duration');
+
+		$p->report_status = 3;
+
+
 			// $actarr= array(
 			// 'acttitle' => $this->input->post('act_title'), 
 			// 'incdate' => $this->input->post('incdate'),

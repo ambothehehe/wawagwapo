@@ -95,11 +95,7 @@
                                         </td>
 
                                         <!-- DELETE BUTTON -->
-                                        <td>
-                                         <?php
-                                            echo form_open('Representative/deleteForm_d');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repd->fd_id;?>" >
-                                            </form> </td>
+                                        <td></td>
                                          </tr>
                                         <?php  }?>
 
@@ -120,7 +116,7 @@
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th></th>
+                            <th>School and Department</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -142,7 +138,7 @@
                            
                                     <tr>
                                         <td>
-                                            <a href="<?php echo base_url() ?>index.php/Chair/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title_of_program;?></a>
+                                            <a href="<?php echo base_url() ?>index.php/Chair/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title;?></a>
                                         </td>
 
                                         <td>
@@ -151,11 +147,9 @@
                                             <input type="hidden" name="creator_id" value="<?php echo $allrepe->creator_id ;?>">
                                         </td>
 
-                                        <!-- DELETE BUTTON -->
-                                        <td><?php
-                                            echo form_open('Representative/deleteForm_e');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $allrepe->fe_id;?>" >
-                                            </form> </td>
+                                        <td>
+                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
+                                        </td>
                                                 </tr>
                                         <?php } ?>
                              </tbody>

@@ -292,6 +292,7 @@ class Users extends CI_Controller
 			$user->office = $this->input->post('office', TRUE);
 			$user->department = $this->input->post('department', TRUE);
 			$user->email = $this->input->post('email', TRUE);
+			$user->organization = $this->input->post('organization', TRUE);
 			$user->contact_num = $this->input->post('contact_num', TRUE);
 			$user->username = $this->input->post('username', TRUE);
 			$user->password = $this->input->post('password', TRUE);

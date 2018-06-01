@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>CES-DMS - All Reports</title>
+    <title>CESPPMS - All Reports</title>
     <?php include('application/views/header.php');?>
 </head>
 
@@ -46,6 +46,7 @@
     width: 100%;
     height: 500px;">
 <div class="tab-content" style=" margin:5px;">
+
   <div id="Form_d_others" class="tab-pane fade in active">
    
 <!--start FORM D table of my reports -->
@@ -56,6 +57,7 @@
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -79,18 +81,31 @@
                         foreach($reportlist_d as $repd) {?>
                             
                                     <tr>
-                                        <td><a href="<?php echo base_url() ?>index.php/Director/loadreportd/<?php echo $repd->fd_id; ?>"><?php echo $repd->fd_title;?></a></td>
+                                        <td>
+                                            <a href="<?php echo base_url() ?>index.php/Dean/loadreportd/<?php echo $repd->fd_id; ?>">
+                                                 <?php echo $repd->fd_title;?></a>
+                                        </td>
                                        
-                                        <td><?php echo $repd->datecreated;?>
-                                            <br/>
+                                        <td>
+                                            <?php echo $repd->datecreated;?><br/>
                                             <input type="hidden" name="creator_id" value="<?php echo $repd->creator_id ;?>">
                                         </td>
-                                        <td><?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p></td>
-                                    </tr>
-                            <?php  }?>
+
+                                        <td>
+                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
+                                        </td>
+
+                                        <!-- DELETE BUTTON -->
+                                        <td>
+                                         <?php
+                                            echo form_open('Representative/deleteForm_d');?>
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repd->fd_id;?>" >
+                                            </form> </td>
+                                         </tr>
+                                        <?php  }?>
 
                             
-                    </tbody>
+                        </tbody>
                     </table>
 
                     </div> 
@@ -98,15 +113,16 @@
 
 
   </div>
+
   <div id="Form_e_others" class="tab-pane fade">
    <!--start FORM E table of my reports -->
  <div class="lists-table">
-                    <table id="reportd" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                    <table id="reportd" class="table table-striped table-bordered table-hover lists-table" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th>School and Department</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -127,35 +143,35 @@
                         <?php foreach($reportlist_e as $allrepe) {?>
                            
                                     <tr>
-                                        <td><a href="<?php echo base_url() ?>index.php/Director/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title;?></a></td>
-                                        <td><?php echo $allrepe->datecreated;?>
+                                        <td>
+                                            <a href="<?php echo base_url() ?>index.php/Dean/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title;?></a>
+                                        </td>
+
+                                        <td>
+                                            <?php echo $allrepe->datecreated;?>
                                              <br/>
                                             <input type="hidden" name="creator_id" value="<?php echo $allrepe->creator_id ;?>">
                                         </td>
-                                        <td>
-                                            <?php echo $allrepe->creators_department;?><br><p style="font-size:75%;"><?php echo $allrepe->creators_school;?></p>
-                                        </td>
+
+                                        <!-- DELETE BUTTON -->
                                     </tr>
-                            <?php } ?>
-                    </tbody>
+                                        <?php } ?>
+                             </tbody>
                     </table>
 
                     </div> 
                     <!-- end Form E of my reports -->
   </div>
- 
  </div>
 </div>
 </div>
-
-
 
                 </div>
             </div>
 
         </div>
 
-    </div>
+    </div>      
 
     <?php include('application/views/footer.php');?>
 </body>

@@ -994,6 +994,7 @@
     <?php form_close();?>
     </div>
  <?php } else if($role == "Coordinator") { ?>
+		
 		<div style="float:left; padding:2px; padding-top:10px;">
 			<?php echo form_open('Proposals/coordRecommendsProp');?>
 			<input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">

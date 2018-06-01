@@ -101,7 +101,7 @@
                         <?php } ?>
 
 
-                        <?php foreach($own_reports_e as $myreps_e) {?>
+                        <?php foreach($coord_e as $myreps_e) {?>
                             <?php if($myreps_e->creator_id == $user_id) { ?>
                                     <tr>
                                         <td><a href="<?php echo base_url() ?>/Representative/loadreporte/<?php echo $myreps_e->id; ?>"><?php echo $myreps_e->title_of_program;?></a></td>

@@ -40,7 +40,7 @@
                                       <tr>
                                         <td width="28%"><strong>1.1 Complete Title of Program/Project</strong></td>
                                         <td width="2%"><input type="hidden" name="id" value="<?php echo $res->fe_id;?>"></td> <!--THE ID IS HERE-->
-                                        <td><p><u><?php echo $res->title_of_program;?></u></p></td>
+                                        <td><p><u><?php echo $res->title;?></u></p></td>
                                       </tr>
                                       <tr>
                                         <td><strong>1.2 Unit/s Responsible</strong></td>
@@ -602,20 +602,66 @@
                         </button> -->
 
                         <?php echo form_close();?>
-
                       </div>
+
                          <div style="position:fixed; top:8%; right:2%;">
                          <?php if($role == "Department Chair") { ?>
                             <div style="float:left; padding:2px; padding-top:10px;">
-                            <?php echo form_open('Proposals/chairNotesReport'); ?>
-                                <input class="form-control" type="hidden" name="id" value='"<?php echo $id; ?>"'/>
+                            <?php echo form_open('Proposals/chairNotesReporte'); ?>
+                                <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
-                                <button type="submit" class="btn btn-primary btn-md" name="note" value="ProceedProposal">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+                                <?php form_close();?>
+                            </div>
+                            <?php } ?>
+                         </div>
+
+                         <div style="position:fixed; top:8%; right:2%;">
+                         <?php if($role == "Coordinator") { ?>
+                            <div style="float:left; padding:2px; padding-top:10px;">
+                            <?php echo form_open('Proposals/coordNotesReporte'); ?>
+                            <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Proceed to Dean&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
                                 <?php form_close();?>
                             </div>
                          <?php } ?>
                         </div>
+
+                        <div style="position:fixed; top:8%; right:2%;">
+                         <?php if($role == "School Dean") { ?>
+                            <div style="float:left; padding:2px; padding-top:10px;">
+                            <?php echo form_open('Proposals/deanNotesReporte'); ?>
+                            <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Proceed to Director&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+
+                                <?php form_close();?>
+                            </div>
+                         <?php } ?>
+                        </div>
+
+                        <div style="position:fixed; top:8%; right:2%;">
+                         <?php if($role == "CES Director") { ?>
+                            <div style="float:left; padding:2px; padding-top:10px;">
+                            <?php echo form_open('Proposals/adminNotesReporte'); ?>
+                            <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Proceed to VPAA&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+
+                                <?php form_close();?>
+                            </div>
+                         <?php } ?>
+                        </div>
+
+                        <div style="position:fixed; top:8%; right:2%;">
+                         <?php if($role == "Vice-President for Academic Affairs") { ?>
+                            <div style="float:left; padding:2px; padding-top:10px;">
+                            <?php echo form_open('Proposals/adminNotesReport'); ?>
+
+                                <?php form_close();?>
+                            </div>
+                         <?php } ?>
+                        </div>
+
                    
                
 

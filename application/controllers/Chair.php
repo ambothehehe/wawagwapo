@@ -73,7 +73,7 @@ class Chair extends CI_Controller
 
 
 			$data['reportlist_d']=$this->Reports->LoadReport_dCHAIR($data['department']);
-			$data['reportlist_e']=$this->Reports->LoadReport_e();
+			$data['reportlist_e']=$this->Reports->LoadReport_eCHAIR($data['department']);
 
 			$this->load->view('chair/chair_report', $data);
 		}else{

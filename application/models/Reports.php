@@ -49,6 +49,28 @@ class Reports extends CI_Model
 		return $results;
 	}
 
+	public function LoadReport_eCHAIR($dept){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_e'); 
+		//$this->db->where('report_status',3);
+		$this->db->where('creators_department',$dept);
+		$this->db->where('report_status', 3);
+
+		//$this->db->order_by("datecreated");
+		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
+		//$this->db->where('who_created', '$completename');
+
+		 // $query = $this->db->get_where('who_created =', $completename);
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		return $results;
+	}
+
 	public function LoadReport_dCOORD($office){
 		$results = array();
 
@@ -65,11 +87,44 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
+	public function LoadReport_eCOORD($office){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_e'); 
+		$this->db->where('creators_school',$office);
+		$this->db->where('report_status', 4);
+
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		    return $results;
+	}
+
+
 	public function LoadReport_dDEAN($office){
 		$results = array();
 
 		$this->db->select('*');
 		$this->db->from('report_d'); 
+		$this->db->where('creators_school',$office);
+		$this->db->where('report_status', 5);
+
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		    return $results;
+	}
+
+	public function LoadReport_eDEAN($office){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_e'); 
 		$this->db->where('creators_school',$office);
 		$this->db->where('report_status', 5);
 
@@ -96,6 +151,21 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
+	public function LoadReport_eADMIN(){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_e'); 
+		$this->db->where('report_status', 6);
+
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		    return $results;
+	}
+
 	public function LoadReport_dVPAA(){
 		$results = array();
 
@@ -111,12 +181,26 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
-	
+	public function LoadReport_eVPAA(){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_e'); 
+		$this->db->where('report_status', 7);
+
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		    return $results;
+	}
 
 	function get_title($idsauser) {
  		 $where = "(status='12')";
  		 $this->db->where($where);
  		 $this->db->where('user_id', $idsauser);
+ 		 $this->db->where('isreported', 0);
 
  		 
 		 $q = $this->db->get('proposal_json');
@@ -153,7 +237,7 @@ class Reports extends CI_Model
 		$this->db->select('*');
 		$this->db->from('report_e');
 
-		$this->db->where('fe_id', $reporte_id);
+		$this->db->where('fe_id', $reporte_id);	
 
 		 $query = $this->db->get();
 
@@ -181,7 +265,7 @@ class Reports extends CI_Model
 
 	 
 
- public function AddFormE() {
+ 	public function AddFormE() {
  	 
         $query = $this->db->insert('report_e', $this);
         return $query;
@@ -190,9 +274,23 @@ class Reports extends CI_Model
 	public function AddFormD() {
 		// $this->db->select('*');
 		// $this->db->from('proposal_header');
+
+
         $query = $this->db->insert('report_d', $this);
+
         return $query;
     }
+
+    public function isreported() {
+	    $data = array( 
+			    'isreported' => 1,
+			);	
+
+			$this->db->where('user_id', $this->creator_id);
+			$query = $this->db->update('proposal_json', $data);
+
+			return $query;
+	}
 
 public function updateform_e(){
  

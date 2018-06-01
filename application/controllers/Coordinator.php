@@ -46,7 +46,7 @@ class Coordinator extends CI_Controller
 			$this->load->model('Reports');
 
 			$data['coord_d']=$this->Reports->LoadReport_dCOORD($data['office']);
-			$data['coord_e']=$this->Reports->LoadReport_e();
+			$data['coord_e']=$this->Reports->LoadReport_eCOORD($data['office']);
 
 			$this->load->view('coordinator/coordinator_report', $data);
 		}else{
@@ -69,6 +69,23 @@ class Coordinator extends CI_Controller
 		
 		$this->load->view("forms/form_d_report", $data);
 	}
+
+	public function loadreporte(){
+		$reporte_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['creators_school'] = $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['repe']=$this->Reports->viewReport_e($reporte_id);
+		
+		$this->load->view("forms/form_e_report", $data);
+	}
+
 
 	public function addScores(){
 		$this->load->model('Proposal_AB');
@@ -150,7 +167,26 @@ class Coordinator extends CI_Controller
 			$data["proposal"] = $this->Proposal_AB->getProposalDetails($_GET['proposal_id']);
 		    $data["proposal_id"] = $_GET['proposal_id'];
 		}
-		$this->load->view('forms/form_a', $data);
+
+		$this->load->view('forms/form_a_coord', $data);
+	}
+
+	public function form_a_coord() {
+		$data['fname'] 	= $this->session->firstname;
+		$data['lname']	= $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['user_id']	= $this->session->user_id;
+		$data['user_office']	= $this->session->office;
+		$data['user_dept']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+
+		if(isset($_GET['proposal_id'])){
+			$this->load->model('Proposal_AB');
+			$data["proposal"] = $this->Proposal_AB->getProposalDetails($_GET['proposal_id']);
+		    $data["proposal_id"] = $_GET['proposal_id'];
+		}
+
+		$this->load->view('forms/form_a_coord', $data);
 	}
 
 	public function form_a_1() {

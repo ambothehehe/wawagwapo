@@ -36,7 +36,30 @@ class CoCurricular extends CI_Controller
 		}else{
 			redirect(site_url());
 		}
+	}	
+	
+	public function proposalsToBeNoted() {
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 7)
+		{
+			$data['fname'] 	= $this->session->firstname;
+			$data['lname'] 	= $this->session->lastname;
+			$data['role']	= $this->session->designation;
+			$data['user_id']= $this->session->user_id;
+
+			
+			$this->load->model('Proposal_AB');
+
+			//$data['proplist']=$this->Proposal_AB->LoadProposals(); 
+			$data['proplist']=$this->Proposal_AB->loadDraftProposal($this->session->user_id);
+			$data['submitted_prop'] = $this->Proposal_AB->loadSubmittedProposal($this->session->user_id);
+			$data['assessor']=$this->Proposal_AB->validate_assessor();
+			
+			$this->load->view('cocurricular/cocurricular_proposals_to_be_noted', $data);
+		}else{
+			redirect(site_url());
+		}
 	}
+
 
 	public function send()
 	{

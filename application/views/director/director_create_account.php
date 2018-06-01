@@ -127,10 +127,10 @@
                                     </td>
                                   </tr>
 
-                                  <tr>
+                                  <tr id = "org">
                                     <td class="text-right"><label>Organization:</label></td>
                                     <td></td>
-                                    <td><input type="text" class="form-control" name="org" placeholder="Type your organization" data-validation="alphanumeric" required><br></div></td>
+                                    <td><input type="text" class="form-control" name="organization" placeholder="Type your organization" data-validation="alphanumeric" required><br></div></td>
                                   </tr>
 
                                   <tr>
@@ -209,9 +209,9 @@
             console.log(designation);
             
             if (designation == "7" || designation == "8") {
-                $(".organization").show();
+                $(".org").show();
             } else {
-                $(".organization").hide();
+                $(".org").hide();
             }
         }
     </script>

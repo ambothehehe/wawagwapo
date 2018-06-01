@@ -31,7 +31,6 @@
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
-                           <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -92,7 +91,7 @@
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th>Action</th>
+                            <th>School and Department</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -103,7 +102,7 @@
                         </tr>
                     </tfoot>
                     <tbody> 
-                        <?php if(empty($own_reports_e)) {?>
+                        <?php if(empty($coord_e)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
                             </tr>
@@ -111,40 +110,25 @@
 
 
                         <?php 
-                         if ($department == 'Sciences Division Coordinator') {
-                        foreach($own_reports_e as $sciencesdiv2) {?>
-                            <?php if($sciencesdiv2->creators_department == $department && $sciencesdiv2->creators_department == 'Biology' || $sciencesdiv2->creators_department == 'Computer and Information Sciences' || $sciencesdiv2->creators_department == 'Chemistry' || $sciencesdiv2->creators_department == 'Mathematics' || $sciencesdiv2->creators_department == 'Physics') { ?>
+                        foreach($coord_e as $repe) {?>
+                            
                                     <tr>
-                                        <td><a href="<?php echo base_url() ?>/Representative/loadreporte/<?php echo $sciencesdiv2->id; ?>"><?php echo $sciencesdiv2->title_of_program;?></a></td>
-                                        <td><?php echo $sciencesdiv2->datecreated;?>
-                                             <br/>
-                                            <input type="hidden" name="creator_id" value="<?php echo $sciencesdiv2->creator_id ;?>">
+                                        <td>
+                                            <a href="<?php echo base_url() ?>index.php/Coordinator/loadreporte/<?php echo $repe->fe_id; ?>">
+                                                 <?php echo $repe->title;?></a>
                                         </td>
-                                        <td><?php
-                                            echo form_open('Representative/deleteForm_e');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $sciencesdiv2->id;?>" >
-                                           <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
-                                            </form> </td>
-                                    </tr>
-                            <?php }} }?>
+                                       
+                                        <td>
+                                            <?php echo $repe->datecreated;?><br/>
+                                            <input type="hidden" name="creator_id" value="<?php echo $repe->creator_id ;?>">
+                                        </td>
 
-                             <?php 
-                         if ($department == 'Arts Division Coordinator') {
-                        foreach($own_reports_e as $artsdiv_e) {?>
-                            <?php if($artsdiv_e->creators_department == $department && $artsdiv_e->creators_department == 'Languages and Literature' || $artsdiv_e->creators_department == 'Library and Information Sciences' || $artsdiv_e->creators_department == 'Philosophy and Religious Studies' || $artsdiv_e->creators_department == 'Psychology' || $artsdiv_e->creators_department == 'Anthropology, Sociology and History') { ?>
-                                    <tr>
-                                        <td><a href="<?php echo base_url() ?>/Representative/loadreporte/<?php echo $artsdiv_e->id; ?>"><?php echo $artsdiv_e->title_of_program;?></a></td>
-                                        <td><?php echo $artsdiv_e->datecreated;?>
-                                             <br/>
-                                            <input type="hidden" name="creator_id" value="<?php echo $artsdiv_e->creator_id ;?>">
+                                        <td>
+                                            <?php echo $repe->creators_department;?><br><p style="font-size:75%;"><?php echo $repe->creators_school;?></p>
                                         </td>
-                                        <td><?php
-                                            echo form_open('Representative/deleteForm_e');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $artsdiv_e->id;?>" >
-                                           <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
-                                            </form> </td>
-                                    </tr>
-                            <?php }} }?>
+                                        <!-- DELETE BUTTON -->
+                                         </tr>
+                                        <?php  }?>
 
                     </tbody>
                     </table>

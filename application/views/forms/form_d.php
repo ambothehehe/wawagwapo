@@ -43,12 +43,12 @@
                                                 <option>Name of Approved Proposal 4</option> -->
                                                
                     <select name="id" class="form-control" required>
-          <?php foreach($proposals as $row) { ?>
-          <option name="fd_title" value="<?=$row["propdetails"]->proposal_id ?>"><?=$row["proposalJsonDetails"]->title?></option>
-          
-          <?php } ?>
 
-        </select> </td>
+                      <?php foreach($proposals as $row) { ?>
+                      <option name="fd_title" value="<?=$row["propdetails"]->proposal_id ?>"><?=$row["proposalJsonDetails"]->title?></option>
+                      <?php } ?>
+
+                     </select> </td>
        <!--  </div> -->
                                              
 
@@ -71,61 +71,15 @@
 
                                          <tr>
                                             <td><label>School:</label></td>
-                                            <td>
+                                             <td>
                                               <select id="school" class="form-control" name="fd_school" required>
-                                              <option>-- Select your School --</option>
-                                                <option value="School of Architecture, Fine Arts and Design">School of Architecture, Fine Arts and Design</option>
-                                                <option value="School of Arts and Sciences">School of Arts and Sciences</option>
-                                                <option value="School of Education">School of Education</option>
-                                                <option value="School of Health Care Profession">School of Health Care Profession</option>
-                                                <option value="School of Law and Governance">School of Law and Governance</option>
-                                                <option value="School of Business and Economics">School of Business and Economics</option>
-                                                <option value="School of Engineering">School of Engineering</option>
-                                              </select>
-                                            </td>
+                                                <option value="<?=$row["proposalJsonDetails"]->school?>"><?=$row["proposalJsonDetails"]->school?></option>
+                                             </td>
                                             <td><label>&nbsp Department:</label></td>
                                             <td>
                                               <select id="department" class="form-control" name="fd_dept" required>
-                                                <option data-group="all" value="0" readonly>-- Select your Department --</option>
-                                                <option disabled>-- School of Architecture, Fine Arts and Design --</option>
-                                                  <option data-group="School of Architecture, Fine Arts and Design" value="Architecture">Architecture</option>
-                                                  <option data-group="School of Architecture, Fine Arts and Design" value="Fine Arts">Fine Arts</option>
-                                                <option disabled>-- School of Arts and Sciences --</option>
-                                                  <option data-group="School of Arts and Sciences" value="Languages and Literature">Languages and Literature</option>
-                                                  <option data-group="School of Arts and Sciences" value="Philosophy and Religious Studies">Philosophy and Religious Studies</option>
-                                                  <option data-group="School of Arts and Sciences" value="Psychology">Psychology</option>
-                                                  <option data-group="School of Arts and Sciences" value="Anthropology, Sociology and History">Anthropology, Sociology and History</option>
-                                                  <option data-group="School of Arts and Sciences" value="Biology">Biology</option>
-                                                  <option data-group="School of Arts and Sciences" value="Chemistry">Chemistry</option>
-                                                  <option data-group="School of Arts and Sciences" value="Computer and Information Sciences">Computer and Information Sciences</option>
-                                                  <option data-group="School of Arts and Sciences" value="Mathematics">Mathematics</option>
-                                                  <option data-group="School of Arts and Sciences" value="Phsyics">Phsyics</option>
-                                                <option disabled>-- School of Education --</option>
-                                                  <option data-group="School of Education" value="Teacher Education">Teacher Education</option>
-                                                  <option data-group="School of Education" value="Science and Mathematics">Science and Mathematics</option>
-                                                  <option data-group="School of Education" value="Physical Education">Physical Education</option>
-                                                <option disabled>-- School of Health Care Profession -</option>
-                                                  <option data-group="School of Health Care Profession" value="Nursing">Nursing</option>
-                                                  <option data-group="School of Health Care Profession" value="Pharmacy">Pharmacy</option>
-                                                  <option data-group="School of Health Care Profession" value="Nutrition and Dietics">Nutrition and Dietics</option>
-                                                <option disabled>-- School of Law and Governance --</option>
-                                                  <option data-group="School of Law and Governance" value="Law">Law</option>
-                                                  <option data-group="School of Law and Governance" value="Political Science">Political Science</option>
-                                                <option disabled>-- School of Business and Economics --</option>
-                                                  <option data-group="School of Business and Economics" value="Accountancy">Accountancy</option>
-                                                  <option data-group="School of Business and Economics" value="Business Administration">Business Administration</option>
-                                                  <option data-group="School of Business and Economics" value="Economics">Economics</option>
-                                                  <option data-group="School of Business and Economics" value="Hospitality Management">Hospitality Management</option>
-                                                <option disabled>-- School of Engineering --</option>
-                                                  <option data-group="School of Engineering" value="Chemical Engineering">Chemical Engineering</option>
-                                                  <option data-group="School of Engineering" value="Civil Engineering">Civil Engineering</option>
-                                                  <option data-group="School of Engineering" value="Computer Engineering">Computer Engineering</option>
-                                                  <option data-group="School of Engineering" value="Electronics and Communications Engineering">Electronics and Communications Engineering</option>
-                                                  <option data-group="School of Engineering" value="Electrical Engineering">Electrical Engineering</option>
-                                                  <option data-group="School of Engineering" value="Industrial Engineering">Industrial Engineering</option>
-                                                  <option data-group="School of Engineering" value="Mechanical Engineering">Mechanical Engineering</option>
-                                              </select>
-                                            </td>
+                                                <option value="<?=$row["proposalJsonDetails"]->department?>"><?=$row["proposalJsonDetails"]->department?></option>
+                                             </td>
                                         </tr>
                                         <tr>
                                             <td><label>Inclusive Date:</label></td>

@@ -124,7 +124,7 @@
                         <?php foreach($list_e as $elist) {?>
                               <?php if($elist->creator_id == $user_id) { ?>
                                     <tr>
-                                        <td><a href="<?php echo base_url() ?>index.php/Representative/loadreporte/<?php echo $elist->fe_id; ?>"><?php echo $elist->title_of_program;?></a></td>
+                                        <td><a href="<?php echo base_url() ?>index.php/Representative/loadreporte/<?php echo $elist->fe_id; ?>"><?php echo $elist->title;?></a></td>
                                         <td><?php echo $elist->datecreated;?>
                                              <br/>
                                             <input type="hidden" name="creator_id" value="<?php echo $elist->creator_id ;?>">

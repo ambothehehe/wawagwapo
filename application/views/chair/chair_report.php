@@ -67,6 +67,7 @@
                         </tr>
                     </tfoot>
                     <tbody> 
+
                         <?php if(empty($reportlist_d)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
@@ -94,17 +95,13 @@
                                             <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
                                         </td>
 
-                                        <!-- DELETE BUTTON -->
-                                        <td>
-                                         <?php
-                                            echo form_open('Representative/deleteForm_d');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repd->fd_id;?>" >
-                                            </form> </td>
-                                         </tr>
-                                        <?php  }?>
+                                        <td></td>
+                                    </tr>
+
+                        <?php  }?>
 
                             
-                        </tbody>
+                    </tbody>
                     </table>
 
                     </div> 
@@ -138,23 +135,23 @@
                         <?php } ?>
 
 
-                        <?php foreach($reportlist_e as $allrepe) {?>
+                        <?php foreach($reportlist_e as $repe) {?>
                            
                                     <tr>
                                         <td>
-                                            <a href="<?php echo base_url() ?>index.php/Chair/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title_of_program;?></a>
+                                            <a href="<?php echo base_url() ?>index.php/Chair/loadreporte/<?php echo $repe->fe_id;?>"><?php echo $repe->title;?></a>
                                         </td>
 
                                         <td>
-                                            <?php echo $allrepe->datecreated;?>
+                                            <?php echo $repe->datecreated;?>
                                              <br/>
-                                            <input type="hidden" name="creator_id" value="<?php echo $allrepe->creator_id ;?>">
+                                            <input type="hidden" name="creator_id" value="<?php echo $repe->creator_id ;?>">
                                         </td>
 
                                         <!-- DELETE BUTTON -->
                                         <td><?php
                                             echo form_open('Representative/deleteForm_e');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $allrepe->fe_id;?>" >
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repe->fe_id;?>" >
                                             </form> </td>
                                                 </tr>
                                         <?php } ?>

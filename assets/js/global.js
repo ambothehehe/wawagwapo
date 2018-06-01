@@ -200,8 +200,50 @@ $("#form_a1").submit(function(e){
     $('#success_modal .modal-footer').html('<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>');
     $('#success_modal').modal('show');
   }
+});
+
+$("#form_a_coord").submit(function(e){
+  e.preventDefault();
+  //var data = JSON.stringify($('#form_a1').serialize());
+  //var dataJSON=JSON.parse(data);
+  //alert(dataJSON.title);
+
+  var btn = document.activeElement.getAttribute('value');
+  var button_type = "<input type='hidden' name='button_type' value='"+btn+"'/>";
+
+  $("#form_a_coord").append(button_type);
+  console.log($('#form_a_coord').serialize());
+  //console.log(validationProposalFormA1());
+  var error="";
+  if((error = validationProposalFormA()) === true)
+  {
+    alert("BOBO1");
+    $.ajax({
+      type: "POST",
+      url: base_url + "Procedure_one/insertDraftProposal",
+      data:$('#form_a_coord').serialize(),
+        success:function(data){
+           
+        alert("Successful in creating a PPA Form");
+        setTimeout(window.location.replace("home"),5000);
+      },
+      error: function(data) {
+        console.log(data);
+      }
+     }).done(function(){
+          console.log("done");
+     });
+  }else{
+    $('#exit').modal('hide');
+    $('#success_modal .modal-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button>\
+                  <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>&nbsp Error!</h4>');
+    $('#success_modal .modal-body').html('<br><div>'+error+'!</div>');
+    $('#success_modal .modal-footer').html('<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>');
+    $('#success_modal').modal('show');
+  }
 
 });
+
 
 $("#save_a1").click(function(e){
   e.preventDefault();

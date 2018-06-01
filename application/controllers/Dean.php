@@ -41,14 +41,46 @@ class Dean extends CI_Controller
 
 			$this->load->model('Reports');
 
-			$data['coord_d']=$this->Reports->LoadReport_dDEAN($data['office']);
-			$data['coord_e']=$this->Reports->LoadReport_e();
+			$data['reportlist_d']=$this->Reports->LoadReport_dDEAN($data['office']);
+			$data['reportlist_e']=$this->Reports->LoadReport_eDEAN($data['office']);
 
-			$this->load->view('coordinator/coordinator_report', $data);
+			$this->load->view('dean/dean_report', $data);
 		}else{
 			redirect(site_url());
 		}
 	}
+
+	public function loadreportd(){
+		$reportd_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['office']	= $this->session->office;
+		$data['creators_school']	= $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['reps']=$this->Reports->viewReport_d($reportd_id);
+		
+		$this->load->view("forms/form_d_report", $data);
+	}
+
+	public function loadreporte(){
+		$reporte_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['creators_school']	= $this->session->office;
+
+		$this->load->model('Reports');
+		
+		$data['repe']=$this->Reports->viewReport_e($reporte_id);
+		$this->load->view("forms/form_e_report", $data);
+	}
+
 
 	public function profile_settings() {
 		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 3)

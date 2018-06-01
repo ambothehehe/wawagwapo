@@ -49,6 +49,22 @@ class Director extends CI_Controller
 		$this->load->view("forms/form_d_report", $data);
 	}
 
+	public function loadreporte(){
+		$reporte_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['creators_school']	= $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['repe']=$this->Reports->viewReport_e($reporte_id);
+		
+		$this->load->view("forms/form_e_report", $data);
+	}
+
 
 	public function review_specificproposal(){
 		$proposal_id= $this->uri->segment(3);
@@ -161,7 +177,7 @@ class Director extends CI_Controller
 			$this->load->model('Reports');
 			
 			$data['reportlist_d']=$this->Reports->LoadReport_dADMIN();
-			$data['reportlist_e']=$this->Reports->LoadReport_e();
+			$data['reportlist_e']=$this->Reports->LoadReport_eADMIN();
 			
 			$this->load->view('director/director_other_report', $data);
 		}else{

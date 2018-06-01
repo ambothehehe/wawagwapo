@@ -30,9 +30,9 @@
             <div class="container-fluid">
                 <div class="row tab-content">
                     <div>
-                      <!--<?php echo form_open('Procedure_one/');?>-->
-                        <form method="post" name="form_a" id="form_a">                          
-                            <?php //include('proposal_header.php');?>
+                        <!--<?php echo form_open('Procedure_one/');?>-->
+                        <form method="post" name="form_a_coord" id="form_a_coord">                          
+                            <?php //include('proposal_header.php');?>    
 
 <!-- START proposal header of form_a1.php -->
 <div class="panel panel-success" align="center">
@@ -43,7 +43,7 @@
           <td colspan="4"><input type="text" class="form-control" name="title" data-toggle="tooltip" placeholder="Name of the Program/Project/Activity" required>
 
             <input type="hidden" class="form-control" name="user_id" data-toggle="tooltip" value="<?php echo $user_id?>">
-            <!--<input type="hidden" class="form-control" name="form_type" data-toggle="tooltip" value="<?php if(isset($form_type)) echo $form_type; ?>">-->
+            <!-- <input type="hidden" class="form-control" name="form_type" data-toggle="tooltip" value="<?php if(isset($form_type)) echo $form_type; ?>"> -->
           </td>
           <td></td>
           <td></td>
@@ -108,7 +108,7 @@
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
-                              <button type="submit" class="btn btn-success btn-block" id="submit" name="submit" value="submit_prop" onclick = "window.location='<?php echo base_url(); ?>index.php/Representative/send'"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
+                              <button type="submit" class="btn btn-success btn-block" id="submit" name="submit" value="submit_prop_coord"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
                             </div>
                             
                         <?php echo form_close();?>

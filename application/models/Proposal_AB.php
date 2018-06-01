@@ -467,6 +467,17 @@ public function decisionApprove(){
         return TRUE;
     }
 
+    public function noteReporte($fe_id){
+
+        $data = array(
+                        'report_status'=>'4',
+                    );
+
+        $this->db->where('fe_id', $fe_id);
+        $this->db->update('report_e', $data); 
+        return TRUE;
+    }
+
     public function coordNoteReport($fd_id){
 
         $data = array(
@@ -477,6 +488,18 @@ public function decisionApprove(){
         $this->db->update('report_d', $data); 
         return TRUE;
     }
+
+    public function coordNoteReporte($fe_id){
+
+        $data = array(
+                        'report_status'=>'5',
+                    );
+
+        $this->db->where('fe_id', $fe_id);
+        $this->db->update('report_e', $data); 
+        return TRUE;
+    }
+
 
      public function deanNoteReport($fd_id){
 
@@ -489,6 +512,18 @@ public function decisionApprove(){
         return TRUE;
     }
 
+    public function deanNoteReporte($fe_id){
+
+        $data = array(
+                        'report_status'=>'6',
+                    );
+
+        $this->db->where('fe_id', $fe_id);
+        $this->db->update('report_e', $data); 
+        return TRUE;
+    }
+
+
     public function adminNoteReport($fd_id){
 
         $data = array(
@@ -497,6 +532,17 @@ public function decisionApprove(){
 
         $this->db->where('fd_id', $fd_id);
         $this->db->update('report_d', $data); 
+        return TRUE;
+    }
+
+    public function adminNoteReporte($fe_id){
+
+        $data = array(
+                        'report_status'=>'7',
+                    );
+
+        $this->db->where('fe_id', $fe_id);
+        $this->db->update('report_e', $data); 
         return TRUE;
     }
 
@@ -520,7 +566,15 @@ public function decisionApprove(){
 		$this->db->where('proposal_id', $this->id);
 		$this->db->update('proposal_json', $data); 
 		return TRUE;
-     
+    }
+
+    public function coordrecommendownproposal(){
+        $data = array(
+            'status'=>'4',
+        );
+        $this->db->where('proposal_id', $this->id);
+        $this->db->update('proposal_json', $data); 
+        return TRUE;
     }
 
     public function coordReturn(){
@@ -907,7 +961,7 @@ public function decisionApprove(){
      return $query;
     }
 	
-	/*function introduce by ken*/
+	/*function introduced by ken*/
 	public function insertProposalJSON($user_id,$dataJSON,$status,$form_type)
 	{
 		$data = array(
@@ -935,6 +989,7 @@ public function decisionApprove(){
         }
         return $results;
 	}
+
 	public function loadSubmittedProposal($user_id)
 	{
 		$this->db->select("*");
@@ -949,6 +1004,7 @@ public function decisionApprove(){
         }
         return $results;
 	}
+
 
 	public function loadReturnedProposal($user_id)
 	{
@@ -1058,6 +1114,7 @@ public function decisionApprove(){
 		$this->db->where('proposal_id', $id);
 		$this->db->update('proposal_json', $data); 
 	}
+
 	public function LoadProposalsChair($department){
         $results = array();
     
@@ -1072,6 +1129,24 @@ public function decisionApprove(){
 		{
 			$results = $query->result();
 		}
+        return $results;
+    }
+
+    public function LoadProposalsFac($department, $organization){
+        $results = array();
+    
+
+        $this->db->select('*');
+
+        $this->db->from('proposal_json_full_info');
+        $this->db->where('status','1');
+        $this->db->where('department',$department);
+        $this->db->where('organization',$organization);
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            $results = $query->result();
+        }
         return $results;
     }
 	
@@ -1186,19 +1261,20 @@ public function decisionApprove(){
         return $results;
     }
 
+/*
     //Send Email to the Chair
-    public function getChairEmail($department,$fkid){
-        ?><script> alert("yuck fou13");</script><?php
-        $conditions = array('user_account.department' => $department, 
-                        'user_account.designation_fkid' => $fkid 
-                    );
-        $this->db->select('*');
-        $this->db->from('user_account');
-        $this->db->where($conditions);
-        $query = $this->db->get();
-        ?><script> alert("yuck fou126");</script><?php
-        foreach($query->result_array() as $row){}
+    // public function getChairEmail($department,$fkid){
+    //     ?><script> alert("yuck fou13");</script><?php
+    //     $conditions = array('user_account.department' => $department, 
+    //                     'user_account.designation_fkid' => $fkid 
+    //                 );
+    //     $this->db->select('*');
+    //     $this->db->from('user_account');
+    //     $this->db->where($conditions);
+    //     $query = $this->db->get();
+    //     ?><script> alert("yuck fou126");</script><?php
+    //     foreach($query->result_array() as $row){}
 
-        return $row['email'];
-    }
+    //     return $row['email'];
+    // }*/
 }

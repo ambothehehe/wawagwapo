@@ -40,8 +40,8 @@ class Vpaa extends CI_Controller
 			$this->load->model('Reports');
 
 
-			$data['reportlist_d']=$this->Reports->LoadReport_dVPAA($data['department']);
-			$data['reportlist_e']=$this->Reports->LoadReport_e();
+			$data['reportlist_d']=$this->Reports->LoadReport_dVPAA();
+			$data['reportlist_e']=$this->Reports->LoadReport_eVPAA();
 
 			$this->load->view('vpaa/vpaa_report', $data);
 		}else{

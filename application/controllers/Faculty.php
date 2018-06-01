@@ -23,6 +23,7 @@ class Faculty extends CI_Controller
 			$data['lname'] 	= $this->session->lastname;
 			$data['role']	= $this->session->designation;
 			$data['user_id']= $this->session->user_id;
+			$data['organization']= $this->session->organization;
 
 			
 			$this->load->model('Proposal_AB');
@@ -39,6 +40,36 @@ class Faculty extends CI_Controller
 		}
 	}
 
+	public function proposals_to_be_noted() {
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 9)
+		{
+			$data['fname'] 	= $this->session->firstname;
+			$data['lname'] 	= $this->session->lastname;
+			$data['role']	= $this->session->designation;
+			$data['user_id']= $this->session->user_id;
+			$data['organization']= $this->session->organization;
+
+			
+			$this->load->model('Proposal_AB');
+			
+			//$data['proplist']=$this->Proposal_AB->LoadProposals(); 
+			$data['proplist']=$this->Proposal_AB->loadDraftProposal($this->session->user_id);
+			$data['submitted_prop'] = $this->Proposal_AB->loadSubmittedProposal($this->session->user_id);
+			$data['assessor']=$this->Proposal_AB->validate_assessor();
+			
+
+			$this->load->view('faculty/faculty_proposals_to_be_noted', $data);
+		}else{
+			redirect(site_url());
+		}
+	}
+
+	public function getToBeNotedProposal()
+	{
+		$this->load->model('Proposal_AB');
+		$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization); 
+		echo json_encode($proplist);
+	}
 
 	public function send(){
 
@@ -60,7 +91,7 @@ class Faculty extends CI_Controller
 
 			$config['smtp_timeout'] = '7';
 
-			$config['smtp_user'] = 'donotreply24xD@gmail.com';
+			$config['smtp_user'] = 'donotreply24xd@gmail.com';
 
 			$config['smtp_pass'] = 'wawa2015';
 
@@ -74,7 +105,7 @@ class Faculty extends CI_Controller
 
 			$this->email->initialize($config);
 
-			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->from('donotreply24xd@gmail.com', 'CES PPMS');
 			$this->email->to($data['email']);
 
 			$this->email->subject('CES Proposal Notification');
