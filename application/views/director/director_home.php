@@ -71,8 +71,8 @@
             var endorsedTable = $('#endorsed_proposal_list').dataTable({
                 "pagingType": "full_numbers",  
             });
-			
-			var doneReviewTable = $('#review_props').dataTable({
+            
+            var doneReviewTable = $('#review_props').dataTable({
                 "pagingType": "full_numbers",  
             });
                 
@@ -85,10 +85,15 @@
                     for(var i = 0; i < dataJSON.length; i++)
                     {   
                         var proposal_details = JSON.parse(dataJSON[i].proposal_json_format);
-                        if(dataJSON[i].form_type == 1)
+                        if(dataJSON[i].form_type == 1){
                             var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
-                        else
+                        }
+                        else if(dataJSON[i].form_type == 2){
                             var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
+                        }
+                        else if(dataJSON[i].form_type == 0){
+                            var link = "<a href="+base_url+"Representative/loadspecificproposal_c/"+dataJSON[i].proposal_id+">";
+                        }
                         console.log(proposal_details);
                         var user_id = "<?php echo $_SESSION['user_id']; ?>";
                         dataRows.push([
@@ -99,55 +104,55 @@
                         //dataRows.push("<tr>"+"<td>"+dataJSON[i].proposal_json_format.title+"</td>"+"<td>"+dataJSON[i].proposal_json_format.inclusive_date1+"</td>"+"</tr>");
                     }
                     
-					if(dataRows.length > 0){
-						endorsedTable.fnAddData(dataRows);
-					}else{
-					    
-					}
+                    if(dataRows.length > 0){
+                        endorsedTable.fnAddData(dataRows);
+                    }else{
+                        
+                    }
                 },
                 error: function(data) {
                     console.log(data);
                 }
             }); 
-			
-			
-			/*ajax call for proposals DONE completed*/
-			 $.ajax({
+            
+            
+            /*ajax call for proposals DONE completed*/
+             $.ajax({
                 type: "POST",
                 url: base_url + "Director/getForEndorsementDirector",
                 success:function(data2){
                     dataJSON = JSON.parse(data2);
                     var dataRows=[];
                     
-					for(var i = 0; i < dataJSON.length; i++)
+                    for(var i = 0; i < dataJSON.length; i++)
                     {   
                         //var proposal = JSON.stringify(dataJSON[i].proposal_json_format);
-						var proposal_details =JSON.parse(dataJSON[i].prop_details.proposal_json_format);
-						//alert(dataJSON[i].prop_details.status);
-						//if(dataJSON[i].prop_details.form_type == 1)
-						var scorelink = "<?php echo base_url() ?>"+"index.php/Proposals/view_allscores/"+dataJSON[i].prop_details.proposal_id;
-						
-						var viewscores = "<td>"+"<a href="+scorelink+">"+"View"+"</a></td>";
-						
-						 var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].prop_details.proposal_id+"/"+"10"+">";
-						
-						//console.log(proposal_details);
-						
-						dataRows.push([
-							"<td>"+link+proposal_details.title+"</a>"+"</td>",
-							"<td>"+dataJSON[i].user+"</td>",
-							"<td>"+dataJSON[i].prop_details.date_created+"</td>",
-							"<td>"+dataJSON[i].pair+"</td>",
-							"<td>"+viewscores+"</td>"
-						]);
+                        var proposal_details =JSON.parse(dataJSON[i].prop_details.proposal_json_format);
+                        //alert(dataJSON[i].prop_details.status);
+                        //if(dataJSON[i].prop_details.form_type == 1)
+                        var scorelink = "<?php echo base_url() ?>"+"index.php/Proposals/view_allscores/"+dataJSON[i].prop_details.proposal_id;
+                        
+                        var viewscores = "<td>"+"<a href="+scorelink+">"+"View"+"</a></td>";
+                        
+                         var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].prop_details.proposal_id+"/"+"10"+">";
+                        
+                        //console.log(proposal_details);
+                        
+                        dataRows.push([
+                            "<td>"+link+proposal_details.title+"</a>"+"</td>",
+                            "<td>"+dataJSON[i].user+"</td>",
+                            "<td>"+dataJSON[i].prop_details.date_created+"</td>",
+                            "<td>"+dataJSON[i].pair+"</td>",
+                            "<td>"+viewscores+"</td>"
+                        ]);
                         //dataRows.push("<tr>"+"<td>"+dataJSON[i].proposal_json_format.title+"</td>"+"<td>"+dataJSON[i].proposal_json_format.inclusive_date1+"</td>"+"</tr>");
                     }
                     
-					if(dataRows.length > 0){
-						doneReviewTable.fnAddData(dataRows);
-					}else{
-					    
-					}
+                    if(dataRows.length > 0){
+                        doneReviewTable.fnAddData(dataRows);
+                    }else{
+                        
+                    }
                 },
                 error: function(data) {
                     console.log(data);

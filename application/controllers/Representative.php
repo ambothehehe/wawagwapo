@@ -351,6 +351,29 @@ public function addFormd() {
 		$this->load->view("forms/sample_form_b", $data);
 	}
 
+	public function loadspecificproposal_c(){
+		$proposal_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		//$data["status"] = $this->uri->segment(4);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['creators_school']	= $this->session->office;
+		$data['user_id'] = $this->session->user_id;
+
+		$data['form_type'] = $this->session->form_type;
+		print_r($data['form_type']);
+
+		$this->load->model('Proposal_AB');
+		$data["proposal"] = $this->Proposal_AB->getProposalDetails($proposal_id);
+		$data["proposal_id"]= $proposal_id;
+		$proposal = $data["proposal"];
+		$data['specprop']=(object) json_decode($proposal[0]->proposal_json_format,FALSE);
+		$data['comments']=$this->Proposal_AB->LoadComments($proposal_id);
+		$this->load->view("forms/sample_form_c", $data);
+	}
+	
 	public function loadspecificproposal_a(){
 		$proposal_id= $this->uri->segment(3);
 		$data["id"] = $this->uri->segment(3);

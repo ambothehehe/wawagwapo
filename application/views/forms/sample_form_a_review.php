@@ -19,7 +19,9 @@
 
                 <div class="row tab-content">
 
-
+                    <?php if($specprop->form_type != '1' && $specprop->form_type != '2'): ?>
+                    <?php include('sample_formc_review.php');?>
+                    <?php endif; ?>
                     <div>
                         <h1>USC-CES FORM A <small>CES Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
                         <hr>
@@ -355,7 +357,7 @@
 
                                 </tbody>
                               </table>
-                               <?php if($specprop->form_type != "2"): ?>
+                               <?php if($specprop->form_type != 'c' && ($specprop->form_type != 'a'&& $specprop->form_type != 'b')==TRUE ): ?>
                                <?php include('sample_formb_review.php');?>
                                <?php endif; ?>
                             <div style="float:right; width: 50%;">

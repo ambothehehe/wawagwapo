@@ -343,6 +343,68 @@ $("#save").click(function(e){
 
 });
 
+$("#form_c").submit(function(e){
+  e.preventDefault();
+  //var data = JSON.stringify($('#form_a1').serialize());
+  //var dataJSON=JSON.parse(data);
+  //alert(dataJSON.title);
+
+  var btn = document.activeElement.getAttribute('value');
+  var button_type = "<input type='hidden' name='button_type' value='"+btn+"'/>";
+
+  $("#form_c").append(button_type);
+  console.log($('#form_c').serialize());
+  //console.log(validationProposalFormA1());
+  var error="";
+  if((error = validationProposalFormA()) === true)
+  {
+    $.ajax({
+      type: "POST",
+      url: base_url + "Procedure_one/insertDraftProposal",
+      data:$('#form_c').serialize(),
+      error: function(data) {
+        console.log(data);
+      }
+     }).done(function(){
+          console.log("done");
+     });
+  }else{
+    $('#exit').modal('hide');
+    $('#success_modal .modal-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button>\
+                  <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>&nbsp Error!</h4>');
+    $('#success_modal .modal-body').html('<br><div>'+error+'!</div>');
+    $('#success_modal .modal-footer').html('<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>');
+    $('#success_modal').modal('show');
+  }
+
+});
+
+$("#save_c").submit(function(e){
+  e.preventDefault();
+  //var data = JSON.stringify($('#form_a1').serialize());
+  //var dataJSON=JSON.parse(data);
+  //alert(dataJSON.title);
+
+  var btn = document.activeElement.getAttribute('value');
+  var button_type = "<input type='hidden' name='button_type' value='"+btn+"'/>";
+
+  $("#form_c").append(button_type);
+  console.log($('#form_c').serialize());
+  //console.log(validationProposalFormA1());
+  var error="";
+    $.ajax({
+      type: "POST",
+      url: base_url + "Procedure_one/insertDraftProposal",
+      data:$('#form_c').serialize(),
+      error: function(data) {
+        console.log(data);
+      }
+     }).done(function(){
+          console.log("done");
+     });
+
+});
+
 $('#save_edit_profile_settings').submit(function(e) {
     e.preventDefault();
 	//alert($('#save_edit_profile_settings').serialize());

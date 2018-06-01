@@ -71,10 +71,15 @@
                     for(var i = 0; i < dataJSON.length; i++)
                     {   
                         var proposal_details = JSON.parse(dataJSON[i].proposal_json_format);
-                        if(dataJSON[i].form_type == 1)
+                        if(dataJSON[i].form_type == 1){
                             var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
-                        else
+                        }
+                        else if(dataJSON[i].form_type == 2){
                             var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
+                        }
+                        else if(dataJSON[i].form_type == 0){
+                            var link = "<a href="+base_url+"Representative/loadspecificproposal_c/"+dataJSON[i].proposal_id+">";
+                        }
                         //console.log(proposal_details);
                         var user_id = "<?php echo $_SESSION['user_id']; ?>";
                         dataRows.push([
@@ -84,10 +89,10 @@
                         ]);
                         //dataRows.push("<tr>"+"<td>"+dataJSON[i].proposal_json_format.title+"</td>"+"<td>"+dataJSON[i].proposal_json_format.inclusive_date1+"</td>"+"</tr>");
                     }
-                    if(dataRows.length > 0){						
-						endorsedTable.fnAddData(dataRows);
-					}else{
-					}
+                    if(dataRows.length > 0){                        
+                        endorsedTable.fnAddData(dataRows);
+                    }else{
+                    }
                 },
                 error: function(data) {
                     console.log(data);

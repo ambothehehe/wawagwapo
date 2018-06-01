@@ -77,8 +77,11 @@
                         var proposal_details = JSON.parse(dataJSON[i].proposal_json_format);
                         if(dataJSON[i].form_type == 1)
                             var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
-                        else
+                        else if(dataJSON[i].form_type == 2)
                             var link="<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
+                        else
+                            var link="<a href="+base_url+"Representative/loadspecificproposal_c/"+dataJSON[i].proposal_id+">";
+                        
                         console.log(proposal_details);
                         var user_id = "<?php echo $_SESSION['user_id']; ?>";
                         dataRows.push([

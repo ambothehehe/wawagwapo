@@ -2,22 +2,8 @@
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Sample Form C</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="<?php echo base_url();?>assets/css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-datepicker3.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
+    <title>CESPPMS - Form C and Form A</title>
+    <?php include('application/views/header.php');?>
 
 </head>
 
@@ -25,369 +11,373 @@
 
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                  <a href="#">
-                      <img src="<?php echo base_url();?>assets/img/ces_logo_sm.png"> CES-DMS
-                  </a>
-                </li>
-                <li>
-                  <div class="userinfo">
-                    <img src="<?php echo base_url();?>assets/img/usc.png" alt="..." class="img-circle" style="height:140px; width:140px">
-                    <h4><?php echo $fname." ".$lname;?></h4>
-                    <h5>CES Representative</h5>
-                  </div>
-                </li>
-                <li>
-                    <a href="<?php echo site_url('Representative/home');?>"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp My Proposals</a>
-                </li>
-                <li>
-                    <a href="<?php echo site_url('Representative/reports');?>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp My Reports</a>
-                </li>
-                <li>
-                    <a href="<?php echo site_url('Representative/account_settings');?>"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp Account Settings</a>
-                </li>
-                <li>
-                    <a href="<?php echo site_url('Users/logout')?>"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp Logout</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
+        <?php include('application/views/sidebar.php');?>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
-                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>&nbsp <strong>Toggle Menu</strong>
-            </a>
-            <div class="container-fluid">
-                <div class="row tab-content">
-                    <div>
-                        <h1>USC-CES FORM C <small>CES Program/Project/Activity Proposal (<u>for Requests</u>)</small></h1>
-                        <hr>
+          <?php include('application/views/topNav.php');?>
 
-                        <div class="panel" align="center">
-                            <div class="panel-body">
-                              <h2>Barangay Lahug River Clean-up</h2>
-                              <h3>School of Arts & Sciences</h3>
-                              <h4>Computer and Information Sciences</h4>
-                              <h5>Barangay Talamban, Cebu City</h5>
-                              <h5>December 25, 2015</h5>
-                            </div>
-                        </div>
-                        
-                        <div class="panel panel-success">
-                          <div class="panel-heading">
-                            <label>Progress:</label>
-                          </div>
+            <div class="container-fluid" style="padding-top:50px">
+
+              <div class="row tab-content">
+
+                <div id="printArea">
+
+                  <h1>USC-CES FORM C <small>CES Program/Project/Activity Proposal (<u>for Requests</u>)</small></h1>
+                  <hr>
+
+                    <div class="panel" align="center" >
+                      
+                      <div class="panel panel-primary">
+                        <div class="panel-body">
+                          <p>
+                            <h2><?php if(property_exists($specprop,"title")){ echo $specprop->title; } ?><!-- Barangay Labangon River Clean-up --></h2>
+                            <h3><?php if(property_exists($specprop,"school")){ echo $specprop->school; } ?><!-- School of Arts & Sciences --></h3>
+                            <h4><?php if(property_exists($specprop,"department")){ echo $specprop->department; } ?><!-- Computer and Information Sciences --></h4>
+                            <h5><?php if(property_exists($specprop,"venue")){ echo $specprop->venue; } ?><!-- Barangay Talamban, Cebu City --></h5>
+                            
+                            <h5><?php if(property_exists($specprop,"inclusive_date1")){ echo date('F jS, Y',strtotime($specprop->inclusive_date1)); } ?> to <?php echo date('F jS, Y',strtotime($specprop->inclusive_date2));?><!-- December 25, 2015 --></h5>
+                          </p>
+                        </div> <!-- panel-body -->
+
+                        <div class="panel-heading">
+                            <h4>I. Program/Project/Activity Profile</h4>
+                        </div> <!-- panel-heading -->
+                          
                           <div class="panel-body">
-                            <div class="progress">
-                              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                <span class="sr-only">40% Complete (success)</span>
-                              </div>
-                            </div>
-                            <div class="text-success">
-                              <table>
-                                <tr>
-                                  <td><span class="glyphicon glyphicon-check" aria-hidden="true"></span>&nbsp Department Chair notes CES proposal - <strong>January 1, 2016</strong></td>
-                                </tr>
-                                <tr>
-                                  <td><span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>&nbsp CES Coordinator recommends endorsement of CES proposal</td>
-                                </tr>
-                                <tr>
-                                  <td><span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>&nbsp School Dean endorses CES Proposals</td>
-                                </tr>
-                                <tr>
-                                  <td><span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>&nbsp Review Committee assesses CES proposal</td>
-                                </tr>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="collapse" data-target="#1_comment"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
-                        <div id="1_comment" class="collapse">
-                          <div class="panel panel-body panel-danger">
-                            <label class="text-danger">Leigh Mabano - Computer and Information Sciences Chair</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Amanda Quinal - CES Coordinator</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Joan Tero - CAS Dean</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                          </div>
-                        </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h4>I. Program/Project/Activity Profile</h4>
-                            </div>
-                            <div class="panel-body">
-                                <table class="table table-bordered" width="100%">
+                            <table class="table table-bordered">
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+ 1st Part -->
-                                  <thead>
-                                    <th class="bg-success">A. Requester</th>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>
-                                        <ul>
-                                          <li>Organization - <u>Dynamic Communication Society</u></li>
-                                          <li>
-                                            Unit/s from within USC
-                                            <ul>
-                                              <li><u>School of Arts and Sciences - Computer and Information Sciences</u></li>
-                                              <li><u>Support Unit - Athletics Office</u></li></ul>
+                              <thead>
+                                <th class="bg-success">A. Requester</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <?php if(property_exists($specprop,"requester") && isset($specprop->requester)) {  ?>
+                                      <ul>
+                                        <?php for($i = 0; $i < count($specprop->requester);$i++){ ?>
+                                                          
+                                          <li><?php echo $specprop->requester[$i];?>
+                                              <?php if($specprop->requester[$i] === "community"){ 
+                                                echo '-'.$specprop->communities;
+                                              }else if($specprop->requester[$i] === "organization"){
+                                                echo '-'.$specprop->organization;
+                                              }else if($specprop->requester[$i] === "institution"){
+                                                echo '-'.$specprop->institution;
+                                              }else if($specprop->requester[$i] === "unit_from_usc"){
+                                                echo '-'.$specprop->unit_from_usc;
+                                                 for($ur = 0; $ur < count($specprop->unit_from_usc); $ur++) {
+                                                    if($specprop->unit_from_usc[$ur] === "school_of_arts_and_sciences"){
+                                                      echo '-'.$specprop->school_of_arts_and_sciences;
+                                                    }else if($specprop->unit_from_usc[$ur] === "school of architecture, fine arts and design"){
+                                                      echo '-'.$specprop->school_of_architecture_fine_arts_and_design;
+                                                    }else if($specprop->unit_from_usc[$ur] === "school of education"){
+                                                      echo '-'.$specprop->school_of_education;
+                                                    }else if($specprop->unit_from_usc[$ur] === "school of engineering"){
+                                                      echo '-'.$specprop->school_of_engineering;
+                                                    }else if($specprop->unit_from_usc[$ur] === "school of business and economics"){
+                                                      echo '-'.$specprop->school_of_business_economics;
+                                                    }else if($specprop->unit_from_usc[$ur] === "school of health care profession"){
+                                                      echo '-'.$specprop->school_of_health_care_profession;
+                                                    }else if($specprop->unit_from_usc[$ur] === "school of law and governance"){
+                                                      echo '-'.$specprop->school_of_law_and_governance;
+                                                    }else if($specprop->unit_from_usc[$ur] === "support unit"){
+                                                      echo '-'.$specprop->support_unit;
+                                                    }
+                                                 }
+                                              }  ?>
                                           </li>
-                                        </ul>
-                                      </td>
-                                    </tr>
-                                  </tbody>
+                                          <?php } } ?>
+                                      
+                                      </ul>
+                                  </td>
+                                </tr>
+                              </tbody>
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+ 2nd Part -->
-                                  <thead>
-                                    <th class="bg-success">B. Mode of request</th>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>
-                                        <ul>
-                                          <li>letter</li>
-                                          <li>email</li>
-                                          <li>sms</li>
-                                        </ul>
-                                      </td>
-                                    </tr>
-                                  </tbody>
+                              <thead>
+                                <th class="bg-success">B. Mode of request</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <?php if(property_exists($specprop,"mode_of_request") && isset($specprop->mode_of_request)) {  ?>
+                                    <ul>
+                                    <?php for($i = 0; $i < count($specprop->mode_of_request);$i++){ ?>
+                                                        
+                                        <li><?php echo $specprop->mode_of_request[$i];?>
+                                            
+                                    <?php } } ?>
+                                    </li>
+                                    </ul>
+                                  </td>
+                                </tr>
+                              </tbody>
 
 <!-- +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_ 3rd Part -->
-                                  <thead>
-                                    <th class="bg-success">C. Nature of the Program/Project/Activity</th>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>
-                                        <ul>
-                                          <li>Training Program (non-degree and non-credited courses offered to the community)</li>
-                                          <li>Technical Assistance (for agencies, organization, civic groups)</li>
-                                          <li>Information Services (dissemination of knowledge/information through various means)</li>
-                                        </ul>
-                                      </td>
-                                    </tr>
-                                  </tbody>
+                              <thead>
+                                <th class="bg-success">C. Nature of the Program/Project/Activity</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <?php if(property_exists($specprop,"nature_of_the_program") && isset($specprop->nature_of_the_program)) {  ?>
+                                    <ul>
+                                    <?php for($i = 0; $i < count($specprop->nature_of_the_program);$i++){ ?>
+                                                        
+                                        <li><?php echo $specprop->nature_of_the_program[$i];?>
+                                          <?php if($specprop->nature_of_the_program[$i] === "others_nature"){ 
+                                            echo $specprop->others_nature;
+                                          }  ?>
+                                           </li> 
+                                    <?php } } ?>
+                                  </ul>
+                                  </td>
+                                </tr>
+                              </tbody>
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+ 5th Part -->
-                                  <thead>
-                                    <th class="bg-success"> D. Program Area</th>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>
-                                        <ul>
-                                          <li>Productivity-Oriented Initiatives</li>
-                                          <li>Literacy, Values Formation and Life-long Learning</li>
-                                          <li>Information Sharing</li>
-                                        </ul>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                            </div>
-                        </div>
+                              <thead>
+                                <th class="bg-success"> D. Program Area</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <?php if(property_exists($specprop,"program_area") && isset($specprop->program_area)) {  ?>
+                                    <ul>
+                                    <?php for($i = 0; $i < count($specprop->program_area);$i++){ ?>
+                                                        
+                                        <li><?php echo $specprop->program_area[$i];?></li> 
+                                    <?php } } ?>
+                                  </ul>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              </table>
+                              <button type="button" class="btn btn-xs btn-danger" id="btn-requester-comm"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
+                                <div id="requester_comment" class="collapse">
+                                  <div class="panel panel-body panel-danger">
+                                    <?php $i=0; foreach ($comments as $comment) {  
+                                      if($comment->comment_category == "Program/Project/Activity Profile"){ $i++; ?>
+                                        <label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
+                                        <p class="text-justify"><?php echo $comment->comment;?></p>
+                                      <?php } } ?>
+                                      <?php if($i === 0): 
+                                          echo "No comments to show";
+                                          endif;
+                                      ?>
+                                    </div>
+                                  </div>
+                                </div> <!-- panel-body -->
+                              </div> <!-- panel-primary -->
+                          
 
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="collapse" data-target="#2_comment"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
-                        <div id="2_comment" class="collapse">
-                          <div class="panel panel-body panel-danger">
-                            <p class="text-center">- No comments to display -</p>
-                          </div>
-                        </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4>II. Rationale and Contextualization</h4>
                             </div>
                             <div class="panel-body">
-                                <div class="form-group">
-                                  <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te. Posse nonumy impedit ea qui, alii velit nulla eu vim. Indoctum volutpat sed at. Essent accusam constituam in vis, duo agam nonumy principes ea, nec putent numquam definitionem ad. Cum scripta oportere voluptaria an.</p>
+                                <div class="panel-body">
+                                  <p class="text-justify"><?php if(property_exists($specprop,"rationale_and_contextualization")){ echo $specprop->rationale_and_contextualization; } ?></p>
+                                  <button type="button" class="btn btn-xs btn-danger" id="btn-rationale"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment&nbsp;&nbsp;<span class="badge"></span></button>
                                 </div>
+                            </div>
+                            <div id="rationale_comment" class="collapse">
+                              <div class="panel panel-body panel-danger">
+                              <?php $i = 0; foreach ($comments as $comment) {
+                              if($comment->comment_category == "Rationale and Contextualization"){ $i++;  ?>
+                              <label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
+                              <p class="text-justify"><?php echo $comment->comment;?></p>
+                              
+                              <?php } }?>
+                              <?php if($i === 0): 
+                                  echo "No comments to show";
+                                  endif;
+                              ?>
+                              </div>
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="collapse" data-target="#3_comment"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
-                        <div id="3_comment" class="collapse">
-                          <div class="panel panel-body panel-danger">
-                            <label class="text-danger">Leigh Mabano - Computer and Information Sciences Chair</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Amanda Quinal - CES Coordinator</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Joan Tero - CAS Dean</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                          </div>
-                        </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4>III. Goal, Objectives, and Outcomes</h4>
                             </div>
                             <div class="panel-body">
-                                <div class="form-group">
-                                  <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te. Posse nonumy impedit ea qui, alii velit nulla eu vim. Indoctum volutpat sed at. Essent accusam constituam in vis, duo agam nonumy principes ea, nec putent numquam definitionem ad. Cum scripta oportere voluptaria an.</p>
+                              <p class="text-justify"><?php if(property_exists($specprop,"goal_objectives_and_outcomes")){ echo $specprop->goal_objectives_and_outcomes; } ?></p>
+                              <button type="button" class="btn btn-xs btn-danger" id="btn-goals-comment"><span class="glyphicon glyphicon-comment"></span>&nbsp; Show/Hide Comment <span class="badge"></span></button>
+                              <div id="goals_comment" class="collapse">
+                                <div class="panel panel-body panel-danger">
+                                 <?php $i=0; foreach ($comments as $comment) { 
+                                if($comment->comment_category == "Goal, Objectives, and Outcomes"){ $i++;  ?>
+                                <label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
+                                <p class="text-justify"><?php echo $comment->comment;?></p>
+                                
+                                <?php } } ?>
+                                <?php if($i === 0): 
+                                  echo "No comments to show";
+                                  endif;
+                                ?>
                                 </div>
+                              </div>
                             </div>
-                        </div>
-
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="collapse" data-target="#4_comment"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
-                        <div id="4_comment" class="collapse">
-                          <div class="panel panel-body panel-danger">
-                            <label class="text-danger">Leigh Mabano - Computer and Information Sciences Chair</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Amanda Quinal - CES Coordinator</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Joan Tero - CAS Dean</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
                           </div>
-                        </div>
+
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4>IV. Participants, Partners and Beneficiaries</h4>
                             </div>
                             <div class="panel-body">
-                                <div class="form-group">
-                                  <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te. Posse nonumy impedit ea qui, alii velit nulla eu vim. Indoctum volutpat sed at. Essent accusam constituam in vis, duo agam nonumy principes ea, nec putent numquam definitionem ad. Cum scripta oportere voluptaria an.</p>
+                              <p class="text-justify"><?php if(property_exists($specprop,"participants_partners_and_beneficiaries")){  echo $specprop->participants_partners_and_beneficiaries; } ?></p>
+                              <button type="button" class="btn btn-xs btn-danger" id="btn-participants-comment" ><span class="glyphicon glyphicon-comment"></span>&nbsp; Show/Hide Comment <span class="badge"></span></button>
+                              <div id="participants_comment" class="collapse">
+                                <div class="panel panel-body panel-danger">
+                                <?php $i = 0; foreach ($comments as $comment) {
+                                if($comment->comment_category == "Participants, Partners and Beneficiaries"){ $i++;  ?>
+                                  
+                                <label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
+                                <p class="text-justify"><?php echo $comment->comment;?></p>
+                                
+                                <?php } } ?>
+                                <?php if($i === 0): 
+                                  echo "No comments to show";
+                                  endif;
+                                ?>
                                 </div>
+                              </div>
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="collapse" data-target="#1.1_comment"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
-                        <div id="1.1_comment" class="collapse">
-                          <div class="panel panel-body panel-danger">
-                            <label class="text-danger">Leigh Mabano - Computer and Information Sciences Chair</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Amanda Quinal - CES Coordinator</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Joan Tero - CAS Dean</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                          </div>
-                        </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4>I. Outline of Activities</h4>
                             </div>
                             <div class="panel-body">
-                                <table class="table table-bordered">
-                                  <thead>
-                                      <th class="text-center">Tentative Date</th>
-                                      <th class="text-center">Activities</th>
-                                      <th class="text-center">Participants Needed</th>
-                                      <th class="text-center">Person/s In-charge</th>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td class="text-center">December 25, 2015</td>
-                                      <td class="text-center">Feeding</td>
-                                      <td class="text-center">100</td>
-                                      <td class="text-center">DynaCom Society</td>
-                                    </tr>
-                                    <tr>
-                                      <td class="text-center">December 25, 2015</td>
-                                      <td class="text-center">Feeding</td>
-                                      <td class="text-center">100</td>
-                                      <td class="text-center">DynaCom Society</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="collapse" data-target="#2.2_comment"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
-                        <div id="2.2_comment" class="collapse">
-                          <div class="panel panel-body panel-danger">
-                            <label class="text-danger">Leigh Mabano - Computer and Information Sciences Chair</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Amanda Quinal - CES Coordinator</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                            <label class="text-danger">Joan Tero - CAS Dean</label>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, usu an legimus vivendum adolescens, pro no vidisse definitiones, quas mundi quo ex. Eam at ullum quidam, omnesque verterem his te.</p>
-                          </div>
-                        </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h4>II. Budgetary Requirements</h4>
-                            </div>
-                            <div class="panel-body">
-                              <table class="table table-bordered">
+                             <table class="table table-bordered">
                                 <thead>
-                                    <th class="text-center" width="20%">Particulars</th>
-                                    <th class="text-center" width="20%">Frequency</th>
-                                    <th class="text-center" width="20%">Quantity</th>
-                                    <th class="text-center" width="20%">Amount</th>
-                                    <th class="text-center" width="20%">Total</th>
-                                </thead>
-                                <thead>
-                                    <th colspan="5" class="bg-success">A. Meals and Snacks</th>
+                                  <th class="text-center">Tentative Date</th>
+                                  <th class="text-center">Activities</th>
+                                  <th class="text-center">Participants Needed</th>
+                                  <th class="text-center">Person/s In-charge</th>
                                 </thead>
                                 <tbody>
+                                  <?php if(property_exists($specprop, "tentative_date")) { ?>
+                                <?php for($i= 0; $i < count($specprop->tentative_date);$i++){?>
                                   <tr>
-                                    <td class="text-center">Sample</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                    <td class="text-center">₱ 100.00</td>
+                                  <td><?php echo $specprop->tentative_date[$i]?></td>
+                                  <td><?php echo $specprop->activities[$i]?></td>
+                                  <td><?php echo $specprop->participants_needed[$i]?></td>
+                                  <td><?php echo $specprop->persons_incharge[$i]?></td>
                                   </tr>
-                                  <tr>
-                                    <td class="text-center">Sample</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                  </tr>
-                                </tbody>
-                                <thead>
-                                    <th colspan="5" class="bg-success">B. Transportation</th>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td class="text-center">Sample</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="text-center">Sample</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                  </tr>
-                                </tbody>
-                                <thead>
-                                    <th colspan="5" class="bg-success">C. Materials</th>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td class="text-center">Sample</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="text-center">Sample</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                    <td class="text-center">₱ 100.00</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="text-right" colspan="4"><h4>Total:</h4></td>
-                                    <td class="text-center"><h4>₱ 600.00</h4></td>
-                                  </tr>
+                                <?php } } ?>
                                 </tbody>
                               </table>
+                              <button type="button" class="btn btn-xs btn-danger" id="btn-actoutline-comment"><span class="glyphicon glyphicon-comment"></span>&nbsp; Show/Hide Comment</button>
+                              <div id="actoutline_comment" class="collapse">
+                                <div class="panel panel-body panel-danger">
+                                <?php $i= 0;  foreach ($comments as $comment) {
+                                if($comment->comment_category == "Outline of Activities"){ $i++; ?>
+                                <label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
+                                <p class="text-justify"><?php echo $comment->comment;?></p>
+                                
+                                <?php } } ?>
+                                <?php if($i === 0): 
+                                  echo "No comments to show";
+                                  endif;
+                                  ?>
+                                
+                                </div>
+                              </div>                    
                             </div>
                         </div>
 
+                        <div class="panel panel-primary">
+                          <div class="panel-heading">
+                              <h4>II. Budgetary Requirements</h4>
+                          </div>
+                          <div class="panel-body">
+                            <table class="table table-bordered">
+                              <thead>
+                                  <th class="text-center" width="20%">Particulars</th>
+                                  <th class="text-center" width="20%">Frequency</th>
+                                  <th class="text-center" width="20%">Quantity</th>
+                                  <th class="text-center" width="20%">Amount</th>
+                                  <th class="text-center" width="20%">Total</th>
+                              </thead>
+                              <thead>
+                                  <th colspan="5" class="bg-success">A. Meals and Snacks</th>
+                              </thead>
+                              <tbody>
+                                <?php if(property_exists($specprop, "a_particulars")) { ?>
+                                  <?php for($i= 0; $i < count($specprop->a_particulars);$i++){?>
+                                      <tr>
+                                        <td><?php echo $specprop->a_particulars[$i]?></td>
+                                        <td><?php echo $specprop->a_frequency[$i]?></td>
+                                        <td><?php echo $specprop->a_quantity[$i]?></td>
+                                        <td><?php echo $specprop->a_amount[$i]?></td>
+                                        <td><?php echo $specprop->a_subtotal[$i]?></td>
+                                      </tr>
+                                  <?php } } ?>
+                              </tbody>
+                              <thead>
+                                <th colspan="5" class="bg-success">B. Transportation</th>
+                              </thead>
+                                <tbody>
+                                  <?php if(property_exists($specprop, "b_particulars")) { ?>
+                                    <?php if(isset($specprop->b_particulars)){ for($i= 0; $i < count($specprop->b_particulars);$i++){?>
+                                      <tr>
+                                        <td><?php echo $specprop->b_particulars[$i]?></td>
+                                        <td><?php echo $specprop->b_frequency[$i]?></td>
+                                        <td><?php echo $specprop->b_quantity[$i]?></td>
+                                        <td><?php echo $specprop->b_amount[$i]?></td>
+                                        <td><?php echo $specprop->b_subtotal[$i]?></td>
+                                      </tr>
+                                     <?php } ?>
+                                    <?php } ?>
+                                  <?php } ?>
+                                </tbody>
+                              <thead>
+                                <th colspan="5" class="bg-success">C. Materials</th>
+                              </thead>
+                              <tbody>
+                                <?php if(property_exists($specprop, "c_particulars")) { ?>
+                                  <?php if(isset($specprop->c_particulars)){ for($i= 0; $i < count($specprop->c_particulars);$i++){?>
+                                    <tr>
+                                      <td><?php echo $specprop->c_particulars[$i]?></td>
+                                      <td><?php echo $specprop->c_frequency[$i]?></td>
+                                      <td><?php echo $specprop->c_quantity[$i]?></td>
+                                      <td><?php echo $specprop->c_amount[$i]?></td>
+                                      <td><?php echo $specprop->c_subtotal[$i]?></td>
+                                    </tr>
+                                  <?php } ?>
+                                  <?php } ?>
+                                <?php } ?>
+                                <tr>
+                                  <td class="text-right" colspan="4"><h4>Total:</h4></td>
+                                  <td class="text-center"><h4><?php echo $specprop->grand_total;?></h4></td>
+                                </tr>
+                              </tbody>                    
+                            </table>
+                            <button type="button" class="btn btn-xs btn-danger" id="btn-budreq-comment"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
+                            <div id="budreq_comment" class="collapse">
+                              <div class="panel panel-body panel-danger">
+                                <?php $i=0; foreach ($comments as $comment) {  
+                                  if($comment->comment_category == "Budgetary Requirements"){ $i++; ?>
+                                    <label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
+                                    <p class="text-justify"><?php echo $comment->comment;?></p>
+                                  <?php } } ?>
+                                  <?php if($i === 0): 
+                                    echo "No comments to show";
+                                    endif;
+                                  ?>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
+              </div>
             </div>
+          </div>
 
             <!-- Exit Modal -->
             <div class="modal fade" tabindex="-1" role="dialog" id="exit">
@@ -414,26 +404,155 @@
                 </div>
               </div>
             </div>
+            <?php include('application/views/footer.php');?>
 
-        </div>
+                             <?php if($role === "Department Chair" || $role === "Coordinator" || $role === "School Dean"){?>
+                 <div class="detailBox" style="right:0; bottom:0;float:right; position:fixed; background-color:#F3F2F2; margin:2px;">
+                
+                <div class="commentBox">            
+                    <p class="taskDescription">Choose a specific part and type in your comments and suggestions for the proposal</p>
+                </div>
+                <div class="actionBox">
+                        <?php echo form_open('Proposals/save_addComs_C');
+                        ?>
+                        
+                          <form class="form-inline" role="form">
+                              <div class="form-group">
+                              <input type="hidden" name="user_id" value="<?php echo $user_id?>">
+                              <input type="hidden" name="prop_id" value="<?php echo $id?>">
+                              </div>
+                              <div class="form-group">
+                              <select class="form-control" NAME="comment_category">
 
+                                <option class = "animal" disabled>--Form C--</option>
+                                <option class = "animal" value="Program/Project/Activity Profile">I. Program/Project/Activity Profile</option>
+
+                                <option disabled>--Form A--</option>
+                                <option value="Rationale and Contextualization">I. Rationale and Contextualization</option>
+                                <option value="Goal, Objectives, and Outcomes">II. Goal, Objectives, and Outcomes</option>
+                                <option value="Participants, Partners and Beneficiaries">III. Participants, Partners and Beneficiaries</option>
+                                <option value="Outline of Activities">IV. Outline of Activities</option>
+                                <option value="Budgetary Requirements">V. Budgetary Requirements</option>
+                              
+                             </select>
+                             <br>
+                                  <textarea class="form-control boxsize" type="text" placeholder="Your comments" name="commentbox" value="" required></textarea>
+                              </div>
+                              <div class="form-group">
+                                  <button class="btn btn-info" name="commentsubmit" id="commentsubmit">Add</button>
+                              </div>
+                      <?php echo form_close();?>
+                </div>
+              </div>
+        
+        
+        <?php }?>
+        </div> <!-- wrapper -->
+<div style="position:fixed; top:8%; right:2%; ">
+ <?php if($role == "Department Chair") { ?>
+    <div style="float:left; padding:2px; padding-top:10px;">
+    <?php echo form_open('Proposals/chairNotesProp');
+    ?>
+    <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+
+    <button type="submit" class="btn btn-danger btn-md" name="note" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
+
+    <button type="submit" class="btn btn-primary btn-md" name="note" value="ProceedProposal">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+
+    <?php form_close();?>
     </div>
+ <?php } else if($role == "Coordinator") { ?>
+    <div style="float:left; padding:2px; padding-top:10px;">
+      <?php echo form_open('Proposals/coordRecommendsProp');?>
+      <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+      <button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
+      <button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Endorse to Dean&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+      <?php form_close();?>
+        </div>
+ 
+ <?php } else if($role == "School Dean") { ?>
+    <div style="float:left; padding:2px; padding-top:10px;">
+      <?php echo form_open('Proposals/deanEndorseProp');?>
+      <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+      <button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
+      <button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Endorse to Director&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+      <?php form_close();?>
+        </div>
+ 
+ <?php } else if($role == "CES Director" ) { ?>
+      <div style="float:left; padding:2px; padding-top:10px;"> 
+      
+      <?php form_close();?>
+      <?php if(intval($proposal[0]->status) < 10):?>
+                <a href="<?php echo base_url() ?>index.php/Director/choose_review_committee/<?php echo $id; ?>" style="text-decoration:none">
+                 <button type="button" class="btn btn-success btn-block btn-lg">Choose Review Committee&nbsp <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+                </a>
+      <?php endif;?>
+            </div>
+ <?php } else if($role == "Vice-President for Academic Affairs") { ?>
+    <?php if($proposal[0]->status == "11"):  ?>
+    <div style="float:left; padding:2px; padding-top:10px;">
+      <?php echo form_open('Proposals/vpaaApproveProp');?>
+      <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+      <button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
+      <button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Approve Proposal&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+      <?php form_close();?>
+        </div>
+    <?php endif;?>
+ 
+ <?php } ?>
+ 
+</div>    
+   
+<!-- FOR Printing Form -->
+     <script>
+    function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
 
-    <!-- jQuery -->
-    <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+     document.body.innerHTML = printContents;
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+     window.print();
 
-    <!-- Customized JavaScript -->
-    <script type="text/javascript" src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
+     document.body.innerHTML = originalContents;
+  }
 
-    <!-- Menu Toggle Script -->
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+    </script>
+    <!-- Comment Area Minimize -->
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+$("#btn-requester-comm").click(function(){
+  $(this).toggleClass('btn-plus');
+  $("#requester_comment").slideToggle();
+});
+$(".btn-minimize").click(function(){
+    $(this).toggleClass('btn-plus');
+    $(".detailBox").slideToggle();
+  });
+$("#btn-rationale").click(function(){
+  $(this).toggleClass('btn-plus');
+  $("#rationale_comment").slideToggle();
+});
+ 
+$("#btn-goals-comment").click(function(){
+  $(this).toggleClass('btn-plus');
+  $("#goals_comment").slideToggle();
+}); 
+$("#btn-participants-comment").click(function(){
+  $(this).toggleClass('btn-plus');
+  $("#participants_comment").slideToggle();
+}); 
+$("#btn-actoutline-comment").click(function(){
+  $(this).toggleClass('btn-plus');
+  $("#actoutline_comment").slideToggle();
+}); 
+$("#btn-budreq-comment").click(function(){
+  $(this).toggleClass('btn-plus');
+  $("#budreq_comment").slideToggle();
+}); 
     </script>
 
     <!-- Datepicker Script -->
