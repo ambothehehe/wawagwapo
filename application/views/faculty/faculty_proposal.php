@@ -124,7 +124,7 @@
 							var link = "<a href="+base_url+"Faculty/form_a_1?proposal_id="+dataJSON[i].proposal_id+">";
 						}
 						else
-							var link = "<a href=#>";
+							var link = "<a href="+base_url+"Faculty/form_a?proposal_id="+dataJSON[i].proposal_id+">";
 						dataRows.push([
 							"<td>"+link+dataJSON[i].proposal_json_format.title+"</a>"+"</td>",
 							dataJSON[i].proposal_json_format.inclusive_date1+"</td>",

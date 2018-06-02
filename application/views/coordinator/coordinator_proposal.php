@@ -202,6 +202,46 @@
 					console.log(data);
 				}
 			});
+			/*returned proposal*/
+			
+			$.ajax({
+				type: "POST",
+				url: base_url + "Procedure_one/getReturnedProposal",
+				data:data,
+				success:function(data2){
+					dataJSON = JSON.parse(data2);
+					var dataRows=[];
+					for(var i = 0; i < dataJSON.length; i++)
+					{
+						var proposal_details = dataJSON[i].proposal_json_format;
+						if(dataJSON[i].form_type == 1){ /*if form a and b*/
+							var link = "<a href="+base_url+"Representative/form_a_1?proposal_id="+dataJSON[i].proposal_id+">";
+						}else if(dataJSON[i].form_type == 2){
+							var link = "<a href="+base_url+"Representative/form_a?proposal_id="+dataJSON[i].proposal_id+">";
+						}
+						else if(dataJSON[i].form_type == 0){
+							var link = "<a href="+base_url+"Representative/form_c?proposal_id="+dataJSON[i].proposal_id+">";
+						}
+
+						var user_id = "<?php echo $user_id; ?>";
+						dataRows.push([
+							"<td>"+dataJSON[i].proposal_id+"</td>",
+							"<td>"+link+proposal_details.title+"</a>"+"</td>",
+							"<td>"+dataJSON[i].date_created+"</td>",
+							"Returned"
+						]);
+						//dataRows.push("<tr>"+"<td>"+dataJSON[i].proposal_json_format.title+"</td>"+"<td>"+dataJSON[i].proposal_json_format.inclusive_date1+"</td>"+"</tr>");
+					}
+					if(dataJSON.length > 0)
+					{
+						my_coord_proposals.fnAddData(dataRows);
+					}
+				},
+				error: function(data) {
+					console.log(data);
+				}
+			});
+			
 			
 			$.ajax({
 				type: "POST",

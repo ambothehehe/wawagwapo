@@ -96,6 +96,8 @@ class Coordinator extends CI_Controller
 
         $p->user_fkid= $this->input->post('user_id');
         $p->proposal_header_fkid= $this->input->post('proposal_id');
+        $p->progpro_c = $this->input->post('progpro_c');
+		$p->progpro_c_remarks = $this->input->post('progpro_c_remarks');
         $p->rationale_area= $this->input->post('rationale_area');
         $p->rationale_remarks= $this->input->post('rationale_remarks');
         $p->goals_area= $this->input->post('goals_area');
@@ -121,13 +123,17 @@ class Coordinator extends CI_Controller
         $add_allscores_formb = $this->input->post('ppaprof_area') + $this->input->post('signifmatrix_area') + $this->input->post('implics_area') + $this->input->post('linkageprof_area');
         $p->total_percentage_formb= $add_allscores_formb/30*100;
 
+        $add_allscores_formc = $this->input->post('progpro_c');
+        $p->total_percentage_formc= $add_allscores_formc/25*100;
+
         $result=$p->saveReviewScores();
+        
 			
 			if(!$result){ 
                 echo mysqli_error($result);
             }
             else{
-               redirect('Coordinator/home','refresh');
+               //redirect('Coordinator/home','refresh');
             }
 			
 		}
@@ -214,6 +220,30 @@ class Coordinator extends CI_Controller
 		}
 		//echo $data['form_type'];
 		$this->load->view('forms/form_a1', $data);
+	}
+
+	public function form_a_1_coord() {
+		$data['fname'] 	= $this->session->firstname;
+		$data['lname'] 	= $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['user_id']	= $this->session->user_id;
+		$data['user_office']	= $this->session->office;
+		$data['user_dept']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+	
+		if(isset($_GET['proposal_id'])){
+			$this->load->model('Proposal_AB');
+			$data["proposal"] = $this->Proposal_AB->getProposalDetails($_GET['proposal_id']);
+		    $data["proposal_id"] = $_GET['proposal_id'];
+		}
+		if(isset($_GET['form_type']))
+		{
+			$data['form_type'] = 1;
+		}else{
+			$data['form_type'] = 2;
+		}
+		//echo $data['form_type'];
+		$this->load->view('forms/form_a1_coord', $data);
 	}
 
 	public function fEditFormAB_p1() {

@@ -55,13 +55,17 @@
                             </table>
                         <?php } else{ ?>
 
- <?php $x=0; $y=0;
+ <?php $x=0; $y=0; $c=0;
  foreach($allscores as $scores){?>
 
                               <input type="text" name="assessor" class="form-control" value="<?php echo $scores->firstname.'&nbsp;'.$scores->lastname ?>" readonly>
                               <table class="table table-bordered table-hover">
                                 <thead>
                                   <th></th>
+                                  <?php if(!empty($scores->progpro_c)): ?>
+                                  <th class="text-center">I</th>
+                                  <th class="text-center">Initial Percentage (Form C)</th>
+                                <?php endif; ?>
                                   <th class="text-center">I</th>
                                   <th class="text-center">II</th>
                                   <th class="text-center">III</th>
@@ -79,6 +83,10 @@
                                 <tbody>
                                  <tr>
                                  <td>Tally of Scores</td>
+                                 <?php if(!empty($scores->progpro_c)): ?>
+                                 <td class="text-center"><?php echo $scores->progpro_c;?> </td>
+                                  <td class="text-center"><?php echo $scores->total_percentage_formc;?>%</td>
+                                  <?php endif;?>                                  
                                     <td class="text-center"><?php echo $scores->rationale_area;?> </td>
                                   <td class="text-center"><?php echo $scores->goals_area;?></td>
                                   <td class="text-center"><?php echo $scores->participants_area;?></td>
@@ -106,6 +114,12 @@
 								  $total_yy= number_format((float)$ave_y, 2, '.', '');
                   endif;
 
+                  if(!empty($scores->progpro_c)):
+                  $c += $scores->total_percentage_formc;
+                  $ave_c = $c/2;
+                  $total_cc= number_format((float)$ave_c, 2, '.', '');
+                  endif;
+
 
                               ?>
 
@@ -113,8 +127,20 @@
 
 
                         <div>
-
-                            <div id="score_results">
+                            
+                            <?php if(!empty($scores->progpro_c)): ?>
+                            <?php if($total_cc<60.00){?>
+                            <div style="padding:10px; background:#ff8e88;">
+                            <?php } elseif($total_cc>59.00 && $total_cc<81.00){?>
+                            <div style="padding:10px; background:#ffff99;">
+                            <?php } else{?>
+                            <div style="padding:10px; background:#77dd77;">
+                            <?php }?>
+                            <center><b>Total Percentage of Form C:</b><input type="text" class="form-control" name="totalpercentage_c" value="<?php echo $total_cc;?>%" style="width: 40%; text-align: center;" readonly> </center>
+                            <?php endif;?>
+                            </div>
+                            </div>
+                            <div style="padding:10px;">
                             <?php if($ave_x<60.00){?>
                             <div style="padding:10px; background:#ff8e88;">
                             <?php } elseif($ave_x>59.00 && $ave_x<81.00){?>
@@ -123,7 +149,8 @@
                             <div style="padding:10px; background:#77dd77;">
                             <?php }?>
                               <center><b>Total Percentage of Form A:</b><input type="text" class="form-control" name="totalpercentage_a" value="<?php echo $total_xx;?>%" style="width: 40%; text-align: center;" readonly> </center>
-                            </div></div>
+                            </div>
+                          </div>
                             <div id="score_results">
                             <?php if(!empty($scores->ppaprof_area)): ?>
                             <?php if($total_yy<60.00){?>
@@ -145,6 +172,8 @@
                           <div ><b style="font-size: 15px; font-style: italic;">Remarks</b></div> <!--comments label b style-->
                           <ul style="list-style-type:none;">
                             <?php foreach($allscores as $rems){?>
+                              <?php if(!empty($rems->progpro_c_remarks) == true){?><li>Program/Project/Activity Profile: "<?php echo $rems->progpro_c_remarks;?>"
+                              </li><?php }?>
                               <?php if(!empty($rems->rationale_remarks) == true){?><li>Rationale and Contextualization: "<?php echo $rems->rationale_remarks;?>"
                               </li><?php }?>
                               <?php if(!empty($rems->goals_remarks) == true){?><li>II. Goal, Objectives, and Outcomes: "<?php echo $rems->goals_remarks;?>"

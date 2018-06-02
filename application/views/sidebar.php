@@ -1,4 +1,4 @@
-f<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <body>
@@ -11,6 +11,7 @@ f<!DOCTYPE html>
                     <img class="img-circle navlogo" src="<?php echo base_url();?>assets/img/ces_profile.png" alt="CES Logo" style="height:150px; width:150px;">
                     <h4 class="name"><?= $fname ?>&nbsp;<?= $lname ?></h4>
                     <h5 class="designation"><em><?= $role ?></em></h5>
+
                 </div>
                 
                 <!-- Sidebar options of CES Representative -->

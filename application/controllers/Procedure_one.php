@@ -567,7 +567,7 @@ $activities_done = $this->input->post('activities_done');
 			}else if(!isset($_POST['proposal_id']) && $_POST["button_type"] === "save_prop"){
 				$data = json_encode($_POST,JSON_UNESCAPED_SLASHES);
 				$form->insertProposalJSON($_POST["user_id"],$data,0,$form_type);
-				//echo "SUCCESSFUL IN CREATING PPA DRAFT";
+				echo "SUCCESSFUL IN CREATING PPA DRAFT";
 			}else if( !isset($_POST['proposal_id']) && $_POST["button_type"] === "submit_prop"){
 				$data = json_encode($_POST,JSON_UNESCAPED_SLASHES);
 				$response = $form->insertProposalJSON($_POST["user_id"],$data,1,$form_type);
@@ -579,7 +579,11 @@ $activities_done = $this->input->post('activities_done');
 			}else if( !isset($_POST['proposal_id']) && $_POST["button_type"] === "submit_prop_coord"){
 				$data = json_encode($_POST,JSON_UNESCAPED_SLASHES);
 				$response = $form->insertProposalJSON($_POST["user_id"],$data,4,$form_type);
-				echo "Successful in creating PPA form";
+				echo "Successful in creating PPA form yu";
+			}else if(isset($_POST['proposal_id']) && $_POST["button_type"] === "submit_prop_coord"){
+				$data = json_encode($_POST,JSON_UNESCAPED_SLASHES);
+				$response = $form->updateProposalDetails($_POST["proposal_id"],$data,1,$form_type);
+				echo "Draft proposal is now on the review process";	
 			}else if(isset($_POST['proposal_id']) && $_POST["button_type"] === "submit_prop"){
 				$data = json_encode($_POST,JSON_UNESCAPED_SLASHES);
 				$response = $form->updateProposalDetails($_POST["proposal_id"],$data,1,$form_type);

@@ -39,55 +39,6 @@ class ExtraCurricular extends CI_Controller
 		}
 	}
 
-
-	public function send(){
-
-		if(isset($S_SESSION['designation']) && $_SESSION['designation_fkid'] == 9){
-
-			$this->load->model('Proposal_AB');
-
-			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
-
-			echo $data['email'];
-
-			$this->load->library('email');
-
-			$config['protocol'] = 'smtp';
-
-			$config['smtp_host'] = 'ssl://smtp.gmail.com';
-
-			$config['smtp_port'] = '465';
-
-			$config['smtp_timeout'] = '7';
-
-			$config['smtp_user'] = 'donotreply24xD@gmail.com';
-
-			$config['smtp_pass'] = 'wawa2015';
-
-			$config['charset'] = 'utf-8';
-
-			$config['newline'] = "\r\n";
-
-			$config['mailtype'] = 'text';
-
-			$config['validation'] = TRUE;
-
-			$this->email->initialize($config);
-
-			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
-			$this->email->to($data['email']);
-
-			$this->email->subject('CES Proposal Notification');
-
-			if($this->email->send()){
-
-				redirect(site_url());
-			}else{
-				redirect(site_url());
-			}
-		}
-	}
-
 	public function create_proposal() {
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;

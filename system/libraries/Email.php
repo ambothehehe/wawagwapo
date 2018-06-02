@@ -2074,7 +2074,11 @@ class CI_Email {
             return FALSE;
         }
 
+<<<<<<< Updated upstream
         //stream_set_timeout($this->_smtp_connect, $this->smtp_timeout);
+=======
+        stream_set_timeout($this->_smtp_connect, $this->smtp_timeout);
+>>>>>>> Stashed changes
         $this->_set_error_message($this->_get_smtp_data());
 
         if ($this->smtp_crypto === 'tls')
@@ -2092,7 +2096,11 @@ class CI_Email {
         }
 
         return $this->_send_command('hello');
+<<<<<<< Updated upstream
     }
+=======
+    } 
+>>>>>>> Stashed changes
 
 	// --------------------------------------------------------------------
 

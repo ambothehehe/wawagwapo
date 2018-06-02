@@ -46,7 +46,7 @@
                                             </ul>
                                         </td>
                                         <td width="30%">
-                                            <a href="<?php echo site_url('Coordinator/form_a_1');?>" style="text-decoration:none">
+                                            <a href="<?php echo site_url('Coordinator/form_a_1_coord');?>" style="text-decoration:none">
                                                 <button type="button" class="btn btn-success btn-block btn-lg">Proceed &nbsp<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                             </a>
                                         </td>
@@ -65,7 +65,7 @@
                                             </ul>
                                         </td>
                                         <td width="30%">
-                                            <a href=<?php echo site_url('Coordinator/form_a_1');?>" style="text-decoration:none">
+                                            <a href=<?php echo site_url('Coordinator/form_a_1_coord');?>" style="text-decoration:none">
                                                 <button type="button" class="btn btn-success btn-block btn-lg">Proceed &nbsp<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                             </a>
                                         </td>
@@ -92,7 +92,7 @@
                                                     </ul>
                                                 </td>
                                                 <td width="30%">
-                                                    <a href="<?php echo site_url('Coordinator/form_a_1');?>" style="text-decoration:none">
+                                                    <a href="<?php echo site_url('Coordinator/form_a_1_coord');?>" style="text-decoration:none">
                                                         <button type="button" class="btn btn-success btn-block btn-lg">Proceed &nbsp<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                                     </a>
                                                 </td>

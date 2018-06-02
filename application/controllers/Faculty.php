@@ -60,7 +60,11 @@ class Faculty extends CI_Controller
 
 	public function getToBeNotedProposal()
 	{
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 9)
+		{
+
 		$this->load->model('Proposal_AB');
+<<<<<<< Updated upstream
 		$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization, $this->session->user_id); 
 		echo json_encode($proplist);
 	}
@@ -166,6 +170,11 @@ class Faculty extends CI_Controller
 			$this->load->view('faculty/faculty_report', $data);
 		}else{
 			redirect(site_url());
+=======
+		$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization); 
+		
+		echo json_encode($proplist);
+>>>>>>> Stashed changes
 		}
 	}
 

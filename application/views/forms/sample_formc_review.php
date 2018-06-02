@@ -36,7 +36,7 @@
                                                           
                                           <li><?php echo $specprop->requester[$i];?>
                                               <?php if($specprop->requester[$i] === "community"){ 
-                                                echo '-'.$specprop->community;
+                                                echo '-'.$specprop->communities;
                                               }else if($specprop->requester[$i] === "organization"){
                                                 echo '-'.$specprop->organization;
                                               }else if($specprop->requester[$i] === "institution"){
@@ -157,7 +157,7 @@
                                   <tr>
                                     <td width="30%"><label>1. Program/Project/Activity Profile</label></td>
                                     <td width="25%">
-                                      <select class="form-control" name="budreq_area">
+                                      <select class="form-control" name="progpro_c">
                                         <option value="5">5 - Perfectly Acceptable</option>
                                         <option value="4">4 - Acceptable</option>
                                         <option value="3">3 - Neutral</option>
@@ -165,7 +165,7 @@
                                         <option value="1">1 - Totally Unacceptable</option>
                                       </select>
                                     </td>
-                                    <td width="45%"><textarea class="form-control" name="budreq_remarks" rows="3" placeholder="Type Here..." ></textarea></td>
+                                    <td width="45%"><textarea class="form-control" name="progpro_c_remarks" rows="3" placeholder="Type Here..." ></textarea></td>
                                   </tr>
 
                                 </tbody>

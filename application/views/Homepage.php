@@ -774,6 +774,7 @@
                                         <option id="co-curricular" value="7">Co-Curricular Organization</option>
                                         <option id="extra-curricular" value="8">Extra-Curricular Organization</option>
                                         <option value="9">Faculty</option>
+                                        <option id="student-orgnization" value="12">Student Organization Adviser</option>
                                     </select><br>
                                 </td>
                               </tr>

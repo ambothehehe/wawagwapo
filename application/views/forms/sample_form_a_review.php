@@ -19,13 +19,14 @@
 
                 <div class="row tab-content">
 
-                    <?php if($specprop->form_type != '1' && $specprop->form_type != '2'): ?>
+                    
+<?php echo form_open('Director/addScores');?>
+            <?php if($specprop->form_type != '1' && $specprop->form_type != '2'): ?>
                     <?php include('sample_formc_review.php');?>
                     <?php endif; ?>
                     <div>
                         <h1>USC-CES FORM A <small>CES Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
                         <hr>
-<?php echo form_open('Director/addScores');?>
                         <div class="panel" align="center" >
                             <div class="panel-body"><p>
                                   <h2><?php echo $specprop->title;?><!-- Barangay Labangon River Clean-up <span class="badge">revised</span> --></h2>
@@ -44,7 +45,7 @@
                       <input type="hidden" name="user_designation" value="<?php echo $role;?>">
                       <input type="hidden" name="reviewer_1" value="<?php echo $reviewer1;?>">
                        <input type="hidden" name="reviewer_2" value="<?php echo $reviewer2;?>">
-					   <input type="hidden" name="review_id" value="<?php echo $review_id;?>">
+					           <input type="hidden" name="review_id" value="<?php echo $review_id;?>">
 
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -357,7 +358,7 @@
 
                                 </tbody>
                               </table>
-                               <?php if($specprop->form_type != 'c' && ($specprop->form_type != '2')): ?>
+                               <?php if($specprop->form_type != 'c' && $specprop->form_type != '2'): ?>
                                <?php include('sample_formb_review.php');?>
                                <?php endif; ?>
                             <div style="float:right; width: 50%;">

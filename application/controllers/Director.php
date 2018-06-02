@@ -100,6 +100,8 @@ class Director extends CI_Controller
         //$reviewer_2= $this->input->post('reviewer_2');
 
        // $p->proposal_header_fkid= $this->input->post('proposal_id');
+		$p->progpro_c = $this->input->post('progpro_c');
+		$p->progpro_c_remarks = $this->input->post('progpro_c_remarks');
         $p->rationale_area= $this->input->post('rationale_area');
         $p->rationale_remarks= $this->input->post('rationale_remarks');
         $p->goals_area= $this->input->post('goals_area');
@@ -124,6 +126,9 @@ class Director extends CI_Controller
 
         $add_allscores_formb = $this->input->post('ppaprof_area') + $this->input->post('signifmatrix_area') + $this->input->post('implics_area') + $this->input->post('linkageprof_area');
         $p->total_percentage_formb= $add_allscores_formb/20*100;
+
+        $add_allscores_formc = $this->input->post('progpro_c');
+        $p->total_percentage_formc= $add_allscores_formc/5*100;
 
         //$rev1 = $p->addDateReview1($reviewer_1);
         //$rev2 = $p->addDateReview2($reviewer_2);
@@ -286,6 +291,7 @@ class Director extends CI_Controller
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+
 		$proposal_id = $this->uri->segment(3);
 
 		$this->load->model('Proposal_AB');

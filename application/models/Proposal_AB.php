@@ -1132,7 +1132,9 @@ public function decisionApprove(){
         return $results;
     }
 
-    public function LoadProposalsFac($department, $organization, $user_id){
+
+    public function LoadProposalsFac($department, $organization){
+
         $results = array();
     
 
@@ -1263,20 +1265,30 @@ public function decisionApprove(){
         return $results;
     }
 
-/*
-    //Send Email to the Chair
-    // public function getChairEmail($department,$fkid){
-    //     ?><script> alert("yuck fou13");</script><?php
-    //     $conditions = array('user_account.department' => $department, 
-    //                     'user_account.designation_fkid' => $fkid 
-    //                 );
-    //     $this->db->select('*');
-    //     $this->db->from('user_account');
-    //     $this->db->where($conditions);
-    //     $query = $this->db->get();
-    //     ?><script> alert("yuck fou126");</script><?php
-    //     foreach($query->result_array() as $row){}
+//Send Email to the Chair
+    public function getChairEmail($department,$fkid){
+    
+        $conditions = array('user_account.department' => $department, 
+                        'user_account.designation_fkid' => $fkid 
+                    );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
 
-    //     return $row['email'];
-    // }*/
+    public function getDeanEmail($office,$fkid){
+    
+        $conditions = array('user_account.office' => $office, 
+                        'user_account.designation_fkid' => $fkid 
+                    );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
 }

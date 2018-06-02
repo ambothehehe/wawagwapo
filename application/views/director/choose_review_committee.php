@@ -49,7 +49,7 @@
                      <select class="reviewer" name="reviewer1" style=" width: 100%; padding: 5px; font-size: 17px;">
                           <option value="" >--Please choose--</option>
                            <?php foreach ($userlist as $user) { 
-                            if($specprop->office != $user->office){?>
+                            if($specprop->office != $user->office && $specprop->user_id != $user->user_id){?>
                       <option style="font-size:15px; padding:5px;" value="<?php echo $user->user_id?>"><?php echo $user->firstname?>&nbsp;<?php echo $user->lastname?> [<?php 
                       if($user->office== "School of Architecture, Fine Arts and Design") { echo "SAFAD";}
                       if($user->office== "School of Arts and Sciences") { echo "SAS";}
@@ -58,6 +58,7 @@
                       if($user->office== "School of Business and Economics") { echo "SBE";}
                       if($user->office== "School of Engineering") { echo "SOE";}
                       if($user->office== "School of Law and Governance") { echo "SLG";}
+                      if($user->office== "Support Units") { echo "Support Unit";}
                       
                       ?>]</option>
         
@@ -70,7 +71,7 @@
                       <select class="reviewer" name="reviewer2" style=" width: 100%; padding: 5px; font-size: 17px;">
                           <option value="" >--Please choose--</option>
                            <?php foreach ($userlist as $user) { 
-                            if($prop->office != $user->office){?>
+                            if($specprop->office != $user->office && $specprop->user_id != $user->user_id){ echo $prop->user_id;?>
                       <option style="font-size:15px; padding:5px;" value="<?php echo $user->user_id?>"><?php echo $user->firstname?>&nbsp;<?php echo $user->lastname?> [<?php 
                       if($user->office== "School of Architecture, Fine Arts and Design") { echo "SAFAD";}
                       if($user->office== "School of Arts and Sciences") { echo "SAS";}
@@ -79,6 +80,7 @@
                       if($user->office== "School of Business and Economics") { echo "SBE";}
                       if($user->office== "School of Engineering") { echo "SOE";}
                       if($user->office== "School of Law and Governance") { echo "SLG";}
+                      if($user->office== "Support Units") { echo "Support Unit";}
                       
                       ?>]</option>
         
