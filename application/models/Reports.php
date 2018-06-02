@@ -87,6 +87,23 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
+	public function LoadReport_dmyCOORD($office, $coord_id){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_d'); 
+		$this->db->where('creators_school',$office);
+		$this->db->where('creator_id',$coord_id);
+		$this->db->where('report_status', 4);
+
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		    return $results;
+	}
+
 	public function LoadReport_eCOORD($office){
 		$results = array();
 
@@ -103,6 +120,22 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
+	public function LoadReport_emyCOORD($office, $coord_id){
+			$results = array();
+
+			$this->db->select('*');
+			$this->db->from('report_e'); 
+			$this->db->where('creators_school',$office);
+			$this->db->where('creator_id',$coord_id);
+			$this->db->where('report_status', 4);
+
+			$query = $this->db->get();	
+
+			    if($query->num_rows() > 0) {
+			        $results = $query->result();
+			    }
+			    return $results;
+		}
 
 	public function LoadReport_dDEAN($office){
 		$results = array();
@@ -281,12 +314,13 @@ class Reports extends CI_Model
         return $query;
     }
 
-    public function isreported() {
+    public function isreported($report_id) {
 	    $data = array( 
 			    'isreported' => 1,
 			);	
 
 			$this->db->where('user_id', $this->creator_id);
+			$this->db->where('proposal_id', $report_id);
 			$query = $this->db->update('proposal_json', $data);
 
 			return $query;
@@ -350,7 +384,16 @@ public function updateform_d(){
 
   public function row_delete_d($id){
   	 $this->db->where('fd_id', $id);
-   $this->db->delete('report_d'); 
+   	 $this->db->delete('report_d'); 
+  }
+
+  public function ezeronishabai($proposal_id){
+  	$data = array(
+			'isreported'=>'0',
+		);
+		$this->db->where('proposal_id', $proposal_id);
+		$this->db->update('proposal_json', $data); 
+		return TRUE;
   }
 
   public function row_delete_proposals($id){

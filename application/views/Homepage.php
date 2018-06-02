@@ -597,10 +597,7 @@
             </div>
             <div class="row">
                 <div class="col-md-7">
-                    <video width="100%" controls>
-                        <source src="<?php echo base_url();?>assets/vid/CES_Video.mp4" type="video/mp4">
-                        Your browser is not updated. Please update your browser.
-                    </video>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/IwzUs1IMdyQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
                 <div class="col-md-5">
                     <p style="text-align:justify">

@@ -1,4 +1,4 @@
-<?php
+f<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -39,52 +39,86 @@ class Representative extends CI_Controller
 	}
 
 	public function send()
-	{
-		?><script> alert("PASOK MGA SUKI");</script><?php
-			
-			//$this->load->model('Proposal_AB');
-
-
-			/*$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
-			?><script> alert("yuck fou8");</script><?php
-			
-			echo $data['email'];*/
-
-			$this->load->library('email');
-
-			$config['protocol']    = 'smtp';
-
-			$config['smtp_host']    = 'ssl://smtp.gmail.com';
-
-			$config['smtp_port']    = '465';
-
-			// $config['smtp_timeout'] = '7';
-
-			$config['smtp_user']    = 'alexandriathegreatandpowerful@gmail.com';
-
-			$config['smtp_pass']    = 'wawa2015';
-
-			$config['charset']    = 'utf-8';
-
-			$config['newline']    = "\r\n";
-
-			$config['mailtype'] = 'text'; // or html
-
-			$config['validation'] = TRUE; // bool whether to validate email or not      
-
-			$this->email->initialize($config);
-
-
-			$this->email->from('donotreply24xd@gmail.com', 'CES PPMS');
-			$this->email->to('joshualouis.jls@gmail.com'); 
-
-
-			$this->email->subject('CES Proposal Notification');
-
-			$this->email->message('Good day! NA ABOT NA INTAWUN ANG GI CREATE NA PROPOSAL NI REPRESENTATIVE SHET MEMENG');   
-			  
+	{	
+		$this->load->model('Proposal_AB');
 		
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 6)
+		{
+			//$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+			//echo $data['email'];
+			?><script> alert("yuck fou");</script><?php
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xd@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xd@gmail.com', 'CES PPMS');
+			//$this->email->to($data['email']); 
+			$this->email->to('joshualouis.jls@gmail.com');
+			$this->email->subject('CES Proposal Notification THIS IS IT');
+			$this->email->message('Good day!');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+		  		echo "sayup";
+        		//redirect(site_url());
+		  	}
+		  	else
+		  	{
+		  		echo "hey";
+        		//redirect(site_url());
+		  	}
+		}else if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 5)
+		{
+			echo $_SESSION['designation_fkid'];
+			
+			$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
+			
+			echo $data['email'];
+			?><script> alert("yuck fou");</script><?php
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to('chiwawaplease@gmail.com'); 
+			$this->email->subject('CES Proposal Notification');
+			$this->email->message('Good day!');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+		  		echo "sayup";
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+		  		echo "hey";
+        		redirect(site_url());
+		  	}
+		}
 	}
+	
 
 	public function reports() {
 		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 6)
@@ -251,6 +285,7 @@ class Representative extends CI_Controller
 										
 			array_push($proposal_array, $data2);
 		}
+
 		$data["proposals"] = $proposal_array;
 		// $datum['titles']= $this->Reports->get_title();
 		//echo $this->session->designation;
@@ -259,17 +294,21 @@ class Representative extends CI_Controller
 		$this->load->view('forms/form_d', $data);
 	}
 
-	public function formd_titles(){
-		$this->load->model('Reports');
-		$data['creator_id'] = $this->session->user_id;
-	    $data['titles'] = $this->Reports->get_title($data['creator_id']);
-		
-	   // $this->template->show('title', $data);
-	   $this->load->view('forms/form_d', $data); 
-	}
+public function formd_titles(){
+	$this->load->model('Reports');
+	$data['creator_id'] = $this->session->user_id;
+    $data['titles'] = $this->Reports->get_title($data['creator_id']);
+	
+   // $this->template->show('title', $data);
+   $this->load->view('forms/form_d', $data); 
+}
 
 //add form D report through submitting
 public function addFormd() {
+
+			if($this->input->post('cancelnigga') == "Yes") { 
+
+			$data['report_id'] = $this->session->proposal_id;
 			$data['fname'] = $this->session->firstname;
 			$data['lname'] = $this->session->lastname;
 			$data['department'] = $this->session->department;
@@ -282,6 +321,7 @@ public function addFormd() {
 			// $this->template->show('title', $datum);
 			$this->load->model('Reports');
 			$this->load->model('Proposal_AB');
+
 			$p = new Reports();
 
 			$p->fd_id=$this->input->post('id'); // para sa TITLE
@@ -308,10 +348,10 @@ public function addFormd() {
 			$specprop = $this->Proposal_AB->getProposalDetails($p->fd_id);
 			$proposal_json_format = (object)json_decode($specprop[0]->proposal_json_format);
 			$p->fd_title = $proposal_json_format->title;
-			//echo "<br/>".$p->fd_title;
 
 			$result=$p->AddFormD();
-			$result1=$p->isreported();
+
+			$result1=$p->isreported($p->fd_id);
 
 			if(!$result){
 				$this->session->set_flashdata('error_msg',
@@ -326,6 +366,7 @@ public function addFormd() {
 				redirect(site_url('Representative/reports'), "refresh");
 			}
 			//echo "<br/>".$this->input->post('id');
+		}
 }
 
 		// for loading specific proposal
@@ -712,13 +753,16 @@ public function addFormd() {
     public function deleteForm_d(){
    	$this->load->model('Reports');
 
-   $this->Reports->row_delete_d($this->input->post('id'));
-   $this->session->set_flashdata('success_msg',
+   	//id sa report
+    $this->Reports->row_delete_d($this->input->post('id'));
+
+    $this->Reports->ezeronishabai($this->input->post('id'));
+
+    $this->session->set_flashdata('success_msg',
 					'<strong>Report Deleted!</strong> You have successfully deleted a report.');
 				
 	redirect(site_url('Representative/reports'), "refresh");
 	
-
    }
 
    public function deleteForm_proposals(){

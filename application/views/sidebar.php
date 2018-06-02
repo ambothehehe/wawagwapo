@@ -58,6 +58,12 @@ f<!DOCTYPE html>
                     </a>
                 </li>
                 <?php } ?>
+                 <li>
+                    <a href="<?php echo site_url('Faculty/reports');?>">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; My Reports
+                    </a>
+                </li>
                <li>
                     <a href="<?php echo site_url('Proposals/approved_proposals');?>">
                         <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
@@ -261,7 +267,12 @@ f<!DOCTYPE html>
                         &nbsp;&nbsp;&nbsp; Reports
                     </a>
                 </li>
-                 
+                 <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
+                    </a>
+                </li>
                 <li>
                     <a href="<?php echo site_url('Vpaa/profile_settings');?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>

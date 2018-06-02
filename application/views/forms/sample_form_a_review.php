@@ -357,7 +357,7 @@
 
                                 </tbody>
                               </table>
-                               <?php if($specprop->form_type != 'c' && ($specprop->form_type != 'a'&& $specprop->form_type != 'b')==TRUE ): ?>
+                               <?php if($specprop->form_type != 'c' && ($specprop->form_type != '2')): ?>
                                <?php include('sample_formb_review.php');?>
                                <?php endif; ?>
                             <div style="float:right; width: 50%;">

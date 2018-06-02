@@ -126,6 +126,7 @@
 						}
 						else
 							var link = "<a href="+base_url+"Representative/form_a?proposal_id="+dataJSON[i].proposal_id+">";
+
 						if(dataJSON[i].status == 1){
 							status = "For chair endorsement";
 						}else if(dataJSON[i].status == 3){

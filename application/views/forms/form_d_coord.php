@@ -13,7 +13,7 @@
         <?php include('application/views/sidebar.php');?>
 
         <!-- Page Content -->
-         <?php echo form_open('Representative/addFormd');?>
+         <?php echo form_open('Coordinator/addFormd');?>
         <div id="page-content-wrapper">
 
             <?php include('application/views/topNav.php');?>
@@ -190,13 +190,12 @@
                                     </div>
                                 </div>
                             </div>
-<!-- 
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" align="center">
-                              <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#exit1"><span name= "cancelnigga" id = "cancelnigga" value = "Yes" class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp Cancel</button>
-                            </div> -->
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
+                              <button type="button" class="btn btn-lg btn-danger btn-block" data-toggle="modal" data-target="#exit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp Cancel</button>
+                            </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="right">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
                               <button type="submit" class="btn btn-lg btn-success btn-block"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
                              <?php echo form_close();?>
                             </div>

@@ -556,6 +556,7 @@ public function vpaaApproveProposal(){
 	}
 
 	public function chairNotesProp(){
+		
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
         $p->id=$this->input->post('id');
@@ -565,6 +566,7 @@ public function vpaaApproveProposal(){
 			$result=$p->chairReturn();
 		} else {
 		    $result=$p->noteProposal();
+
 		}
         
             if(!$result){ 

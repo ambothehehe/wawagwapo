@@ -26,12 +26,10 @@
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
-                           <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -45,28 +43,33 @@
                         <?php } ?>
 
 
-                        <?php foreach($coord_d as $myreps_d) {?>
-                            <?php if($myreps_d->creator_id == $user_id) { ?>
-                                    <tr>
-                                        <td><a href="<?php echo base_url() ?>/Representative/loadreportd/<?php echo $myreps_d->id; ?>"><?php echo $myreps_d->fd_title;?></a></td>
-                                        <!-- <td><a href="" value="<?php echo $myreps_d->id;?>"><?php echo $myreps_d->fd_title;?></a></td> -->
-                                        <td><?php echo $myreps_d->datecreated;?>
-                                            <br/>
-                                            <input type="hidden" name="creator_id" value="<?php echo $myreps_d->creator_id ;?>">
-                                        </td>
-                                        <td><?php echo $myreps_d->fd_dept;?><br><p style="font-size:75%;"><?php echo $myreps_d->fd_school;?></p></td>
+                        <?php 
+                        foreach($mycoord_d as $myrepd) {?>
+                            
+                                <tr>
+                                    <td>
+                                        <a href="<?php echo base_url() ?>index.php/Coordinator/loadreportd/<?php echo $myrepd->fd_id; ?>">
+                                             <?php echo $myrepd->fd_title;?></a>
+                                    </td>
+                                   
+                                    <td>
+                                        <?php echo $myrepd->datecreated;?><br/>
+                                        <input type="hidden" name="creator_id" value="<?php echo $myrepd->creator_id ;?>">
+                                    </td>
 
+                                    <td>
+                                        <?php echo $myrepd->fd_dept;?><br><p style="font-size:75%;"><?php echo $myrepd->fd_school;?></p>
+                                    </td>
 
+                                    <!-- DELETE BUTTON -->
+                                    <td>
+                                     <?php
+                                        echo form_open('Representative/deleteForm_d');?>
+                                        <input class="form-control" type="hidden" name="id" value="<?php echo $myrepd->fd_id;?>" >
+                                        </form> </td>
+                                     </tr>
+                        <?php  }?>
 
-
-                                        <td>
-                                         <?php
-                                            echo form_open('Representative/deleteForm_d');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $myreps_d->id;?>" >
-                                            <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
-                                            </form> </td>
-                                    </tr>
-                            <?php }} ?>
                     </tbody>
                     </table>
 

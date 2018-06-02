@@ -1132,7 +1132,7 @@ public function decisionApprove(){
         return $results;
     }
 
-    public function LoadProposalsFac($department, $organization){
+    public function LoadProposalsFac($department, $organization, $user_id){
         $results = array();
     
 
@@ -1141,7 +1141,9 @@ public function decisionApprove(){
         $this->db->from('proposal_json_full_info');
         $this->db->where('status','1');
         $this->db->where('department',$department);
+        $this->db->where_not_in('user_id', $user_id);
         $this->db->where('organization',$organization);
+
         $query = $this->db->get();
         if($query->num_rows() > 0)
         {
