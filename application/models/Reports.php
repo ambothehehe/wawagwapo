@@ -27,6 +27,53 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
+
+	public function LoadReport_dFACULTY($dept){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_d'); 
+		//$this->db->where('report_status',3);
+		$this->db->where('creators_department',$dept);
+		$this->db->where('report_status', 3);
+
+		//$this->db->order_by("datecreated");
+		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
+		//$this->db->where('who_created', '$completename');
+
+		 // $query = $this->db->get_where('who_created =', $completename);
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		return $results;
+	}
+
+	public function LoadReport_eFACULTY($dept){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_e'); 
+		//$this->db->where('report_status',3);
+		$this->db->where('creators_department',$dept);
+		$this->db->where('report_status', 3);
+
+		//$this->db->order_by("datecreated");
+		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
+		//$this->db->where('who_created', '$completename');
+
+		 // $query = $this->db->get_where('who_created =', $completename);
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		return $results;
+	}
+
+
+
 	public function LoadReport_dCHAIR($dept){
 		$results = array();
 

@@ -19,7 +19,10 @@
         }
         else if ($role == 'Representative') {
           echo form_open('Representative/addForme');
+        }else if ($role == 'Faculty') {
+          echo form_open('Faculty/addForme');
         }
+
        ?>
         <div id="page-content-wrapper">
             
@@ -113,7 +116,10 @@
                                                   <tbody>
                                                     <tr>
                                                       <td><input type="text" name="act_title[]" class="form-control"></td>
-                                                      <td><input type="text" name="incdate[]" class="form-control"></td>
+                                                    
+
+                                                      <td><input type="text" id="inclusive-date1" name="incdate[]" data-toggle="tooltip" placeholder="Date Start of Activity (mm/dd/yyyy)" class="form-control datepicker" required></td>
+
                                                       <td><input type="text" name="totalhours[]" class="form-control"></td>
                                                       <td></td>
                                                     </tr>

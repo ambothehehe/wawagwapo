@@ -589,6 +589,80 @@ public function vpaaApproveProposal(){
             }
 	}
 
+	public function chairNotesPropFaculty(){
+		
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->id=$this->input->post('id');
+        $p->noted_by_faculty=$this->input->post('noted_by_faculty');
+        $p->noted_by_stat=$this->input->post('noted_by_stat');
+       
+        					//name sa button like name = "note"
+        if($this->input->post('notefc') == "ReturnProposal") { 
+			$result=$p->chairReturn();
+		} else {
+			
+		    $result=$p->noteProposalChair();
+		    $result1=$p->noteProposalChair();
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('Chair/home'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					$this->session->set_flashdata('success_msg',
+					'<strong>Proposal Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Proposal Has Been Noted!</strong> You have successfully noted a proposal.');
+				}
+				redirect(site_url('Chair/home'), "refresh");
+            }
+	}
+
+	public function facultyNotesProp(){
+		
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->id=$this->input->post('id');
+        $p->noted_by_faculty=$this->input->post('noted_by_faculty');
+        $p->noted_by_stat=$this->input->post('noted_by_stat');
+       
+        					//name sa button like name = "note"
+        if($this->input->post('notefac') == "ReturnProposal") { 
+			$result=$p->facReturn();
+		} else {
+
+		    $result=$p->noteProposalfac();
+		    $result1=$p->noteProposalfac();
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('Faculty/home'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					$this->session->set_flashdata('success_msg',
+					'<strong>Proposal Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Proposal Has Been Noted!</strong> You have successfully noted a proposal.');
+				}
+				redirect(site_url('Faculty/home'), "refresh");
+            }
+	}
+
 	public function chairNotesReport(){
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();

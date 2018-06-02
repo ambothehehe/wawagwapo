@@ -50,9 +50,9 @@
     </div>
 
     <?php include('application/views/modals.php'); ?>
-
     <?php include('application/views/footer.php');?>
 
+   
     <script type="text/javascript">
         var base_url = "<?php echo base_url(); ?>"+"index.php/";
 		var dataJSON;
@@ -72,6 +72,10 @@
 					var proposal_details = JSON.parse(dataJSON[i].proposal_json_format);
 					if(dataJSON[i].form_type == 1)
 						var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
+
+                    else if(dataJSON[i].form_type == 2 && proposal_details.organization.length > 0)
+                        var link = "<a href="+base_url+"Representative/loadspecificproposal_faculty/"+dataJSON[i].proposal_id+">";
+
 					else
 						var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
 					//console.log(proposal_details);

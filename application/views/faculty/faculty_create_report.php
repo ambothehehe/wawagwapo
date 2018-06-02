@@ -40,7 +40,7 @@
                                             <h4>USC-CES Form D CES Activity Report Form</h4>
                                         </td>
                                         <td width="30%">
-                                            <a href="<?php echo site_url('Representative/form_d');?>" style="text-decoration:none">
+                                            <a href="<?php echo site_url('Faculty/form_d');?>" style="text-decoration:none">
                                                 <button type="button" class="btn btn-success btn-block btn-lg">Proceed &nbsp<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                             </a>
                                         </td>
@@ -50,7 +50,7 @@
                                             <h4>USC-CES Form E CES Program or Project Completion Report Form</h4>
                                         </td>
                                         <td width="30%">
-                                            <a href="<?php echo site_url('Representative/form_e');?>" style="text-decoration:none">
+                                            <a href="<?php echo site_url('Faculty/form_e');?>" style="text-decoration:none">
                                                 <button type="button" class="btn btn-success btn-block btn-lg">Proceed &nbsp<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                             </a>
                                         </td>

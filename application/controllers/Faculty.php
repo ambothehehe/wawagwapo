@@ -64,9 +64,9 @@ class Faculty extends CI_Controller
 		{
 
 		$this->load->model('Proposal_AB');
-<<<<<<< Updated upstream
 		$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization, $this->session->user_id); 
 		echo json_encode($proplist);
+	}
 	}
 
 	public function send()
@@ -160,21 +160,17 @@ class Faculty extends CI_Controller
 			$data['organization']	= $this->session->organization;
 			$data['user_id']	= $this->session->user_id;
 
-
 			$this->load->model('Reports');
 			
-
-			$data['list_d']=$this->Reports->LoadReport_d();
-			$data['list_e']=$this->Reports->LoadReport_e();
+			$data['list_d']=$this->Reports->LoadReport_dFACULTY($data['department']);
+			$data['list_e']=$this->Reports->LoadReport_eFACULTY($data['department']);
 			
 			$this->load->view('faculty/faculty_report', $data);
 		}else{
 			redirect(site_url());
-=======
-		$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization); 
+			$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization); 
 		
 		echo json_encode($proplist);
->>>>>>> Stashed changes
 		}
 	}
 
@@ -193,7 +189,7 @@ class Faculty extends CI_Controller
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
-
+		$data['organization']	= $this->session->organization;
 		
 
 		$this->load->view('faculty/faculty_create_report', $data);
@@ -282,6 +278,7 @@ class Faculty extends CI_Controller
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
 
 		$this->load->view('forms/form_b', $data);
 	}
@@ -290,15 +287,11 @@ class Faculty extends CI_Controller
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
 
 		$this->load->view('forms/form_c', $data);
 	}
 			
-			
-
-
-
-	
 
 //for form d create report form D
 	public function form_d() {
@@ -311,6 +304,7 @@ class Faculty extends CI_Controller
 		$data['department'] = $this->session->department;
 		$data['creator_id'] = $this->session->user_id;
 		$data['creators_school']	= $this->session->office;
+		$data['organization']	= $this->session->organization;
 
 		$proposal_array = array();
 
@@ -330,12 +324,13 @@ class Faculty extends CI_Controller
 		//echo $this->session->designation;
 		//var_dump($proposal_array);
 
-		$this->load->view('forms/form_d', $data);
+		$this->load->view('forms/form_d_faculty', $data);
 	}
 
 public function formd_titles(){
 	$this->load->model('Reports');
 	$data['creator_id'] = $this->session->user_id;
+	$data['organization']	= $this->session->organization;
     $data['titles'] = $this->Reports->get_title($data['creator_id']);
 	
    // $this->template->show('title', $data);
@@ -350,6 +345,7 @@ public function addFormd() {
 			$data['lname'] = $this->session->lastname;
 			$data['department'] = $this->session->department;
 			$data['creator_id'] = $this->session->user_id;
+			$data['organization']	= $this->session->organization;
 
 			// $data['titles'] = $this->Reports->get_title();
 			// // $datum['titles']= $this->Reports->get_title();
@@ -417,6 +413,7 @@ public function addFormd() {
 		$data['department']	= $this->session->department;
 		$data['creators_school'] = $this->session->office;
 		$data['user_id'] = $this->session->user_id;
+		$data['organization'] = $this->session->organization;
 
 		$data['form_type'] = $this->session->form_type;
 
@@ -438,6 +435,7 @@ public function addFormd() {
 		$data['department']	= $this->session->department;
 		$data['creators_school']	= $this->session->office;
 		$data['user_id'] = $this->session->user_id;
+		$data['organization']	= $this->session->organization;
 
 		$this->load->model('Proposal_AB');
 		$data['specprop_a']=$this->Proposal_AB->viewSpecificprop_a($proposal_id);
@@ -459,6 +457,7 @@ public function addFormd() {
 		$data['lname'] = $this->session->lastname;
 		$data['role']	= $this->session->designation;
 		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
 		$data['creators_school']	= $this->session->office;
 
 		$this->load->model('Reports');
@@ -476,6 +475,7 @@ public function addFormd() {
 		$data['role']	= $this->session->designation;
 		$data['department']	= $this->session->department;
 		$data['creators_school']	= $this->session->office;
+		$data['organization']	= $this->session->organization;
 
 		$this->load->model('Reports');
 		$data['repe']=$this->Reports->viewReport_e($reporte_id);
@@ -488,6 +488,7 @@ public function addFormd() {
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
 		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
 		$data['creators_school']	= $this->session->office;
 		$data['creator_id'] = $this->session->user_id;
 
@@ -499,6 +500,8 @@ public function addFormd() {
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
+
 		$this->load->model('Reports');
 		// $data=array();
 		$data['repaps']=$this->Reports->LoadReport_d(); 
@@ -510,17 +513,20 @@ public function addFormd() {
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
+
 		$this->load->model('Reports');
 		// $data=array();
 		$data['repaps']=$this->Reports->LoadReport_e();
 		$this->load->view('faculty/rep_report_e', $data);
 	}
-//add form e report throught submitting
+
+//add form e report through submitting
 	public function addForme() {
 		$this->load->model('Reports');
 		$p = new Reports();
 			
-		$p->title_of_program=$this->input->post('title_of_program');
+		$p->title=$this->input->post('title_of_program');
 		$p->unit_responsible=$this->input->post('unit_responsible');
 		$p->program_duration=$this->input->post('program_duration');
 
@@ -570,6 +576,7 @@ public function addFormd() {
 			$p->creators_school=$this->input->post('creators_school');
 
 			$result=$p->AddFormE();
+
 			if(!$result){
 			$this->session->set_flashdata('error_msg',
 					'<strong>Something Went Wrong!</strong> An Error occured while saving your report.');
@@ -589,6 +596,7 @@ public function addFormd() {
 		public function form_e_update() {
 		$data['fname'] = $this->session->fname;
 		$data['lname'] = $this->session->lname;
+		$data['organization']	= $this->session->organization;
 		$this->load->view('forms/form_e_update', $data);
 	}
 
@@ -598,6 +606,8 @@ public function addFormd() {
 			$data['lname'] = $this->session->lastname;
 			$data['role']	= $this->session->designation;
 			$data['department'] = $this->session->department;
+			$data['organization']	= $this->session->organization;
+
 			$this->load->model('Reports');
 	        $p= new Reports();
 	        $p->id=$this->input->post('id');
@@ -614,6 +624,8 @@ public function addFormd() {
 			$data['role']	= $this->session->designation;
 			$data['department'] = $this->session->department;
 			$data['office'] = $this->session->office;
+			$data['organization']	= $this->session->organization;
+
 			$this->load->model('Reports');
 	        $p= new Reports();
 	        $p->id=$this->input->post('id'); /*gkan ni sa id near the edit button*/
@@ -627,6 +639,8 @@ public function addFormd() {
 		 	$data['fname'] = $this->session->firstname;
 			$data['lname'] = $this->session->lastname;
 			$data['role']	= $this->session->designation;
+			$data['organization']	= $this->session->organization;
+
 			$this->load->model('Reports');
 			$p= new Reports();
 
@@ -699,6 +713,8 @@ public function addFormd() {
 			// $this->load->view('forms/form_d', $data);
 			// var_dump($data);
 			// $this->template->show('title', $datum);
+
+			$data['organization']	= $this->session->organization;
 
 			$p = new Reports();
 			$p->fd_id=$this->input->post('fd_id');
@@ -793,6 +809,7 @@ public function addFormd() {
 	public function sample_a1() {
 		$data['fname'] = $this->session->fname;
 		$data['lname'] = $this->session->lname;
+		$data['organization']	= $this->session->organization;
 
 		$this->load->view('forms/form_d_update', $data);
 	}
@@ -801,6 +818,7 @@ public function addFormd() {
 		$data['fname'] = $this->session->firstname;
 		$data['lname'] = $this->session->lastname;
 		$data['role'] = $this->session->designation;
+		$data['organization']	= $this->session->organization;
 		$this->load->view('forms/sample_form_a_revised', $data);
 	}
 
@@ -808,24 +826,28 @@ public function addFormd() {
 		$data['fname'] = $this->session->firstname;
 		$data['lname'] = $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
 		$this->load->view('forms/sample_form_b', $data);
 	}
 
 	public function sample_c() {
 		$data['fname'] = $this->session->fname;
 		$data['lname'] = $this->session->lname;
+		$data['organization']	= $this->session->organization;
 		$this->load->view('forms/sample_form_c', $data);
 	}
 
 	public function sample_report1() {
 		$data['fname'] = $this->session->fname;
 		$data['lname'] = $this->session->lname;
+		$data['organization']	= $this->session->organization;
 		$this->load->view('forms/sample_form_d', $data);
 	}
 
 	public function sample_report2() {
 		$data['fname'] = $this->session->fname;
 		$data['lname'] = $this->session->lname;
+		$data['organization']	= $this->session->organization;
 		$this->load->view('forms/sample_form_e', $data);
 	}
 

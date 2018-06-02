@@ -446,6 +446,7 @@ public function decisionApprove(){
     }
 
     public function noteProposal(){
+
 		$data = array(
 						'status'=>'3',
 						'noted_by_stat'=>'1'
@@ -455,6 +456,47 @@ public function decisionApprove(){
 		$this->db->update('proposal_json', $data); 
 		return TRUE;
     }
+
+
+// HIS IS THE REAL HARD
+
+    public function noteProposalChair(){
+
+        if($this->noted_by_stat == 0){
+            $data = array(
+                            'noted_by_stat'=>'1',
+                            'status'=>'3'
+                        );
+        }else if ($this->noted_by_faculty == 1 && $this->noted_by_stat == 1){
+            $data = array(
+                            'status'=>'3'
+                        );   
+        }
+
+        $this->db->where('proposal_id', $this->id);
+        $this->db->update('proposal_json', $data); 
+        return TRUE;
+    }
+
+     public function noteProposalfac(){
+        
+       if($this->noted_by_faculty == 0){
+            $data = array(
+                            'noted_by_faculty'=>'1'
+                        );
+        }else if ($this->noted_by_stat == 1 && $this->noted_by_faculty == 1){
+            $data = array(
+                            'status'=>'3'
+                        );   
+        }
+
+        $this->db->where('proposal_id', $this->id);
+        $this->db->update('proposal_json', $data); 
+
+        return TRUE;
+    }
+
+// THIS IS THE REAL HARD END
 
     public function noteReport($fd_id){
 
@@ -555,6 +597,17 @@ public function decisionApprove(){
 		$this->db->where('proposal_id', $this->id);
 		$this->db->update('proposal_json', $data);
 		return TRUE;		
+    }
+
+     public function facReturn(){
+        $data = array(
+                        'status'=>'2',
+                        'noted_by_stat'=>'0'
+                    ); 
+
+        $this->db->where('proposal_id', $this->id);
+        $this->db->update('proposal_json', $data);
+        return TRUE;        
     }
 
 
@@ -1133,7 +1186,7 @@ public function decisionApprove(){
     }
 
 
-    public function LoadProposalsFac($department, $organization){
+    public function LoadProposalsFac($department, $organization, $user_id){
 
         $results = array();
     

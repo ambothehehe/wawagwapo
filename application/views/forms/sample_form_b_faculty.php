@@ -21,7 +21,7 @@
 
                    <div id="printArea">
 						<div>
-							<h1>USC-CES FORM A <small>CESw Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
+							<h1>USC-CES FORM A <small>CES Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
 							<hr>
 							<div class="panel" align="center" >
 								<div class="panel-body"><p>
@@ -100,7 +100,7 @@
 											
 											<?php } } ?>
 											<?php if($i === 0): 
-												echo "0 comment";
+												echo "No comment";
 											  endif;
 											?>
 										  </div>
@@ -983,68 +983,38 @@
  <div style="position:fixed; top:8%; right:2%; ">
  <?php if($role == "Department Chair") { ?>
     <div style="float:left; padding:2px; padding-top:10px;">
-    <?php echo form_open('Proposals/chairNotesProp');
-    ?>
-    <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+    <?php echo form_open('Proposals/chairNotesPropFaculty'); ?>
 
-    <button type="submit" class="btn btn-danger btn-md" name="note" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 
-    <button type="submit" class="btn btn-primary btn-md" name="note" value="ProceedProposal">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+	    <input class="form-control" type="hidden" name="noted_by_faculty" value="<?php echo $noted_by_faculty; ?>">
+	    <input class="form-control" type="hidden" name="noted_by_stat" value="<?php echo $noted_by_stat; ?>">
+
+	    <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+
+	    <button type="submit" class="btn btn-danger btn-md" name="notefc" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
+
+	    <button type="submit" class="btn btn-primary btn-md" name="notefc" value="ProceedProposal">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
     <?php form_close();?>
     </div>
- <?php } else if($role == "Coordinator") { ?>
-		
-		<div style="float:left; padding:2px; padding-top:10px;">
-			<?php echo form_open('Proposals/coordRecommendsProp');?>
-			<input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
-			<button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
-			<button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Endorse to Dean&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-			<?php form_close();?>
-        </div>
- 
  <?php } else if($role == "Faculty") { ?>
 		
 		<div style="float:left; padding:2px; padding-top:10px;">
-		    <?php echo form_open('Proposals/chairNotesProp');
-		    ?>
-		    <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+			<?php echo form_open('Proposals/facultyNotesProp');?>
 
-		    <button type="submit" class="btn btn-danger btn-md" name="note" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
+			<input class="form-control" type="hidden" name="noted_by_faculty" value="<?php echo $noted_by_faculty; ?>">
+	    	<input class="form-control" type="hidden" name="noted_by_stat" value="<?php echo $noted_by_stat; ?>">
 
-		    <button type="submit" class="btn btn-primary btn-md" name="note" value="ProceedProposal">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-
- <?php } else if($role == "School Dean") { ?>
-		<div style="float:left; padding:2px; padding-top:10px;">
-			<?php echo form_open('Proposals/deanEndorseProp');?>
 			<input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
-			<button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
-			<button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Endorse to Director&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+
+			<button type="submit" class="btn btn-danger btn-md" name="notefac" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
+			<button type="submit" class="btn btn-primary btn-md" name="notefac" value="ProceedProposal">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 			<?php form_close();?>
         </div>
  
- <?php } else if($role == "CES Director" ) { ?>
-			<div style="float:left; padding:2px; padding-top:10px;"> 
-			
-			<?php form_close();?>
-			<?php if(intval($proposal[0]->status) < 10):?>
-                <a href="<?php echo base_url() ?>index.php/Director/choose_review_committee/<?php echo $id; ?>" style="text-decoration:none">
-                 <button type="button" class="btn btn-success btn-block btn-lg">Choose Review Committee&nbsp <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
-                </a>
-			<?php endif;?>
-            </div>
- <?php } else if($role == "Vice-President for Academic Affairs") { ?>
-		<?php if($proposal[0]->status == "11"):  ?>
-		<div style="float:left; padding:2px; padding-top:10px;">
-			<?php echo form_open('Proposals/vpaaApproveProp');?>
-			<input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
-			<button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
-			<button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Approve Proposal&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-			<?php form_close();?>
-        </div>
-		<?php endif;?>
+ <?php } 
  
- <?php } ?>
+  ?>
  
 </div>					   
      

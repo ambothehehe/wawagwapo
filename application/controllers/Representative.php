@@ -23,6 +23,7 @@ class Representative extends CI_Controller
 			$data['lname'] 	= $this->session->lastname;
 			$data['role']	= $this->session->designation;
 			$data['user_id']= $this->session->user_id;
+			$data['organization']= $this->session->organization;
 
 			
 			$this->load->model('Proposal_AB');
@@ -172,7 +173,6 @@ class Representative extends CI_Controller
 
 			$this->load->model('Reports');
 			
-
 			$data['list_d']=$this->Reports->LoadReport_d();
 			$data['list_e']=$this->Reports->LoadReport_e();
 			
@@ -362,7 +362,6 @@ public function formd_titles(){
 //add form D report through submitting
 public function addFormd() {
 
-			if($this->input->post('cancelnigga') == "Yes") { 
 
 			$data['report_id'] = $this->session->proposal_id;
 			$data['fname'] = $this->session->firstname;
@@ -422,7 +421,7 @@ public function addFormd() {
 				redirect(site_url('Representative/reports'), "refresh");
 			}
 			//echo "<br/>".$this->input->post('id');
-		}
+		
 }
 
 		// for loading specific proposal
@@ -430,10 +429,11 @@ public function addFormd() {
 		$proposal_id= $this->uri->segment(3);
 		$data["id"] = $this->uri->segment(3);
 		//$data["status"] = $this->uri->segment(4);
-		$data['fname'] = $this->session->firstname;
+		$data['fname'] = $this->session->firstloadspecificproposalname;
 		$data['lname'] = $this->session->lastname;
 		$data['role']	= $this->session->designation;
 		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
 		$data['creators_school'] = $this->session->office;
 		$data['user_id'] = $this->session->user_id;
 
@@ -445,7 +445,36 @@ public function addFormd() {
 		$proposal = $data["proposal"];
 		$data['specprop']=(object) json_decode($proposal[0]->proposal_json_format,FALSE);
 		$data['comments']=$this->Proposal_AB->LoadComments($proposal_id);
+
 		$this->load->view("forms/sample_form_b", $data);
+	}
+
+	public function loadspecificproposal_faculty(){
+		$proposal_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		//$data["status"] = $this->uri->segment(4);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+		$data['creators_school'] = $this->session->office;
+		$data['user_id'] = $this->session->user_id;
+
+		$data['form_type'] = $this->session->form_type;
+
+
+		$data['noted_by_faculty'] = $this->session->noted_by_faculty;
+		$data['noted_by_stat'] = $this->session->noted_by_stat;
+
+		$this->load->model('Proposal_AB');
+		$data["proposal"] = $this->Proposal_AB->getProposalDetails($proposal_id);
+		$data["proposal_id"]= $proposal_id;
+		$proposal = $data["proposal"];
+		$data['specprop']=(object) json_decode($proposal[0]->proposal_json_format,FALSE);
+		$data['comments']=$this->Proposal_AB->LoadComments($proposal_id);
+		
+		$this->load->view("forms/sample_form_b_faculty", $data);
 	}
 
 	public function loadspecificproposal_c(){
@@ -562,7 +591,7 @@ public function addFormd() {
 		$this->load->model('Reports');
 		$p = new Reports();
 			
-		$p->title_of_program=$this->input->post('title_of_program');
+		$p->title=$this->input->post('title_of_program');
 		$p->unit_responsible=$this->input->post('unit_responsible');
 		$p->program_duration=$this->input->post('program_duration');
 
@@ -574,9 +603,9 @@ public function addFormd() {
 			// 'incdate' => $this->input->post('incdate'),
 			// 'totalhours' => $this->input->post('totalhours') 
 			// 	);
-		$p->act_title =implode(" , ", $this->input->post('act_title'));
-		$p->incdate =implode(" , ", $this->input->post('incdate'));
-		$p->totalhours =implode(" , ", $this->input->post('totalhours'));
+			$p->act_title =implode(" , ", $this->input->post('act_title'));
+			$p->incdate =implode(" , ", $this->input->post('incdate'));
+			$p->totalhours =implode(" , ", $this->input->post('totalhours'));
 			
 			$p->final_target_groups=$this->input->post('final_target_groups');
 			$p->collaborators=$this->input->post('collaborators');

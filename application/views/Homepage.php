@@ -147,7 +147,7 @@
                 </div>
                 <div class="col-md-6">
                     <p><strong>Don't have an account ?</strong></p>
-                    <p><small>For Co - curricular and Extra - curricular Student Organization Representatives</small></p>
+                    <p><small>For Co-curricular and Extra-curricular Student Organization Representatives, Student Organization Adviser and Faculty </small></p>
                     <br><br><br>
                     <div align="center">
                         <div class="col-md-3"></div>
@@ -701,7 +701,7 @@
                               <tr>
                                 <td class="text-left"><label>Last Name:</label></td>
                                 <td width="2%"></td>
-                                <td><input type="text" class="form-control" name="lastname" placeholder="Type your lastname" data-validation="alphanumeric" data-validation-allowing="-_. "required><br></td>
+                                <td><input type="text" class="form-control" name="lastname" placeholder="Type your lastname" data-validation="alphanumeric" data-validation-allowing="-_. " required><br></td>
                               </tr>
                               <tr>
                                 <td class="text-left"><label>School:</label></td>
