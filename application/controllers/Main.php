@@ -12,6 +12,10 @@ class Main extends CI_Controller
 		if($designation === 'Vice-President for Academic Affairs')
 			redirect(site_url('Vpaa/home'));
 
+
+		else if ($designation === 'Student Organization Adviser')
+		   redirect(site_url('StudentOrganization/home'));
+
 		else if ($designation === 'CES Director')
 		   redirect(site_url('Director/home'));
 
@@ -38,9 +42,6 @@ class Main extends CI_Controller
 
 		else if ($designation === 'Support Unit')
 		   redirect(site_url('Support_unit/home'));
-
-		else if ($designation === 'Student Organization Adviser')
-		   redirect(site_url('SO_Adviser/home'));
 	    else
 		   $this->load->view('Homepage');
 	}

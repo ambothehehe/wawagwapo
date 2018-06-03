@@ -462,7 +462,7 @@ $("#form_c").submit(function(e){
   console.log($('#form_c').serialize());
   //console.log(validationProposalFormA1());
   var error="";
-  if((error = validationProposalFormA()) === true)
+  if((error = validationProposalFormC()) === true)
   {
     $.ajax({
       type: "POST",
@@ -846,5 +846,51 @@ function validationProposalFormA()
   } else {
     return true;
   }
+
+function validationProposalFormC()
+{
+  if($("#inclusive-date1").val().length === 0){
+
+    return "Inclusive dates are required";
+
+  } else if($("#inclusive-date2").val().length === 0){
+
+    return "Inclusive dates are required";
+
+  } else if($("#venue").val().length === 0){
+
+    return "Venue is required";
+
+  } else if($("#rationale_and_contextualization").val().length === 0){
+    //var test = $("#rationale_and_contextualization").get(0);
+    return "Rationale and Contextualization is required";
+
+  } else if($("#goal_objectives_and_outcomes").val().length === 0){
+
+    return "Goal and Objectives is required";
+
+  } else if($("#participants_partners_and_beneficiaries").val().length === 0){
+
+    return "Participants are required";
+
+  } else if($("input[name='requester[]']:checked").length === 0) {
+
+    return "Requester is required";
+
+  } else if($("input[name='mode_of_request[]']:checked").length === 0 ) {
+  
+    return "Mode of request is required";
+    
+  } else if($("input[name='nature_of_the_program[]']:checked").length == 0){
+
+    return "Nature of the program is required";
+
+  } else if($("input[name='proram_area[]']:checked").length === 0) {
+
+    return "Program area is required";
+  } else {
+    return true;
+  }
+}
 
 }

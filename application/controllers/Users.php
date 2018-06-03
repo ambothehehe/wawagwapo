@@ -161,6 +161,9 @@ class Users extends CI_Controller
 
 		if ($designation === 'Support Unit')
 		   redirect(site_url('Support_unit/home'));
+
+		if ($designation === 'Student Organization Adviser')
+		   redirect(site_url('StudentOrganization/home'));
 		
 	}
 

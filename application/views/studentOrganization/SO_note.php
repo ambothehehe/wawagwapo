@@ -63,7 +63,7 @@
 			
 		$.ajax({
 			type: "POST",
-			url: base_url + "Chair/getToBeNotedProposal",
+			url: base_url + "StudentOrganization/getToBeNotedProposal",
 			success:function(data2){
 				dataJSON = JSON.parse(data2);
 				var dataRows=[];
@@ -78,7 +78,7 @@
 					dataRows.push([
 						"<td>"+link+proposal_details.title+"</a>"+"</td>",
 						"<td>"+dataJSON[i].lastname+"</td>",
-						dataJSON[i].datetime_created+"</td>",
+						dataJSON[i].datetime_modified+"</td>",
 						"<td>"+"To be Noted"+"</td>"
 					]);
 					//dataRows.push("<tr>"+"<td>"+dataJSON[i].proposal_json_format.title+"</td>"+"<td>"+dataJSON[i].proposal_json_format.inclusive_date1+"</td>"+"</tr>");

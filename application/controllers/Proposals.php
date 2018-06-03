@@ -555,6 +555,40 @@ public function vpaaApproveProposal(){
             }
 	}
 
+	public function soNotesProp(){
+		
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->id=$this->input->post('id');
+       
+        					//name sa button like name = "note"
+        if($this->input->post('noteSo') == "ReturnProposal") { 
+			$result=$p->soReturn();
+		} else {
+		    $result=$p->noteProposalSo();
+
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('StudentOrganization/home'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					$this->session->set_flashdata('success_msg',
+					'<strong>Proposal Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Proposal Has Been Noted!</strong> You have successfully noted a proposal.');
+				}
+				redirect(site_url('StudentOrganization/home'), "refresh");
+            }
+	}
+
 	public function chairNotesProp(){
 		
 		$this->load->model('Proposal_AB');

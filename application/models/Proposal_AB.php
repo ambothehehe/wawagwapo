@@ -445,6 +445,17 @@ public function decisionApprove(){
      
     }
 
+    public function noteProposalSo(){
+        $data = array(
+                        'status'=>'5',
+                        'noted_by_stat'=>'2'
+                    );
+
+        $this->db->where('proposal_id', $this->id);
+        $this->db->update('proposal_json', $data); 
+        return TRUE;
+    }
+
     public function noteProposal(){
 
 		$data = array(
@@ -599,7 +610,11 @@ public function decisionApprove(){
 		return TRUE;		
     }
 
-     public function facReturn(){
+
+     //public function facReturn(){
+
+    public function soReturn(){
+
         $data = array(
                         'status'=>'2',
                         'noted_by_stat'=>'0'
@@ -1185,8 +1200,25 @@ public function decisionApprove(){
         return $results;
     }
 
+    public function LoadProposalsSo($organization){
+        $results = array();
+    
 
-    public function LoadProposalsFac($department, $organization, $user_id){
+        $this->db->select('*');
+
+        $this->db->from('proposal_json_full_info');
+        $this->db->where('status','1');
+        $this->db->where('organization',$organization);
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            $results = $query->result();
+        }
+        return $results;
+    }
+
+    public function LoadProposalsFac($department, $organization,$user_id){
+
 
         $results = array();
     
@@ -1343,5 +1375,36 @@ public function decisionApprove(){
         $query = $this->db->get();
         foreach($query->result_array() as $row){}
         return $row['email'];
+    }
+
+    public function getReviewerEmail1($proposal_id,$reviewer1,$reviewer2){
+        $conditions = array('reviewer_id' => $reviewer1,
+                            'proposal_id' => $proposal_id
+                    );
+
+        $this->db->select('*');
+        $this->db->from('reviewers');
+        $this->db->join('user_account', 'user_account.user_id = reviewer_id');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+
+    public function getReviewerEmail2($proposal_id,$reviewer1,$reviewer2){
+
+        $condition2 = array('reviewer_id' => $reviewer2,
+                            'proposal_id' => $proposal_id
+                    );
+
+        $this->db->select('*');
+        $this->db->from('reviewers');
+        $this->db->join('user_account', 'user_account.user_id = reviewer_id');
+        $this->db->where($condition2);
+        $result = $this->db->get();
+
+        foreach($result->result_array() as $rows){}
+        return $rows['email'];
     }
 }

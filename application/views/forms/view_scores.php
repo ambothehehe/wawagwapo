@@ -138,8 +138,7 @@
                             <?php }?>
                             <center><b>Total Percentage of Form C:</b><input type="text" class="form-control" name="totalpercentage_c" value="<?php echo $total_cc;?>%" style="width: 40%; text-align: center;" readonly> </center>
                             <?php endif;?>
-                            </div>
-                            </div>
+                            </div></div>
                             <div style="padding:10px;">
                             <?php if($ave_x<60.00){?>
                             <div style="padding:10px; background:#ff8e88;">
@@ -151,7 +150,7 @@
                               <center><b>Total Percentage of Form A:</b><input type="text" class="form-control" name="totalpercentage_a" value="<?php echo $total_xx;?>%" style="width: 40%; text-align: center;" readonly> </center>
                             </div>
                           </div>
-                            <div id="score_results">
+                            
                             <?php if(!empty($scores->ppaprof_area)): ?>
                             <?php if($total_yy<60.00){?>
                             <div style="padding:10px; background:#ff8e88;">

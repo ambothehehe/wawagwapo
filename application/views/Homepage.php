@@ -696,7 +696,7 @@
                               <tr>
                                 <td class="text-left"><label>First Name:</label></td>
                                 <td></td>
-                                <td><input type="text" class="form-control" name="firstname" placeholder="Type your firstname" data-validation-allowing="-_. "  data-validation="alphanumeric" required><br></td>
+                                <td><input type="text" class="form-control" name="firstname" placeholder="Type your firstname" data-validation-allowing="-_. "  data-validation="alphanumeric" required="required"><br></td>
                               </tr>
                               <tr>
                                 <td class="text-left"><label>Last Name:</label></td>
@@ -708,7 +708,7 @@
                                 <td></td>
                                 <td>
                                   <select id="school" class="form-control" name="office" required>
-                                    <option>-- Select your School --</option>
+                                    <option readonly>-- Select your School --</option>
                                       <option value="School of Architecture, Fine Arts and Design">School of Architecture, Fine Arts and Design</option>
                                       <option value="School of Arts and Sciences">School of Arts and Sciences</option>
                                       <option value="School of Education">School of Education</option>
@@ -724,7 +724,7 @@
                                 <td></td>
                                 <td>
                                   <select id="department" class="form-control" name="department" required>
-                                      <option data-group="all" value="0" readonly>-- Select your Department --</option>
+                                      <option data-group="all" readonly>-- Select your Department --</option>
                                       <option disabled>-- School of Architecture, Fine Arts and Design --</option>
                                         <option data-group="School of Architecture, Fine Arts and Design" value="Architecture">Architecture</option>
                                         <option data-group="School of Architecture, Fine Arts and Design" value="Fine Arts">Fine Arts</option>
@@ -782,7 +782,7 @@
                                 <tr>
                                     <td class="text-left"><div class="organization" style="display:none;"><label>Organization:</label></div></td>
                                     <td></td>
-                                    <td><div class="organization" style="display:none;"><input type="text" class="form-control" name="organization" placeholder="Type your organization" data-validation="alphanumeric" required><br></div></td>
+                                    <td><div class="organization" style="display:none;"><input type="text" class="form-control" name="organization" placeholder="Type your organization" data-validation="alphanumeric" data-validation-allowing="-_. " required><br></div></td>
                                 </tr>
 
                               <tr>

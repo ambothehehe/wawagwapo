@@ -22,7 +22,7 @@ class StudentOrganization extends CI_Controller
 			$this->load->model('Proposal_AB');
 			
 			$data['assessor']=$this->Proposal_AB->validate_assessor();
-			$data['proplist']=$this->Proposal_AB->LoadProposalsSO($this->session->organization); 
+			$data['proplist']=$this->Proposal_AB->LoadProposalsSo($this->session->organization); 
 			$this->load->view('studentOrganization/SO_note', $data);
 		}else{
 			redirect(site_url());
@@ -32,7 +32,7 @@ class StudentOrganization extends CI_Controller
 	public function getToBeNotedProposal()
 	{
 		$this->load->model('Proposal_AB');
-		$proplist=$this->Proposal_AB->LoadProposalsSO($this->session->department); 
+		$proplist=$this->Proposal_AB->LoadProposalsSo($this->session->organization); 
 		echo json_encode($proplist);
 	}
 
@@ -52,7 +52,7 @@ class StudentOrganization extends CI_Controller
 					
 			$data['user'] = $user->get_user();
 
-			$this->load->view('studentOrganization/so_setting', $data);
+			$this->load->view('studentOrganization/so_settings', $data);
 		}else{
 			redirect(site_url());
 		}

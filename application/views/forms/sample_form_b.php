@@ -27,6 +27,8 @@
 								<div class="panel-body"><p>
 									  <h2><?php if(property_exists($specprop,"title")){ echo $specprop->title; } ?><!-- Barangay Labangon River Clean-up --></h2>
 									  <h3><?php if(property_exists($specprop,"school")){ echo $specprop->school; } ?><!-- School of Arts & Sciences --></h3>
+									  <h3><?php if(property_exists($specprop,"organization")){ echo $specprop->organization; } ?><!-- School of Arts & Sciences --></h3>
+
 									  <h4><?php if(property_exists($specprop,"department")){ echo $specprop->department; } ?><!-- Computer and Information Sciences --></h4>
 									  <h5><?php if(property_exists($specprop,"venue")){ echo $specprop->venue; } ?><!-- Barangay Talamban, Cebu City --></h5>
 									  
@@ -990,6 +992,18 @@
     <button type="submit" class="btn btn-danger btn-md" name="note" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 
     <button type="submit" class="btn btn-primary btn-md" name="note" value="ProceedProposal">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+
+    <?php form_close();?>
+    </div>
+ <?php } else if($role == "Student Organization Adviser") { ?>
+    <div style="float:left; padding:2px; padding-top:10px;">
+    <?php echo form_open('Proposals/soNotesProp');
+    ?>
+    <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+
+    <button type="submit" class="btn btn-danger btn-md" name="noteSo" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
+
+    <button type="submit" class="btn btn-primary btn-md" name="noteSo" value="ProceedProposal">Endorse to Director&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
     <?php form_close();?>
     </div>

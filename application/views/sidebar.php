@@ -79,6 +79,34 @@
                 </li>
                 <?php } ?>
 
+                <!-- Sidebar options of CES Faculty -->
+                <?php if ($role === 'Student Organization Adviser') { ?>
+                <li>
+                    <a href="<?php echo site_url('StudentOrganization/home');?>">
+                        <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Proposals
+                    </a>
+                </li>
+                 <li>
+                    <a href="<?php echo site_url('StudentOrganization/reports');?>">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; My Reports
+                    </a>
+                </li>
+               <li>
+                    <a href="<?php echo site_url('Proposals/approved_proposals');?>">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Approved Proposals
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo site_url('StudentOrganization/profile_settings');?>">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; Profile Settings
+                    </a>
+                </li>
+                <?php } ?>
+
                 <?php if ($role === 'Extra-Curricular Organization') { ?>
                 <li>
                     <a href="<?php echo site_url('ExtraCurricular/home');?>">

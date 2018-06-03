@@ -51,7 +51,7 @@ class Faculty extends CI_Controller
 			$this->load->model('Proposal_AB');
 			
 			$data['assessor']=$this->Proposal_AB->validate_assessor();
-			$data['proplist']=$this->Proposal_AB->LoadProposalsChair($this->session->department); 
+			$data['proplist']=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization, $this->session->user_id); 
 			$this->load->view('faculty/faculty_proposals_to_be_noted', $data);
 		}else{
 			redirect(site_url());
@@ -66,89 +66,89 @@ class Faculty extends CI_Controller
 		$this->load->model('Proposal_AB');
 		$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization, $this->session->user_id); 
 		echo json_encode($proplist);
-	}
-	}
-
-	public function send()
-	{	
-		$this->load->model('Proposal_AB');
-		
-		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 9)
-		{
-			//$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
-			echo $data['email'];
-			?><script> alert("yuck fou");</script><?php
-			$this->load->library('email');
-			$config = Array('protocol' => 'smtp',
-			'smtp_host'    => 'ssl://smtp.gmail.com',
-			'smtp_port'    => '465',
-			'smtp_timeout' => '7',
-			'smtp_user'    => 'donotreply24xD@gmail.com',
-			'smtp_pass'    => 'wawa2015',
-			'charset'    => 'utf-8',
-			'mailtype' => 'text', // or html
-			'validation' => TRUE // bool whether to validate email or not
-			);
-			      
-			$this->email->initialize($config);
-			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
-			//$this->email->to($data['email']); 
-			$this->email->to('mariaclairetan143@gmail.com');
-			$this->email->subject('CES Proposal Notification');
-			$this->email->message('Good day!');
-			$this->email->set_newline("\r\n");   
-			$result = $this->email->send();  
-		  	if(!$result)
-		  	{
-		  		// mail sent
-		  		echo "sayup";
-        		//redirect(site_url());
-		  	}
-		  	else
-		  	{
-		  		echo "hey";
-        		//redirect(site_url());
-		  	}
-		}else if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 5)
-		{
-			echo $_SESSION['designation_fkid'];
-			
-			$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
-			
-			echo $data['email'];
-			?><script> alert("yuck fou");</script><?php
-			$this->load->library('email');
-			$config = Array('protocol' => 'smtp',
-			'smtp_host'    => 'ssl://smtp.gmail.com',
-			'smtp_port'    => '465',
-			'smtp_timeout' => '7',
-			'smtp_user'    => 'donotreply24xD@gmail.com',
-			'smtp_pass'    => 'wawa2015',
-			'charset'    => 'utf-8',
-			'mailtype' => 'text', // or html
-			'validation' => TRUE // bool whether to validate email or not
-			);
-			      
-			$this->email->initialize($config);
-			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
-			$this->email->to($data['email']); 
-			$this->email->subject('CES Proposal Notification');
-			$this->email->message('Good day!');
-			$this->email->set_newline("\r\n");   
-			$result = $this->email->send();  
-		  	if(!$result)
-		  	{
-		  		// mail sent
-		  		echo "sayup";
-        		redirect(site_url());
-		  	}
-		  	else
-		  	{
-		  		echo "hey";
-        		redirect(site_url());
-		  	}
 		}
 	}
+
+	// public function send()
+	// {	
+	// 	$this->load->model('Proposal_AB');
+		
+	// 	if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 9)
+	// 	{
+	// 		//$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+	// 		echo $data['email'];
+	// 		
+	// 		$this->load->library('email');
+	// 		$config = Array('protocol' => 'smtp',
+	// 		'smtp_host'    => 'ssl://smtp.gmail.com',
+	// 		'smtp_port'    => '465',
+	// 		'smtp_timeout' => '7',
+	// 		'smtp_user'    => 'donotreply24xD@gmail.com',
+	// 		'smtp_pass'    => 'wawa2015',
+	// 		'charset'    => 'utf-8',
+	// 		'mailtype' => 'text', // or html
+	// 		'validation' => TRUE // bool whether to validate email or not
+	// 		);
+			      
+	// 		$this->email->initialize($config);
+	// 		$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+	// 		//$this->email->to($data['email']); 
+	// 		$this->email->to('mariaclairetan143@gmail.com');
+	// 		$this->email->subject('CES Proposal Notification');
+	// 		$this->email->message('Good day!');
+	// 		$this->email->set_newline("\r\n");   
+	// 		$result = $this->email->send();  
+	// 	  	if(!$result)
+	// 	  	{
+	// 	  		// mail sent
+	// 	  		echo "sayup";
+ //        		//redirect(site_url());
+	// 	  	}
+	// 	  	else
+	// 	  	{
+	// 	  		echo "hey";
+ //        		//redirect(site_url());
+	// 	  	}
+	// 	}else if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 5)
+	// 	{
+	// 		echo $_SESSION['designation_fkid'];
+			
+	// 		$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
+			
+	// 		echo $data['email'];
+	// 		
+	// 		$this->load->library('email');
+	// 		$config = Array('protocol' => 'smtp',
+	// 		'smtp_host'    => 'ssl://smtp.gmail.com',
+	// 		'smtp_port'    => '465',
+	// 		'smtp_timeout' => '7',
+	// 		'smtp_user'    => 'donotreply24xD@gmail.com',
+	// 		'smtp_pass'    => 'wawa2015',
+	// 		'charset'    => 'utf-8',
+	// 		'mailtype' => 'text', // or html
+	// 		'validation' => TRUE // bool whether to validate email or not
+	// 		);
+			      
+	// 		$this->email->initialize($config);
+	// 		$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+	// 		$this->email->to($data['email']); 
+	// 		$this->email->subject('CES Proposal Notification');
+	// 		$this->email->message('Good day!');
+	// 		$this->email->set_newline("\r\n");   
+	// 		$result = $this->email->send();  
+	// 	  	if(!$result)
+	// 	  	{
+	// 	  		// mail sent
+	// 	  		echo "sayup";
+ //        		redirect(site_url());
+	// 	  	}
+	// 	  	else
+	// 	  	{
+	// 	  		echo "hey";
+ //        		redirect(site_url());
+	// 	  	}
+	// 	}
+	// }
 
 	public function reports() {
 		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 9)
