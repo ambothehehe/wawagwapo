@@ -98,7 +98,7 @@
                         var user_id = "<?php echo $_SESSION['user_id']; ?>";
                         dataRows.push([
                             "<td>"+link+proposal_details.title+"</a>"+"</td>",
-                            "<td>"+"<a onclick="+"launch_submitted_user_profile("+user_id+")"+">"+dataJSON[i].lastname+"</a></td>",
+                            "<td>"+dataJSON[i].lastname+"</a></td>",
                             "<td>"+dataJSON[i].datetime_created+"</td>"
                         ]);
                         //dataRows.push("<tr>"+"<td>"+dataJSON[i].proposal_json_format.title+"</td>"+"<td>"+dataJSON[i].proposal_json_format.inclusive_date1+"</td>"+"</tr>");

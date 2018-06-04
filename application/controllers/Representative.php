@@ -333,21 +333,26 @@ class Representative extends CI_Controller
 
 		$proposals2 = $this->Reports->get_title($data['creator_id']);
 		
+		if(($proposals2)){
 		foreach($proposals2 as $prop)
 		{
 
-			$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
-						  "propdetails"=>$prop);
-										
-			array_push($proposal_array, $data2);
+				$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
+							  "propdetails"=>$prop);
+											
+				array_push($proposal_array, $data2);
+			}
+
+			$data["proposals"] = $proposal_array;
+			// $datum['titles']= $this->Reports->get_title();
+			//echo $this->session->designation;
+			//var_dump($proposal_array);
+
+			$this->load->view('forms/form_d', $data);
+		}else{
+			?><script type="text/javascript">alert("NO AVAILABLE PROPOSALS TO BE REPORTED");</script><?php
+			redirect(site_url('Representative/create_report'), "refresh");
 		}
-
-		$data["proposals"] = $proposal_array;
-		// $datum['titles']= $this->Reports->get_title();
-		//echo $this->session->designation;
-		//var_dump($proposal_array);
-
-		$this->load->view('forms/form_d', $data);
 	}
 
 public function formd_titles(){
@@ -819,9 +824,8 @@ public function addFormd() {
 					'<strong>Report Deleted!</strong> You have successfully deleted a report.');
 				
 	redirect(site_url('Representative/reports'), "refresh");
-	
-
    }
+
 
     public function deleteForm(){
    	$this->load->model('Proposal_AB');

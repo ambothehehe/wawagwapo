@@ -21,6 +21,10 @@
           echo form_open('Representative/addForme');
         }else if ($role == 'Faculty') {
           echo form_open('Faculty/addForme');
+        }else if ($role == 'Co-Curricular Organization') {
+          echo form_open('CoCurricular/addForme');
+        }else if ($role == 'Extra-Curricular Organization') {
+          echo form_open('ExtraCurricular/addForme');
         }
 
        ?>

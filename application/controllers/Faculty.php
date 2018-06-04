@@ -158,19 +158,23 @@ class Faculty extends CI_Controller
 			$data['role']	= $this->session->designation;
 			$data['department']	= $this->session->department;
 			$data['organization']	= $this->session->organization;
+			$data['office']	= $this->session->office;
 			$data['user_id']	= $this->session->user_id;
 
 			$this->load->model('Reports');
 			
-			$data['list_d']=$this->Reports->LoadReport_dFACULTY($data['department']);
-			$data['list_e']=$this->Reports->LoadReport_eFACULTY($data['department']);
+			$data['myfaculty_d']=$this->Reports->LoadReport_dmyFACULTY($data['department'], $data['user_id']);
+			$data['myfaculty_e']=$this->Reports->LoadReport_emyFACULTY($data['department'], $data['user_id']);
+			
+			$data['list_d']=$this->Reports->LoadReport_dFACULTY($data['department'], $data['user_id']);
+			$data['list_e']=$this->Reports->LoadReport_eFACULTY($data['department'], $data['user_id']);
+
 			
 			$this->load->view('faculty/faculty_report', $data);
 		}else{
 			redirect(site_url());
-			$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization); 
-		
-		echo json_encode($proplist);
+			// $proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization); 
+			// echo json_encode($proplist);
 		}
 	}
 
@@ -310,21 +314,26 @@ class Faculty extends CI_Controller
 
 		$proposals2 = $this->Reports->get_title($data['creator_id']);
 		
-		foreach($proposals2 as $prop)
-		{
+		if(($proposals2)){
+			foreach($proposals2 as $prop)
+			{
 
-			$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
-						  "propdetails"=>$prop);
-										
-			array_push($proposal_array, $data2);
+				$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
+							  "propdetails"=>$prop);
+											
+				array_push($proposal_array, $data2);
+			}
+
+			$data["proposals"] = $proposal_array;
+			// $datum['titles']= $this->Reports->get_title();
+			//echo $this->session->designation;
+			//var_dump($proposal_array);
+
+			$this->load->view('forms/form_d_faculty', $data);
+		}else{
+			?><script type="text/javascript">alert("NO AVAILABLE PROPOSALS TO BE REPORTED");</script><?php
+			redirect(site_url('Faculty/create_report'), "refresh");
 		}
-
-		$data["proposals"] = $proposal_array;
-		// $datum['titles']= $this->Reports->get_title();
-		//echo $this->session->designation;
-		//var_dump($proposal_array);
-
-		$this->load->view('forms/form_d_faculty', $data);
 	}
 
 public function formd_titles(){
@@ -466,6 +475,22 @@ public function addFormd() {
 		$this->load->view("forms/form_d_report", $data);
 	}
 
+	public function loadreportdmyreport(){
+		$reportd_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+		$data['creators_school']	= $this->session->office;
+
+		$this->load->model('Reports');
+		$data['reps']=$this->Reports->viewReport_d($reportd_id);
+		
+		$this->load->view("forms/form_d_report_noProceed", $data);
+	}
+
 //for form e
 	public function loadreporte(){
 		$reporte_id= $this->uri->segment(3);
@@ -480,6 +505,23 @@ public function addFormd() {
 		$this->load->model('Reports');
 		$data['repe']=$this->Reports->viewReport_e($reporte_id);
 		$this->load->view("forms/form_e_report", $data);
+	}
+
+	public function loadreportemyreport(){
+		$reporte_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+		$data['creators_school'] = $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['repe']=$this->Reports->viewReport_e($reporte_id);
+		
+		$this->load->view("forms/form_e_report_noProceed", $data);
 	}
 
 //for form e create report form e
@@ -751,7 +793,8 @@ public function addFormd() {
 				redirect(site_url('Faculty/reports'), "refresh");
             
         }
-					}
+	}
+
 
 
 
@@ -783,7 +826,11 @@ public function addFormd() {
     public function deleteForm_d(){
    	$this->load->model('Reports');
 
+
    $this->Reports->row_delete_d($this->input->post('id'));
+
+   $this->Reports->ezeronishabai($this->input->post('id'));
+   
    $this->session->set_flashdata('success_msg',
 					'<strong>Report Deleted!</strong> You have successfully deleted a report.');
 				

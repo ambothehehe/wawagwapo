@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>CESPPMS - All Reports</title>
+    <title>CESPPMS - My Reports</title>
     <?php include('application/views/header.php');?>
 </head>
 
@@ -10,53 +10,42 @@
 
     <div id="wrapper">
 
-        <?php include('application/views/sidebar.php');?>
+       <?php include('application/views/sidebar.php');?>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            
             <?php include('application/views/topNav.php');?>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header text-center">
-                        <h1><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp; Reports</h1>
+                        <h1><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp My Reports</h1>
                     </div>
                 </div>
             </div>
             <div class="container-fluid">
+                
                 <?php include('application/views/messages.php'); ?>
-                <div class="row tab-content">
-                    <!-- My Reports -->
-                    
-                    
-                    <br>
+                
+    <div class="tab-container">
 
-                    <div style="height:50%; width:20%; float:left; padding-right:10px; ">
-<ul class="nav nav-tabs nav-stacked">
-  <li><a data-toggle="tab" class="active" href="#Form_d_others">All Form D</a></li>
-  <li><a data-toggle="tab" href="#Form_e_others">All Form E</a></li>
-</ul>
-</div>
+          <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a data-toggle="tab" href="#form_d">Form D list</a></li>
+            <li><a data-toggle="tab" href="#form_e">Form E list</a></li>
+           
+          </ul>
 
-
-<div style="width:80%;float:left;">
-    <div class="scroll" style="overflow: scroll;  
-    background-color: #FFFFFF;
-    width: 100%;
-    height: 500px;">
-<div class="tab-content" style=" margin:5px;">
-  <div id="Form_d_others" class="tab-pane fade in active">
-   
-<!--start FORM D table of my reports -->
- <div class="lists-table">
+  <div class="tab-content"  style="padding-top:30px;">
+    <div id="form_d" class="tab-pane fade in active">
+      <div class="lists-table">
+        <div class="container">
+            <div class="row">
                     <table id="reportd" class="table table-striped table-bordered table-hover lists-table" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -67,7 +56,6 @@
                         </tr>
                     </tfoot>
                     <tbody> 
-
                         <?php if(empty($reportlist_d)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
@@ -75,10 +63,7 @@
                         <?php } ?>
 
 
-                        <?php 
-                      
-        
-                        foreach($reportlist_d as $repd) {?>
+                        <?php foreach($reportlist_d as $repd) {?>
                             
                                     <tr>
                                         <td>
@@ -91,8 +76,7 @@
                                             <input type="hidden" name="creator_id" value="<?php echo $repd->creator_id ;?>">
                                         </td>
 
-                                        <td>
-                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
+                                        <td><?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
                                         </td>
 
                                         <td></td>
@@ -103,21 +87,22 @@
                             
                     </tbody>
                     </table>
+            </div>
+            </div>
+                    </div>
 
-                    </div> 
-                    <!-- end Form D of my reports -->
 
-
-  </div>
-  <div id="Form_e_others" class="tab-pane fade">
-   <!--start FORM E table of my reports -->
- <div class="lists-table">
-                    <table id="reportd" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+    </div>
+    <div id="form_e" class="tab-pane fade">
+     <div class="lists-table">
+        <div class="container">
+            <div class="row">
+                    <table id="reporte" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th></th>
+                            <th>School and Department</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -127,7 +112,7 @@
                             <td></td>
                         </tr>
                     </tfoot>
-                    <tbody> 
+                   <tbody> 
                         <?php if(empty($reportlist_e)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
@@ -137,7 +122,6 @@
 
                         <?php foreach($reportlist_e as $repe) {?>
                            
-                                    <tr>
                                         <td>
                                             <a href="<?php echo base_url() ?>index.php/Chair/loadreporte/<?php echo $repe->fe_id;?>"><?php echo $repe->title;?></a>
                                         </td>
@@ -148,31 +132,26 @@
                                             <input type="hidden" name="creator_id" value="<?php echo $repe->creator_id ;?>">
                                         </td>
 
-                                        <!-- DELETE BUTTON -->
-                                        <td><?php
-                                            echo form_open('Representative/deleteForm_e');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repe->fe_id;?>" >
-                                            </form> </td>
-                                                </tr>
-                                        <?php } ?>
-                             </tbody>
-                    </table>
-
-                    </div> 
-                    <!-- end Form E of my reports -->
+                                         <td>
+                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
+                                        </td>
+                            <?php } ?>
+                    </tbody>
+                    </table> 
+                    </div>
+                    </div>
+                    </div>
+    </div>
+    
   </div>
- </div>
 </div>
-</div>
-
-                </div>
             </div>
-
         </div>
 
-    </div>      
+    </div>
 
     <?php include('application/views/footer.php');?>
+
 </body>
 
 </html>

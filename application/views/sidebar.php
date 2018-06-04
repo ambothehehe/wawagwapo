@@ -62,7 +62,7 @@
                  <li>
                     <a href="<?php echo site_url('Faculty/reports');?>">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                        &nbsp;&nbsp;&nbsp; My Reports
+                        &nbsp;&nbsp;&nbsp; Reports
                     </a>
                 </li>
                <li>

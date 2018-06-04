@@ -502,6 +502,7 @@ public function approved_proposals() {
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
 		
 		$this->load->model('Proposal_AB');
 		//$data['proplist']=$this->Proposal_AB->LoadProposals();

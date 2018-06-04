@@ -2,6 +2,7 @@
 <html>
 
 <body>
+
 <div style="height:50%; width:20%; float:left; padding-right:10px; ">
 <ul class="nav nav-tabs nav-stacked">
   <li><a data-toggle="tab" class="active" href="#Form_d_list">Form D&nbsp;<small><i>(My Reports)</i></small></a></li>
@@ -38,7 +39,7 @@
                         </tr>
                     </tfoot>
                     <tbody> 
-                        <?php if(empty($mycoord_d)) {?>
+                        <?php if(empty($myfaculty_d)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
                             </tr>
@@ -46,11 +47,11 @@
 
 
                         <?php 
-                        foreach($mycoord_d as $myrepd) {?>
+                        foreach($myfaculty_d as $myrepd) {?>
                             
                                 <tr>
                                     <td>
-                                        <a href="<?php echo base_url() ?>index.php/Coordinator/loadreportdmyreport/<?php echo $myrepd->fd_id; ?>">
+                                        <a href="<?php echo base_url() ?>index.php/Faculty/loadreportdmyreport/<?php echo $myrepd->fd_id; ?>">
                                              <?php echo $myrepd->fd_title;?></a>
                                     </td>
                                    
@@ -62,23 +63,22 @@
                                     <td>
                                         <?php echo $myrepd->fd_dept;?><br><p style="font-size:75%;"><?php echo $myrepd->fd_school;?></p>
                                     </td>
-
-                                    <!-- DELETE BUTTON -->
-                                    <td>
-                                     <?php if($myrepd->report_status == 5) {
-                                         echo form_open('Faculty/deleteForm_d');?>
+                                    <!-- deletenicebutton -->
+                                        <td>
+                                         <?php if($myrepd->report_status == 3){
+                                            echo form_open('Faculty/deleteForm_d');?>
                                             <input class="form-control" type="hidden" name="id" value="<?php echo $myrepd->fd_id;?>" >
                                             <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
                                             </form> 
-                                    </td>
-                                    <?php }else{ ?>
-                                                <input class="form-control" type="hidden" name="id" value="<?php echo $myrepd->fd_id;?>" >
-                                                <button class="btn btn-sm btn-danger" disabled type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                        </td>
+                                         <?php }else{ ?>
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $myrepd->fd_id;?>" >
+                                            <button class="btn btn-sm btn-danger" disabled type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
                                             </form> 
                                             <?php } ?>
-                                     </tr>
-                        <?php  }?>
-
+                                    </tr>
+                                         
+                            <?php } ?>
                     </tbody>
                     </table>
 
@@ -108,7 +108,7 @@
                         </tr>
                     </tfoot>
                     <tbody> 
-                        <?php if(empty($mycoord_e)) {?>
+                        <?php if(empty($myfaculty_e)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
                             </tr>
@@ -116,11 +116,11 @@
 
 
                         <?php 
-                        foreach($mycoord_e as $repe) {?>
+                        foreach($myfaculty_e as $repe) {?>
                             
                                     <tr>
                                         <td>
-                                            <a href="<?php echo base_url() ?>index.php/Coordinator/loadreportemyreport/<?php echo $repe->fe_id; ?>">
+                                            <a href="<?php echo base_url() ?>index.php/Faculty/loadreportemyreport/<?php echo $repe->fe_id; ?>">
                                                  <?php echo $repe->title;?></a>
                                         </td>
                                        
@@ -134,7 +134,7 @@
                                         </td>
                                         
                                         <td>
-                                            <?php if($repe->report_status == 5){
+                                            <?php if($repe->report_status == 3){
                                             echo form_open('Faculty/deleteForm_e');?>
                                             <input class="form-control" type="hidden" name="id" value="<?php echo $repe->fe_id;?>" >
                                             <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
@@ -145,12 +145,12 @@
                                                 <button class="btn btn-sm btn-danger" disabled type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
                                             </form> 
                                             <?php } ?>
-
-                                         </tr>
-                                        <?php  }?>
-                        </tbody>
+                                    </tr>
+                            <?php } ?>
+                    </tbody>
                     </table>
-                </div> 
+
+                    </div> 
                     <!-- end Form E of my reports -->
   </div>
  
