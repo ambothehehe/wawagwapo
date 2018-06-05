@@ -127,6 +127,10 @@
                         <div style="position:fixed; top:8%; right:2%;">
                           <div style="float:left; padding:2px; padding-top:10px;">
 
+                              <button type="submit" class="btn btn-primary btn-md btn-block" onclick="printDiv('printThisArea')" >
+                            <span class="glyphicon glyphicon-print" aria-hidden="true"></span>&nbsp Print
+                        </button>
+
                         </div>
 
                         <div style="float:left; padding:10px;">

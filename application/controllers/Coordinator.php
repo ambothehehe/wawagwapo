@@ -132,6 +132,41 @@ class Coordinator extends CI_Controller
 
 		$data['repe']=$this->Reports->viewReport_e($reporte_id);
 		
+		$this->load->view("forms/form_e_report_coord", $data);
+	}
+
+	public function loadreportdmyreport(){
+		$reportd_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['creators_school']	= $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['reps']=$this->Reports->viewReport_d($reportd_id);
+		
+		$this->load->view("forms/form_d_report_noProceed", $data);
+	}
+
+	public function loadreportemyreport(){
+		$reporte_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+		$data['creators_school'] = $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['repe']=$this->Reports->viewReport_e($reporte_id);
+		
+=======
+>>>>>>> dae08b171f07d6951972898b90c10b28167fd59b
 		$this->load->view("forms/form_e_report_noProceed", $data);
 	}
 

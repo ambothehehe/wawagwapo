@@ -27,6 +27,8 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
+
+>>>>>>> dae08b171f07d6951972898b90c10b28167fd59b
 	public function LoadReport_dFACULTY($dept, $user_id){
 		$results = array();
 
@@ -59,7 +61,6 @@ class Reports extends CI_Model
 		$this->db->where('creators_department',$dept);
 		$this->db->where('creator_id', $user_id);
 		$this->db->where('report_status', 3);
-
 		//$this->db->order_by("datecreated");
 		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
 		//$this->db->where('who_created', '$completename');
@@ -142,6 +143,7 @@ class Reports extends CI_Model
 	}
 
 	public function LoadReport_eSO($dept, $organization){
+	public function LoadReport_emyFACULTY($dept, $user_id){
 		$results = array();
 
 		$this->db->select('*');
@@ -149,6 +151,8 @@ class Reports extends CI_Model
 		//$this->db->where('report_status',3);
 		$this->db->where('report_status', 24);
 		$this->db->where('creators_organization',$organization);
+		$this->db->where('creators_department',$dept);
+		$this->db->where('creator_id', $user_id);
 
 		//$this->db->order_by("datecreated");
 		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
@@ -162,7 +166,6 @@ class Reports extends CI_Model
 		    }
 		return $results;
 	}
-
 
 	public function LoadReport_dCHAIR($dept){
 		$results = array();

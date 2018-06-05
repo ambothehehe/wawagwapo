@@ -78,8 +78,7 @@
                                             <input type="hidden" name="creator_id" value="<?php echo $repd->creator_id ;?>">
                                         </td>
 
-                                        <td>
-                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
+                                        <td><?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
                                         </td>
 
                                         <td>
@@ -145,6 +144,7 @@
 
                                         <td>
                                             <?php echo $repe->who_created;?><br><p style="font-size:75%;"><?php echo $repe->who_created;?></p>
+                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
                                         </td>
                             <?php } ?>
                     </tbody>

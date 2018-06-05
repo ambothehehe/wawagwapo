@@ -56,6 +56,7 @@
                                     <tr>
                                         <td>
                                             <a href="<?php echo base_url() ?>index.php/Faculty/loadreportd/<?php echo $repd->fd_id; ?>">
+                                            <a href="<?php echo base_url() ?>index.php/Coordinator/loadreportd/<?php echo $repd->fd_id; ?>">
                                                  <?php echo $repd->fd_title;?></a>
                                         </td>
                                        
@@ -74,6 +75,14 @@
 
                                     </tr>
                                     <?php  }?>
+                                        <!-- DELETE BUTTON -->
+                                        <td>
+                                         <?php
+                                            echo form_open('Representative/deleteForm_d');?>
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repd->fd_id;?>" >
+                                            </form> </td>
+                                         </tr>
+                                        <?php  }?>
 
                     </tbody>
                     </table>
@@ -105,6 +114,10 @@
                     </tfoot>
                     <tbody> 
                         <?php if(empty($list_e)) {?>
+                        </tr>
+                    </tfoot>
+                    <tbody> 
+                        <?php if(empty($coord_e)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
                             </tr>
@@ -117,6 +130,11 @@
                                     <tr>
                                         <td>
                                             <a href="<?php echo base_url() ?>index.php/Faculty/loadreporte/<?php echo $repe->fe_id; ?>">
+                        foreach($coord_e as $repe) {?>
+                            
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo base_url() ?>index.php/Coordinator/loadreporte/<?php echo $repe->fe_id; ?>">
                                                  <?php echo $repe->title;?></a>
                                         </td>
                                        
