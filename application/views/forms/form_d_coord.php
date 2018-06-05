@@ -190,10 +190,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
-                              <button type="button" class="btn btn-lg btn-danger btn-block" data-toggle="modal" data-target="#exit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp Cancel</button>
-                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
                               <button type="submit" class="btn btn-lg btn-success btn-block"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>

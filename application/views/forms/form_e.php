@@ -21,6 +21,10 @@
           echo form_open('Representative/addForme');
         }else if ($role == 'Faculty') {
           echo form_open('Faculty/addForme');
+        }else if ($role == 'Co-Curricular Organization') {
+          echo form_open('CoCurricular/addForme');
+        }else if ($role == 'Extra-Curricular Organization') {
+          echo form_open('ExtraCurricular/addForme');
         }
 
        ?>
@@ -51,6 +55,7 @@
                                     <table width="100%">
                 <!--   who created and the department of the creator of the report input here -->
                                        <tr><td> <input type="hidden" name="who_created" value="<?= $fname ?>&nbsp;<?= $lname ?>"></td>
+                                        <td> <input type="hidden" name="creators_organization" value="<?= $organization?>"></td>
                                         <td> <input type="hidden" name="creators_department" value="<?= $department ?>"></td>
                                         <td> <input type="hidden" name="creator_id" value="<?= $creator_id ?>"></td>
                                         <td> <input type="hidden" name="creators_school" value="<?= $creators_school ?>"></td>
@@ -392,9 +397,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
-                              <button type="button" class="btn btn-lg btn-danger btn-block" data-toggle="modal" data-target="#exit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp Cancel</button>
-                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
                               <button type="submit" class="btn btn-lg btn-success btn-block"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>

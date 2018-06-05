@@ -65,6 +65,23 @@ class Vpaa extends CI_Controller
 		$this->load->view("forms/form_d_report", $data);
 	}
 
+	public function loadreporte(){
+		$reporte_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+		$data['creators_school'] = $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['repe']=$this->Reports->viewReport_e($reporte_id);
+		
+		$this->load->view("forms/form_e_report", $data);
+	}
+
 	public function profile_settings() {
 		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 1 )
 		{

@@ -15,7 +15,7 @@
         
 
         <!-- Page Content -->
-        <?php echo form_open('Chair/viewform_e');?>
+        <?php echo form_open('Coordinator/viewform_e');?>
         <div id="page-content-wrapper">
             
             
@@ -572,15 +572,17 @@
     </div>
                       </div> <!-- END of div for the whole proposal view without the Edit button -->
 
-
+                      
                         <div style="position:fixed; top:8%; right:2%;">
                           <div style="float:left; padding:2px; padding-top:10px;">
 
-                              <!-- <button type="submit" class="btn btn-primary btn-md btn-block" onclick="printDiv('printThisArea')" >
-                                <span class="glyphicon glyphicon-print" aria-hidden="true"></span>&nbsp Print
-                              </button> -->
-
-                        </div>
+                            <div style="float:left; padding:2px; padding-top:10px;">
+                                  <button type="submit" class="btn btn-primary btn-md btn-block" onclick="printDiv('printThisArea')" >
+                                  <span class="glyphicon glyphicon-print" aria-hidden="true"></span>&nbsp Print
+                                  </button>
+                              </div>
+                        
+                        </div> 
 
                         <div style="float:left; padding:10px;">
                           <?php if($role == 'Representative'){
@@ -598,86 +600,6 @@
                         <?php echo form_close();?>
                       </div>
 
-                         <div style="position:fixed; top:8%; right:2%;">
-                         <?php if($role == "Student Organization Adviser") { ?>
-                            <div style="float:left; padding:2px; padding-top:10px;">
-                            <?php echo form_open('Proposals/SONotesReporte'); ?>
-                                <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-
-                                <?php form_close();?>
-                            </div>
-                            <?php } ?>
-                         </div>
-
-                         <div style="position:fixed; top:8%; right:2%;">
-                         <?php if($role == "Faculty") { ?>
-                            <div style="float:left; padding:2px; padding-top:10px;">
-                            <?php echo form_open('Proposals/facNotesReporte'); ?>
-                                <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-
-                                <?php form_close();?>
-                            </div>
-                            <?php } ?>
-                         </div>
-
-                         <div style="position:fixed; top:8%; right:2%;">
-                         <?php if($role == "Department Chair") { ?>
-                            <div style="float:left; padding:2px; padding-top:10px;">
-                            <?php echo form_open('Proposals/chairNotesReporte'); ?>
-                                <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-
-                                <?php form_close();?>
-                            </div>
-                            <?php } ?>
-                         </div>
-
-                         <div style="position:fixed; top:8%; right:2%;">
-                         <?php if($role == "Coordinator") { ?>
-                            <div style="float:left; padding:2px; padding-top:10px;">
-                            <?php echo form_open('Proposals/coordNotesReporte'); ?>
-                            <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-
-                                <?php form_close();?>
-                            </div>
-                         <?php } ?>
-                        </div>
-
-                        <div style="position:fixed; top:8%; right:2%;">
-                         <?php if($role == "School Dean") { ?>
-                            <div style="float:left; padding:2px; padding-top:10px;">
-                            <?php echo form_open('Proposals/deanNotesReporte'); ?>
-                            <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-
-                                <?php form_close();?>
-                            </div>
-                         <?php } ?>
-                        </div>
-
-                        <div style="position:fixed; top:8%; right:2%;">
-                         <?php if($role == "CES Director") { ?>
-                            <div style="float:left; padding:2px; padding-top:10px;">
-                            <?php echo form_open('Proposals/adminNotesReporte'); ?>
-                            <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
-
-                                <?php form_close();?>
-                            </div>
-                         <?php } ?>
-                        </div>
-
-                        <div style="position:fixed; top:8%; right:2%;">
-                         <?php if($role == "Vice-President for Academic Affairs") { ?>
-                            <div style="float:left; padding:2px; padding-top:10px;">
-                            <?php echo form_open('Proposals/adminNotesReport'); ?>
-
-                                <?php form_close();?>
-                            </div>
-                         <?php } ?>
                         </div>
 
                    

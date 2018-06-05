@@ -39,7 +39,7 @@
                          <tbody>
 						</tbody>
                     </table>
-                    <nav align="center">
+                    <!-- <nav align="center">
                       <ul class="pagination">
                         <li>
                           <a href="#" aria-label="Previous">
@@ -57,7 +57,7 @@
                           </a>
                         </li>
                       </ul>
-                    </nav>
+                    </nav> -->
                 </div>
             </div>
 

@@ -45,13 +45,11 @@
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th>School and Department</th>
                             <th>Created By</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -65,31 +63,26 @@
                         <?php } ?>
 
 
-                        <?php 
-                      
-        
-                        foreach($reportlist_d as $repd) {?>
+                        <?php foreach($reportlist_d as $repd) {?>
                             
                                     <tr>
                                         <td>
-                                            <a href="<?php echo base_url() ?>index.php/Director/loadreportd/<?php echo $repd->fd_id; ?>"><?php echo $repd->fd_title;?></a>
+                                            <a href="<?php echo base_url() ?>index.php/StudentOrganization/loadreportd/<?php echo $repd->fd_id; ?>">
+                                                 <?php echo $repd->fd_title;?></a>
                                         </td>
                                        
                                         <td>
-                                            <?php echo $repd->datecreated;?>
-                                            <br/>
+                                            <?php echo $repd->datecreated;?><br/>
                                             <input type="hidden" name="creator_id" value="<?php echo $repd->creator_id ;?>">
                                         </td>
 
-                                        <td>
-                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
-                                        </td>
 
-                                         <td>
-                                            <?php echo $repd->who_created;?>
+                                        <td>
+                                            <?php echo $repd->who_created;?></p>
                                         </td>
                                     </tr>
-                            <?php  }?>
+
+                        <?php  }?>
 
                             
                     </tbody>
@@ -109,7 +102,6 @@
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th>School and Department</th>
                             <th>Created By</th>
                         </tr>
                     </thead>
@@ -118,10 +110,9 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
                         </tr>
                     </tfoot>
-                    <tbody> 
+                   <tbody> 
                         <?php if(empty($reportlist_e)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
@@ -129,28 +120,21 @@
                         <?php } ?>
 
 
-                        <?php foreach($reportlist_e as $allrepe) {?>
+                        <?php foreach($reportlist_e as $repe) {?>
                            
-                                    <tr>
                                         <td>
-                                            <a href="<?php echo base_url() ?>index.php/Director/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title;?></a>
+                                            <a href="<?php echo base_url() ?>index.php/StudentOrganization/loadreporte/<?php echo $repe->fe_id;?>"><?php echo $repe->title;?></a>
                                         </td>
 
                                         <td>
-                                            <?php echo $allrepe->datecreated;?>
+                                            <?php echo $repe->datecreated;?>
                                              <br/>
-                                            <input type="hidden" name="creator_id" value="<?php echo $allrepe->creator_id ;?>">
+                                            <input type="hidden" name="creator_id" value="<?php echo $repe->creator_id ;?>">
                                         </td>
 
                                         <td>
-                                            <?php echo $allrepe->creators_department;?></p>
+                                            <?php echo $repe->who_created;?><br><p style="font-size:75%;"><?php echo $repe->who_created;?></p>
                                         </td>
-
-                                        <td>
-                                            <?php echo $allrepe->who_created;?>
-                                        </td>
-
-                                    </tr>
                             <?php } ?>
                     </tbody>
                     </table> 

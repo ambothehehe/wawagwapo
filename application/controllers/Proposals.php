@@ -502,6 +502,7 @@ public function approved_proposals() {
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
 		
 		$this->load->model('Proposal_AB');
 		//$data['proplist']=$this->Proposal_AB->LoadProposals();
@@ -623,13 +624,14 @@ public function vpaaApproveProposal(){
             }
 	}
 
-	public function chairNotesPropFaculty(){
+	public function chairNotesPropOfCo(){
 		
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
         $p->id=$this->input->post('id');
         $p->noted_by_faculty=$this->input->post('noted_by_faculty');
         $p->noted_by_stat=$this->input->post('noted_by_stat');
+        $p->status=$this->input->post('status');
        
         					//name sa button like name = "note"
         if($this->input->post('notefc') == "ReturnProposal") { 
@@ -637,7 +639,7 @@ public function vpaaApproveProposal(){
 		} else {
 			
 		    $result=$p->noteProposalChair();
-		    $result1=$p->noteProposalChair();
+		    
 		}
         
             if(!$result){ 
@@ -664,18 +666,20 @@ public function vpaaApproveProposal(){
 		
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
+
         $p->id=$this->input->post('id');
         $p->noted_by_faculty=$this->input->post('noted_by_faculty');
         $p->noted_by_stat=$this->input->post('noted_by_stat');
-       
+        $p->status=$this->input->post('status');
+        echo ("$p->status");
         					//name sa button like name = "note"
         if($this->input->post('notefac') == "ReturnProposal") { 
 			$result=$p->facReturn();
-		} else {
+			} else {
 
 		    $result=$p->noteProposalfac();
-		    $result1=$p->noteProposalfac();
-		}
+
+			}
         
             if(!$result){ 
                 $this->session->set_flashdata('error_msg',
@@ -692,18 +696,48 @@ public function vpaaApproveProposal(){
             	else {
 					$this->session->set_flashdata('success_msg',
 					'<strong>Proposal Has Been Noted!</strong> You have successfully noted a proposal.');
+					
 				}
 				redirect(site_url('Faculty/home'), "refresh");
             }
 	}
 
-	public function chairNotesReport(){
+	public function facNotesReportd(){
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
         $p->reportd_id=$this->input->post('reportd_id');
 
      	if($this->input->post('notereport') == "ProceedReport") { 
-		$result=$p->noteReport($p->reportd_id);
+			$result=$p->noteOtherReportFaculty($p->reportd_id);
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('Faculty/reports'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					// $this->session->set_flashdata('success_msg',
+					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
+				}
+				redirect(site_url('Faculty/reports'), "refresh");
+            }
+	}
+
+	public function facNotesReporte(){
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->reporte_id=$this->input->post('reporte_id');
+
+     	if($this->input->post('notereport') == "ProceedReport") { 
+			$result=$p->noteReporte($p->reporte_id);
 		}
         
             if(!$result){ 
@@ -720,7 +754,96 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
+				}
+				redirect(site_url('Faculty/reports'), "refresh");
+            }
+	}
+
+	public function SONotesReport(){
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->reportd_id=$this->input->post('reportd_id');
+
+     	if($this->input->post('notereport') == "ProceedReport") { 
+			$result=$p->SOnoteReport($p->reportd_id);
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('StudentOrganization/reports'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					// $this->session->set_flashdata('success_msg',
+					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
+				}
+				redirect(site_url('StudentOrganization/reports'), "refresh");
+            }
+	}
+
+	public function SONotesReporte(){
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->reporte_id=$this->input->post('reporte_id');
+
+     	if($this->input->post('notereport') == "ProceedReport") { 
+			$result=$p->SOnoteReporte($p->reporte_id);
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('StudentOrganization/reports'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					// $this->session->set_flashdata('success_msg',
+					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
+				}
+				redirect(site_url('StudentOrganization/reports'), "refresh");
+            }
+	}
+
+	
+
+	public function chairNotesReport(){
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->reportd_id=$this->input->post('reportd_id');
+
+     	if($this->input->post('notereport') == "ProceedReport") { 
+			$result=$p->noteReport($p->reportd_id);
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('Chair/reports'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					// $this->session->set_flashdata('success_msg',
+					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Chair/reports'), "refresh");
             }
@@ -749,7 +872,7 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Chair/reports'), "refresh");
             }
@@ -779,7 +902,7 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Coordinator/reports'), "refresh");
             }
@@ -809,7 +932,7 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Coordinator/reports'), "refresh");
             }
@@ -839,7 +962,7 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Dean/reports'), "refresh");
             }
@@ -869,7 +992,7 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Dean/reports'), "refresh");
             }
@@ -899,7 +1022,7 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Director/other_reports'), "refresh");
             }
@@ -929,7 +1052,7 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Director/other_reports'), "refresh");
             }

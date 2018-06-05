@@ -21,7 +21,7 @@
 
                    <div id="printArea">
 						<div>
-							<h1>USC-CES FORM A <small>CESw Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
+							<h1>USC-CES FORM A <small>CES Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
 							<hr>
 							<div class="panel" align="center" >
 								<div class="panel-body"><p>
@@ -1020,7 +1020,7 @@
  <?php } else if($role == "Faculty") { ?>
 		
 		<div style="float:left; padding:2px; padding-top:10px;">
-		    <?php echo form_open('Proposals/chairNotesProp');
+		    <?php echo form_open('Proposals/facultyNotesProp');
 		    ?>
 		    <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
 

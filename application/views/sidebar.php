@@ -62,7 +62,7 @@
                  <li>
                     <a href="<?php echo site_url('Faculty/reports');?>">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                        &nbsp;&nbsp;&nbsp; My Reports
+                        &nbsp;&nbsp;&nbsp; Reports
                     </a>
                 </li>
                <li>
@@ -90,7 +90,7 @@
                  <li>
                     <a href="<?php echo site_url('StudentOrganization/reports');?>">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                        &nbsp;&nbsp;&nbsp; My Reports
+                        &nbsp;&nbsp;&nbsp; Reports
                     </a>
                 </li>
                <li>
@@ -114,6 +114,12 @@
                         &nbsp;&nbsp;&nbsp; My Proposals
                     </a>
                 </li>
+                <li>
+                    <a href="<?php echo site_url('ExtraCurricular/reports');?>">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; My Reports
+                    </a>
+                </li>
                <li>
                     <a href="<?php echo site_url('Proposals/approved_proposals');?>">
                         <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
@@ -135,6 +141,12 @@
                     <a href="<?php echo site_url('CoCurricular/home');?>">
                         <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
                         &nbsp;&nbsp;&nbsp; My Proposals
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo site_url('CoCurricular/reports');?>">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        &nbsp;&nbsp;&nbsp; My Reports
                     </a>
                 </li>
                <li>

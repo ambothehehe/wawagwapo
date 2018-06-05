@@ -66,16 +66,17 @@ class StudentOrganization extends CI_Controller
 			$data['lname'] 	= $this->session->lastname;
 			$data['role']	= $this->session->designation;
 			$data['department']	= $this->session->department;
+			$data['organization']	= $this->session->organization;
 			$data['user_id'] = $this->session->user_id;
 
 
 			$this->load->model('Reports');
 
 
-			$data['reportlist_d']=$this->Reports->LoadReport_dCHAIR($data['department']);
-			$data['reportlist_e']=$this->Reports->LoadReport_eCHAIR($data['department']);
+			$data['reportlist_d']=$this->Reports->LoadReport_dSO($data['department'], $data['organization']);
+			$data['reportlist_e']=$this->Reports->LoadReport_eSO($data['department'], $data['organization']);
 
-			$this->load->view('chair/chair_report', $data);
+			$this->load->view('studentOrganization/SO_report', $data);
 		}else{
 			redirect(site_url());
 		}

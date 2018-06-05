@@ -57,11 +57,12 @@
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
-                            <th></th>
+                            <th>Created By</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -95,14 +96,12 @@
                                             <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
                                         </td>
 
-                                        <!-- DELETE BUTTON -->
                                         <td>
-                                         <?php
-                                            echo form_open('Representative/deleteForm_d');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repd->fd_id;?>" >
-                                            </form> </td>
-                                         </tr>
-                                        <?php  }?>
+                                            <?php echo $repd->who_created;?></p>
+                                        </td>
+
+                                    </tr>
+                        <?php  }?>
 
                             
                         </tbody>
@@ -122,11 +121,14 @@
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th></th>
+                            <th>School and Department</th>
+                            <th>Created By</th>
+
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -152,6 +154,15 @@
                                              <br/>
                                             <input type="hidden" name="creator_id" value="<?php echo $allrepe->creator_id ;?>">
                                         </td>
+
+                                        <td>
+                                            <?php echo $allrepe->creators_department;?><br><p style="font-size:75%;"><?php echo $allrepe->creators_school;?></p>
+                                        </td>
+
+                                        <td>
+                                            <?php echo $allrepe->who_created;?></p>
+                                        </td>
+
 
                                         <!-- DELETE BUTTON -->
                                     </tr>

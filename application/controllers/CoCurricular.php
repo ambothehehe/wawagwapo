@@ -61,6 +61,28 @@ class CoCurricular extends CI_Controller
 	// 	}
 	// }
 
+	public function reports() {
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 7)
+		{	
+			$data['fname'] 	= $this->session->firstname;
+			$data['lname'] 	= $this->session->lastname;
+			$data['role']	= $this->session->designation;
+			$data['department']	= $this->session->department;
+			$data['user_id']	= $this->session->user_id;
+
+
+			$this->load->model('Reports');
+			
+			$data['list_d']=$this->Reports->LoadReport_d();
+			$data['list_e']=$this->Reports->LoadReport_e();
+			
+			$this->load->view('cocurricular/cocurricular_report', $data);
+		}else{
+			redirect(site_url());
+		}
+	}
+
+
 	public function create_proposal() {
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
@@ -176,14 +198,6 @@ class CoCurricular extends CI_Controller
 		$this->load->view('forms/form_c', $data);
 	}
 
-
-
-	
-
-
-
-
-
 		// for loading specific proposal
 	public function loadspecificproposal(){
 		$proposal_id= $this->uri->segment(3);
@@ -224,6 +238,42 @@ class CoCurricular extends CI_Controller
 		$this->load->view("forms/sample_form_a1", $data);
 	}
 
+public function form_d() {
+
+		$this->load->model('Reports');
+
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department'] = $this->session->department;
+		$data['creator_id'] = $this->session->user_id;
+		$data['creators_school']	= $this->session->office;
+
+		$proposal_array = array();
+
+		$proposals2 = $this->Reports->get_title($data['creator_id']);
+		
+		if(($proposals2)){
+		foreach($proposals2 as $prop)
+		{
+
+				$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
+							  "propdetails"=>$prop);
+											
+				array_push($proposal_array, $data2);
+			}
+
+			$data["proposals"] = $proposal_array;
+			// $datum['titles']= $this->Reports->get_title();
+			//echo $this->session->designation;
+			//var_dump($proposal_array);
+
+			$this->load->view('forms/form_d', $data);
+		}else{
+			?><script type="text/javascript">alert("NO AVAILABLE PROPOSALS TO BE REPORTED");</script><?php
+			redirect(site_url('CoCurricular/create_report'), "refresh");
+		}
+	}
 	
 
 
@@ -265,12 +315,154 @@ class CoCurricular extends CI_Controller
 		$data['role']	= $this->session->designation;
 		$data['department']	= $this->session->department;
 		$data['creators_school']	= $this->session->office;
+		$data['organization']	= $this->session->organization;
 		$data['creator_id'] = $this->session->user_id;
 
 		$this->load->view('forms/form_e', $data);
 	}
 
 
+public function addFormd() {
+
+
+			$data['report_id'] = $this->session->proposal_id;
+			$data['fname'] = $this->session->firstname;
+			$data['lname'] = $this->session->lastname;
+			$data['department'] = $this->session->department;
+			$data['creator_id'] = $this->session->user_id;
+
+			// $data['titles'] = $this->Reports->get_title();
+			// // $datum['titles']= $this->Reports->get_title();
+			// $this->load->view('forms/form_d', $data);
+			// var_dump($data);
+			// $this->template->show('title', $datum);
+			$this->load->model('Reports');
+			$this->load->model('Proposal_AB');
+
+			$p = new Reports();
+
+			$p->fd_id=$this->input->post('id'); // para sa TITLE
+			$p->fd_school=$this->input->post('fd_school'); // para sa SCHOOL
+			$p->fd_dept=$this->input->post('fd_dept'); // para sa DEPARTMENT
+			$p->fd_venue=$this->input->post('fd_venue'); // para sa VENUE
+
+			$p->report_status = 3;
+
+			$p->date_start=$this->input->post('act_duration1'); //INCLUSIVE DATE START
+			$p->date_end=$this->input->post('act_duration2'); //INCLUSIVE DATE END!
+			$p->introduction=$this->input->post('introduction');
+			$p->participants_partners_and_beneficiaries=$this->input->post('participants_partners_and_beneficiaries');
+			$p->perceived_by_beneficiaries=$this->input->post('perceived_by_beneficiaries');
+			$p->perceived_by_students=$this->input->post('perceived_by_students');
+			$p->perceived_by_faculty=$this->input->post('perceived_by_faculty');
+			$p->challenges_encountered=$this->input->post('challenges_encountered');
+
+			// passing the info of creator
+			$p->who_created=$this->input->post('who_created');
+			$p->creators_department=$this->input->post('creators_department');
+			$p->creator_id=$this->input->post('creator_id');
+			$p->creators_school=$this->input->post('creators_school');
+			$specprop = $this->Proposal_AB->getProposalDetails($p->fd_id);
+			$proposal_json_format = (object)json_decode($specprop[0]->proposal_json_format);
+			$p->fd_title = $proposal_json_format->title;
+
+			$result=$p->AddFormD();
+
+			$result1=$p->isreported($p->fd_id);
+
+			if(!$result){
+				$this->session->set_flashdata('error_msg',
+					'<strong>Something Went Wrong!</strong> An Error occured while saving your report.');
+
+				redirect(site_url('CoCurricular/reports'), "refresh");
+			}
+			else{
+				$this->session->set_flashdata('success_msg',
+					'<strong>Report Created!</strong> You have successfully created Report D.');
+				
+				redirect(site_url('CoCurricular/reports'), "refresh");
+			}
+			//echo "<br/>".$this->input->post('id');
+		
+}
+
+public function addForme() {
+		$this->load->model('Reports');
+		$p = new Reports();
+			
+		$p->title=$this->input->post('title_of_program');
+		$p->unit_responsible=$this->input->post('unit_responsible');
+		$p->program_duration=$this->input->post('program_duration');
+
+		$p->report_status = 3;
+
+
+			// $actarr= array(
+			// 'acttitle' => $this->input->post('act_title'), 
+			// 'incdate' => $this->input->post('incdate'),
+			// 'totalhours' => $this->input->post('totalhours') 
+			// 	);
+		$p->act_title =implode(" , ", $this->input->post('act_title'));
+		$p->incdate =implode(" , ", $this->input->post('incdate'));
+		$p->totalhours =implode(" , ", $this->input->post('totalhours'));
+			
+			$p->final_target_groups=$this->input->post('final_target_groups');
+			$p->collaborators=$this->input->post('collaborators');
+			$p->background_of_issue=$this->input->post('background_of_issue');
+			$p->major_achievements_of_program=$this->input->post('major_achievements_of_program');
+			$p->results_of_activities_to_goal=$this->input->post('results_of_activities_to_goal');
+			$p->overall_strategy_adopted=$this->input->post('overall_strategy_adopted');
+			$p->observed_impact_of_program=$this->input->post('observed_impact_of_program');
+			$p->challenges_and_measures_undertaken=$this->input->post('challenges_and_measures_undertaken');
+			$p->good_practices=$this->input->post('good_practices');
+			$p->lessons_learned_from_program=$this->input->post('lessons_learned_from_program');
+			$p->unit_relationship=$this->input->post('unit_relationship');
+			$p->other_links_gained_from_program=$this->input->post('other_links_gained_from_program');
+			$p->witness_to_the_word=$this->input->post('witness_to_the_word');
+			$p->ways_forward=$this->input->post('ways_forward');
+
+// GOALS AREA
+			$p->goal_title =implode(" , ", $this->input->post('goal_title'));
+			$p->spec_obj =implode(" , ", $this->input->post('spec_obj'));
+			$p->spec_act =implode(" , ", $this->input->post('spec_act'));
+			$p->outputs =implode(" , ", $this->input->post('outputs'));
+
+//USC PARTNERS AND COLLABS AREA
+			$p->intraname =implode(" , ", $this->input->post('intraname'));
+			$p->intracontribs =implode(" , ", $this->input->post('intracontribs'));
+			$p->extraname =implode(" , ", $this->input->post('extraname'));
+			$p->extracontribs =implode(" , ", $this->input->post('extracontribs'));
+
+			// passing the info of creator
+			$p->who_created=$this->input->post('who_created');
+			$p->creators_department=$this->input->post('creators_department');
+			$p->creator_id=$this->input->post('creator_id');
+			$p->creators_school=$this->input->post('creators_school');
+
+			$result=$p->AddFormE();
+
+			if(!$result){
+			$this->session->set_flashdata('error_msg',
+					'<strong>Something Went Wrong!</strong> An Error occured while saving your report.');
+
+				redirect(site_url('CoCurricular/reports'), "refresh");
+			}
+			else{
+			$this->session->set_flashdata('success_msg',
+					'<strong>Report Created!</strong> You have successfully created Report E.');
+				
+				redirect(site_url('CoCurricular/reports'), "refresh");
+			}
+
+			}
+
+		//for form e fname lname
+		public function form_e_update() {
+		$data['fname'] = $this->session->fname;
+		$data['lname'] = $this->session->lname;
+		$data['organization']	= $this->session->organization;
+		$this->load->view('forms/form_e_update', $data);
+	}
 
 
 //FOR form E 
@@ -306,15 +498,29 @@ class CoCurricular extends CI_Controller
    }
 
     public function deleteForm_d(){
+	   	$this->load->model('Reports');
+
+	   $this->Reports->row_delete_d($this->input->post('id'));
+
+
+    $this->Reports->ezeronishabai($this->input->post('id'));
+    
+	   $this->session->set_flashdata('success_msg',
+						'<strong>Report Deleted!</strong> You have successfully deleted a report.');
+					
+		redirect(site_url('CoCurricular/reports'), "refresh");
+	
+   }
+
+   public function deleteForm_e(){
    	$this->load->model('Reports');
 
-   $this->Reports->row_delete_d($this->input->post('id'));
+   $this->Reports->row_delete_e($this->input->post('id'));
+   
    $this->session->set_flashdata('success_msg',
 					'<strong>Report Deleted!</strong> You have successfully deleted a report.');
 				
-	redirect(site_url('Representative/reports'), "refresh");
-	
-
+	redirect(site_url('CoCurricular/reports'), "refresh");
    }
 
    public function deleteForm_proposals(){

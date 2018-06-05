@@ -222,7 +222,7 @@ $("#save_a1").click(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a1').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
+        // alert("Successful in creating a PPA Draft");
         setTimeout(window.location.replace("home"),5000);
       },
       error: function(data) {
@@ -294,7 +294,7 @@ $("#save_a1_coord").click(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a1_coord').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
+        // alert("Successful in creating a PPA Draft");
         setTimeout(window.location.replace("home"),5000);
       },
       error: function(data) {
@@ -384,6 +384,7 @@ $("#form_a").submit(function(e){
   //var dataJSON=JSON.parse(data);
   //alert(dataJSON.title);
 
+
   var btn = document.activeElement.getAttribute('value');
   var button_type = "<input type='hidden' name='button_type' value='"+btn+"'/>";
 
@@ -399,7 +400,7 @@ $("#form_a").submit(function(e){
       data:$('#form_a').serialize(),
       success:function(data){
         alert("Successful in creating a PPA Form");
-        setTimeout(window.location.replace("home"),5000);
+        setTimeout(window.location.replace("home"),2000);
       },
       error: function(data) {
         console.log(data);
@@ -437,7 +438,7 @@ $("#save").click(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
+        // alert("Successful in creating a PPA Draft");
         setTimeout(window.location.replace("home"),5000);
       },
       error: function(data) {
@@ -462,14 +463,14 @@ $("#form_c").submit(function(e){
   console.log($('#form_c').serialize());
   //console.log(validationProposalFormA1());
   var error="";
-  if((error = validationProposalFormC()) === true)
+  if((error = validationProposalFormA()) === true)
   {
     $.ajax({
       type: "POST",
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_c').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Form");
+        alert("Successful in creating a PPA Form c");
         setTimeout(window.location.replace("home"),5000);
       },
       error: function(data) {
@@ -507,7 +508,7 @@ $("#save_c").submit(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_c').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
+        // alert("Successful in creating a PPA Draft");
         setTimeout(window.location.replace("home"),5000);
       },
       error: function(data) {

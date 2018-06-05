@@ -243,3 +243,13 @@ View Proposal Sections
   list-style-image: square;
   list-style-position: inside;
 }
+
+#sirkolsubmittedrep{
+  border-radius: 30% !important;
+  left: 10px !important;
+}
+
+#sirkolreturnedrep{
+  border-radius: 30% !important;
+  left: 10px !important;
+}

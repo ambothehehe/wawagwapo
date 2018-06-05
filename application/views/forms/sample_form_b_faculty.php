@@ -983,24 +983,29 @@
  <div style="position:fixed; top:8%; right:2%; ">
  <?php if($role == "Department Chair") { ?>
     <div style="float:left; padding:2px; padding-top:10px;">
-    <?php echo form_open('Proposals/chairNotesPropFaculty'); ?>
+    <?php echo form_open('Proposals/chairNotesPropOfCo');
+		  ?>
 
 
 	    <input class="form-control" type="hidden" name="noted_by_faculty" value="<?php echo $noted_by_faculty; ?>">
+
 	    <input class="form-control" type="hidden" name="noted_by_stat" value="<?php echo $noted_by_stat; ?>">
+
+	    <input class="form-control" type="hidden" name="status" value="<?php echo $status; ?>">
 
 	    <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
 
 	    <button type="submit" class="btn btn-danger btn-md" name="notefc" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 
-	    <button type="submit" class="btn btn-primary btn-md" name="notefc" value="ProceedProposal">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+	    <button type="submit" class="btn btn-primary btn-md" name="notefc" value="ProceedProposal"><?php echo $status; ?>Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
     <?php form_close();?>
     </div>
  <?php } else if($role == "Faculty") { ?>
-		
+		 <?php echo form_open('Proposals/facultyNotesProp');
+		  ?>
 		<div style="float:left; padding:2px; padding-top:10px;">
-			<?php echo form_open('Proposals/facultyNotesProp');?>
+
 
 			<input class="form-control" type="hidden" name="noted_by_faculty" value="<?php echo $noted_by_faculty; ?>">
 	    	<input class="form-control" type="hidden" name="noted_by_stat" value="<?php echo $noted_by_stat; ?>">

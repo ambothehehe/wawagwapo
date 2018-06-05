@@ -32,7 +32,8 @@
                 <ul class="nav nav-tabs nav-justified">
     <li class="active"><a data-toggle="tab" href="#draft_proposals">Drafts</a></li>
     <li><a data-toggle="tab" href="#returned_proposals">Returned</a></li>
-    <li><a data-toggle="tab" href="#submitted_proposals">Submitted</a></li>
+
+    <li><a id = "repsubmitted" data-toggle="tab" href="#submitted_proposals">Submitted <span id = "sirkolsubmittedrep" class="sirkol label label-danger" style ="display: none;">!</span></a></li>
      
    
    
@@ -199,6 +200,12 @@
 			
 		});
 	</script>
+
+	<!-- <script type="text/javascript">
+		$("#repsubmitted").click(function(){
+			$("#sirkolsubmittedrep").show();
+		});
+	</script> -->
 
 </body>
 

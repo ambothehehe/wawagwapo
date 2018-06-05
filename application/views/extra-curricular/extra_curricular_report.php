@@ -45,8 +45,7 @@
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th>School and Department</th>
-                            <th>Created By</th>
+                           <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -54,44 +53,44 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
                         </tr>
                     </tfoot>
                     <tbody> 
-                        <?php if(empty($reportlist_d)) {?>
+                        <?php if(empty($list_d)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
                             </tr>
                         <?php } ?>
 
 
-                        <?php 
-                      
-        
-                        foreach($reportlist_d as $repd) {?>
-                            
+                        <?php foreach($list_d as $reps) {?>
+                            <?php if($reps->creator_id == $user_id) { ?>
                                     <tr>
                                         <td>
-                                            <a href="<?php echo base_url() ?>index.php/Director/loadreportd/<?php echo $repd->fd_id; ?>"><?php echo $repd->fd_title;?></a>
-                                        </td>
-                                       
-                                        <td>
-                                            <?php echo $repd->datecreated;?>
-                                            <br/>
-                                            <input type="hidden" name="creator_id" value="<?php echo $repd->creator_id ;?>">
+                                            <a href="<?php echo base_url() ?>index.php/Representative/loadreportd/<?php echo $reps->fd_id; ?>">
+                                                <?php echo $reps->fd_title;?></a>
                                         </td>
 
                                         <td>
-                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
+                                            <?php echo $reps->datecreated;?><br/>
+                                            <input type="hidden" name="creator_id" value="<?php echo $reps->creator_id ;?>">
                                         </td>
 
-                                         <td>
-                                            <?php echo $repd->who_created;?>
+                                        <td>
+                                         <?php if($reps->report_status == 3 or $reps->report_status == 24){
+                                            echo form_open('Representative/deleteForm_d');?>
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $reps->fd_id;?>" >
+                                            <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                            </form> 
                                         </td>
+                                         <?php }else{ ?>
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $reps->fd_id;?>" >
+                                            <button class="btn btn-sm btn-danger" disabled type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                            </form> 
+                                            <?php } ?>
                                     </tr>
-                            <?php  }?>
-
-                            
+                            <?php } ?>
+                             <?php } ?> 
                     </tbody>
                     </table>
             </div>
@@ -109,8 +108,7 @@
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
-                            <th>School and Department</th>
-                            <th>Created By</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -118,40 +116,41 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
                         </tr>
                     </tfoot>
-                    <tbody> 
-                        <?php if(empty($reportlist_e)) {?>
+                    <tbody>  
+                          <?php if(empty($list_e)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
                             </tr>
                         <?php } ?>
-
-
-                        <?php foreach($reportlist_e as $allrepe) {?>
-                           
+                        
+                        <?php foreach($list_e as $elist) {?>
+                              <?php if($elist->creator_id == $user_id) { ?>
                                     <tr>
-                                        <td>
-                                            <a href="<?php echo base_url() ?>index.php/Director/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title;?></a>
+                                        <td><a href="<?php echo base_url() ?>index.php/Representative/loadreporte/<?php echo $elist->fe_id; ?>"><?php echo $elist->title;?></a>
                                         </td>
 
                                         <td>
-                                            <?php echo $allrepe->datecreated;?>
+                                            <?php echo $elist->datecreated;?>
                                              <br/>
-                                            <input type="hidden" name="creator_id" value="<?php echo $allrepe->creator_id ;?>">
+                                            <input type="hidden" name="creator_id" value="<?php echo $elist->creator_id ;?>">
                                         </td>
-
+                                        
                                         <td>
-                                            <?php echo $allrepe->creators_department;?></p>
+                                            <?php if($elist->report_status == 3 or $elist->report_status == 24){
+                                            echo form_open('Representative/deleteForm_e');?>
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $elist->fe_id;?>" >
+                                            <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                            </form> 
                                         </td>
-
-                                        <td>
-                                            <?php echo $allrepe->who_created;?>
-                                        </td>
-
+                                             <?php }else{ ?>
+                                                <input class="form-control" type="hidden" name="id" value="<?php echo $elist->fe_id;?>" >
+                                                <button class="btn btn-sm btn-danger" disabled type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                            </form> 
+                                            <?php } ?>
                                     </tr>
-                            <?php } ?>
+                            <?php }} ?>
                     </tbody>
                     </table> 
                     </div>

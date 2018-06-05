@@ -475,14 +475,11 @@ public function decisionApprove(){
 
         if($this->noted_by_stat == 0){
             $data = array(
-                            'noted_by_stat'=>'1',
-                            'status'=>'3'
+                            'noted_by_stat'=>'1'
                         );
-        }else if ($this->noted_by_faculty == 1 && $this->noted_by_stat == 1){
-            $data = array(
-                            'status'=>'3'
-                        );   
         }
+
+        
 
         $this->db->where('proposal_id', $this->id);
         $this->db->update('proposal_json', $data); 
@@ -492,13 +489,13 @@ public function decisionApprove(){
      public function noteProposalfac(){
         
        if($this->noted_by_faculty == 0){
+
             $data = array(
                             'noted_by_faculty'=>'1'
+
                         );
-        }else if ($this->noted_by_stat == 1 && $this->noted_by_faculty == 1){
-            $data = array(
-                            'status'=>'3'
-                        );   
+
+        //$this->db->set('status', 'status' + 20);
         }
 
         $this->db->where('proposal_id', $this->id);
@@ -507,12 +504,63 @@ public function decisionApprove(){
         return TRUE;
     }
 
+    // public function FUCKYOUYAWA(){
+    //     $data = array(
+    //                         'status'=>'1'
+    //                     );   
+
+    //    if ($this->noted_by_stat == 1 || $this->noted_by_faculty == 1){
+    //         $data = array(
+    //                         'status'=>'3'
+    //                     );   
+    //         }
+
+    //     $this->db->where('proposal_id', $this->id);
+    //     $this->db->update('proposal_json', $data); 
+
+    //     return TRUE;
+    // }
+
 // THIS IS THE REAL HARD END
 
     public function noteReport($fd_id){
 
         $data = array(
-                        'report_status'=>'4',
+                        'report_status'=>'3',
+                        'isSubmittedByChair' => 1,
+                    );
+
+        $this->db->where('fd_id', $fd_id);
+        $this->db->update('report_d', $data); 
+        return TRUE;
+    }
+
+    public function SOnoteReport($fd_id){
+
+        $data = array(
+                        'report_status'=>'6'
+                    );
+
+        $this->db->where('fd_id', $fd_id);
+        $this->db->update('report_d', $data); 
+        return TRUE;
+    }
+
+     public function SOnoteReporte($fe_id){
+
+        $data = array(
+                        'report_status'=>'6'
+                    );
+
+        $this->db->where('fe_id', $fe_id);
+        $this->db->update('report_e', $data); 
+        return TRUE;
+    }
+
+    public function noteOtherReportFaculty($fd_id){
+
+        $data = array(
+                        'isSubmittedByFaculty' => '1'
                     );
 
         $this->db->where('fd_id', $fd_id);
@@ -523,7 +571,8 @@ public function decisionApprove(){
     public function noteReporte($fe_id){
 
         $data = array(
-                        'report_status'=>'4',
+                        'report_status'=>'3',
+                        'isSubmittedByChair' => '1'
                     );
 
         $this->db->where('fe_id', $fe_id);
@@ -611,7 +660,16 @@ public function decisionApprove(){
     }
 
 
-     //public function facReturn(){
+     public function facReturn(){
+        $data = array(
+                        'status'=>'2',
+                        'noted_by_stat'=>'0'
+                    ); 
+
+        $this->db->where('proposal_id', $this->id);
+        $this->db->update('proposal_json', $data);
+        return TRUE;    
+     }
 
     public function soReturn(){
 
@@ -1186,11 +1244,13 @@ public function decisionApprove(){
 	public function LoadProposalsChair($department){
         $results = array();
     
+        $where = "(status='1' or status='20' or status = '40') ";  
 
         $this->db->select('*');
 
         $this->db->from('proposal_json_full_info');
-		$this->db->where('status','1');
+		$this->db->where($where);
+        $this->db->where('noted_by_stat','0');
 		$this->db->where('department',$department);
 		$query = $this->db->get();
 		if($query->num_rows() > 0)
@@ -1222,11 +1282,13 @@ public function decisionApprove(){
 
         $results = array();
     
+        $where = "(status='1' or status='20' or status = '40') ";   
 
         $this->db->select('*');
 
-        $this->db->from('proposal_json_full_info');
-        $this->db->where('status','1');
+        $this->db->from('propsal_json_full_info');
+        $this->db->where($where);
+        $this->db->where('noted_by_faculty','0');
         $this->db->where('department',$department);
         $this->db->where_not_in('user_id', $user_id);
         $this->db->where('organization',$organization);
@@ -1244,9 +1306,12 @@ public function decisionApprove(){
     
         $this->db->select('*');
 
-        $this->db->from('proposal_json_full_info');
+        $where = "(status ='1' and noted_by_stat = '1' and noted_by_faculty='1')";
+
+        $this->db->from('propsal_json_full_info');
 		$this->db->where('status','3');
-		$this->db->where('office',$office);
+        $this->db->where('office',$office);
+        $this->db->or_where($where);
 		$query = $this->db->get();
 		if($query->num_rows() > 0)
 		{

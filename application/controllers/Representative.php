@@ -1,4 +1,4 @@
-f<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -46,8 +46,8 @@ class Representative extends CI_Controller
 		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 6)
 		{
 			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
-			echo $data['email'];
-			?><script> alert("yuck fou");</script><?php
+			//echo $data['email'];
+			?><script> alert("reprepreprerep");</script><?php
 			$this->load->library('email');
 			$config = Array('protocol' => 'smtp',
 			'smtp_host'    => 'ssl://smtp.gmail.com',
@@ -63,9 +63,12 @@ class Representative extends CI_Controller
 			$this->email->initialize($config);
 			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
 			//$this->email->to($data['email']); 
+
+
 			$this->email->to($data['email']);
+
 			$this->email->subject('CES Proposal Notification From Representative');
-			$this->email->message('Good day!');
+			$this->email->message('Good day! You have a proposal to be noted. Check it out at http://localhost/cesppms/index.php/Chair/home  ');
 			$this->email->set_newline("\r\n");   
 			$result = $this->email->send();  
 		  	if(!$result)
@@ -86,7 +89,6 @@ class Representative extends CI_Controller
 			$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
 			
 			echo $data['email'];
-			?><script> alert("yuck fou2");</script><?php
 			$this->load->library('email');
 			$config = Array('protocol' => 'smtp',
 			'smtp_host'    => 'ssl://smtp.gmail.com',
@@ -103,7 +105,7 @@ class Representative extends CI_Controller
 			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
 			$this->email->to($data['email']); 
 			$this->email->subject('CES Proposal Notification From Coordinator ');
-			$this->email->message('Good day!');
+			$this->email->message('Good day! You have a proposal to be noted. Check it out at http://localhost/cesppms/index.php/Dean/home  ');
 			$this->email->set_newline("\r\n");   
 			$result = $this->email->send();  
 		  	if(!$result)
@@ -150,12 +152,12 @@ class Representative extends CI_Controller
 		  	{
 		  		// mail sent
 		  		echo "sayup";
-        		redirect(site_url());
+        		//redirect(site_url());
 		  	}
 		  	else
 		  	{
 		  		echo "hey";
-        		redirect(site_url());
+        		//redirect(site_url());
 		  	}
 		}
 	}
@@ -333,21 +335,26 @@ class Representative extends CI_Controller
 
 		$proposals2 = $this->Reports->get_title($data['creator_id']);
 		
+		if(($proposals2)){
 		foreach($proposals2 as $prop)
 		{
 
-			$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
-						  "propdetails"=>$prop);
-										
-			array_push($proposal_array, $data2);
+				$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
+							  "propdetails"=>$prop);
+											
+				array_push($proposal_array, $data2);
+			}
+
+			$data["proposals"] = $proposal_array;
+			// $datum['titles']= $this->Reports->get_title();
+			//echo $this->session->designation;
+			//var_dump($proposal_array);
+
+			$this->load->view('forms/form_d', $data);
+		}else{
+			?><script type="text/javascript">alert("NO AVAILABLE PROPOSALS TO BE REPORTED");</script><?php
+			redirect(site_url('Representative/create_report'), "refresh");
 		}
-
-		$data["proposals"] = $proposal_array;
-		// $datum['titles']= $this->Reports->get_title();
-		//echo $this->session->designation;
-		//var_dump($proposal_array);
-
-		$this->load->view('forms/form_d', $data);
 	}
 
 public function formd_titles(){
@@ -460,12 +467,14 @@ public function addFormd() {
 		$data['organization']	= $this->session->organization;
 		$data['creators_school'] = $this->session->office;
 		$data['user_id'] = $this->session->user_id;
+		$data['designation_fkid'] = $this->session->designation_fkid;
 
 		$data['form_type'] = $this->session->form_type;
 
-
 		$data['noted_by_faculty'] = $this->session->noted_by_faculty;
 		$data['noted_by_stat'] = $this->session->noted_by_stat;
+
+		$data['status'] = $this->session->status;
 
 		$this->load->model('Proposal_AB');
 		$data["proposal"] = $this->Proposal_AB->getProposalDetails($proposal_id);
@@ -475,6 +484,7 @@ public function addFormd() {
 		$data['comments']=$this->Proposal_AB->LoadComments($proposal_id);
 		
 		$this->load->view("forms/sample_form_b_faculty", $data);
+		
 	}
 
 	public function loadspecificproposal_c(){
@@ -560,6 +570,7 @@ public function addFormd() {
 		$data['role']	= $this->session->designation;
 		$data['department']	= $this->session->department;
 		$data['creators_school']	= $this->session->office;
+		$data['organization']	= $this->session->organization;
 		$data['creator_id'] = $this->session->user_id;
 
 		$this->load->view('forms/form_e', $data);
@@ -819,9 +830,8 @@ public function addFormd() {
 					'<strong>Report Deleted!</strong> You have successfully deleted a report.');
 				
 	redirect(site_url('Representative/reports'), "refresh");
-	
-
    }
+
 
     public function deleteForm(){
    	$this->load->model('Proposal_AB');

@@ -31,10 +31,12 @@
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
+                            <th>Created By</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -68,12 +70,10 @@
 
                                         <!-- DELETE BUTTON -->
                                         <td>
-                                         <?php
-                                            echo form_open('Representative/deleteForm_d');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repd->fd_id;?>" >
-                                            </form> </td>
-                                         </tr>
-                                        <?php  }?>
+                                            <?php echo $repd->who_created;?></p>
+                                        </td>
+                                    </tr>
+                        <?php  }?>
 
                     </tbody>
                     </table>
@@ -92,10 +92,12 @@
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
+                            <th>Created By</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -126,9 +128,13 @@
                                         <td>
                                             <?php echo $repe->creators_department;?><br><p style="font-size:75%;"><?php echo $repe->creators_school;?></p>
                                         </td>
+
+                                        <td>
+                                            <?php echo $repe->who_created;?><br><p style="font-size:75%;"><?php echo $repe->who_created;?></p>
+                                        </td>
                                         <!-- DELETE BUTTON -->
-                                         </tr>
-                                        <?php  }?>
+                                    </tr>
+                  <?php  }?>
 
                     </tbody>
                     </table>

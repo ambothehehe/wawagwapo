@@ -32,7 +32,7 @@
                 <div class="row tab-content">
                     <div>
                       <!--<?php echo form_open('Procedure_one/');?>-->
-                        <form method="post" name="form_a" id="form_a">                          
+<form method="post" name="form_a" id="form_a">                          
                             <?php //include('proposal_header.php');?>
 
 <!-- START proposal header of form_a1.php -->
@@ -110,7 +110,7 @@
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
 
-                              <button type="submit" class="btn btn-success btn-block" id="submit" name="submit" value="submit_prop" onclick= "window.location='<?php echo base_url(); ?>index.php/Representative/send'"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
+                              <button type="submit" class="btn btn-success btn-block" id="submit" name="submit" value="submit_prop" onsubmit= "window.location='<?php echo base_url(); ?>/index.php/Representative/send'"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
                             </div>
                             
                         <?php echo form_close();?>
@@ -224,7 +224,23 @@
     });
   </script>
 
-    
+
+<!-- IMPORTANT! THE HOLY CODE -->
+<script>
+    $("#form_a").submit(function() {
+  var id = $('#prod').val();
+    $.ajax({
+                type:'POST',
+                url:'<?php echo base_url("index.php/Representative/send"); ?>',
+                data:{'id':id},
+                success:function(data){
+                }
+            });
+});
+</script>
+<!-- IMPORTANT! THE HOLY CODE -->
+
+
 </body>
 
 </html>

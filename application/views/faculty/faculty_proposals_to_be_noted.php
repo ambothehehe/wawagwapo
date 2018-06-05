@@ -75,6 +75,8 @@
 
                     else if(dataJSON[i].form_type == 2 && proposal_details.organization.length > 0)
                         var link = "<a href="+base_url+"Representative/loadspecificproposal_faculty/"+dataJSON[i].proposal_id+">";
+                    else if(dataJSON[i].form_type == 1 && proposal_details.organization.length > 0)
+                        var link = "<a href="+base_url+"Representative/loadspecificproposal_faculty/"+dataJSON[i].proposal_id+">";
 
 					else
 						var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
