@@ -183,6 +183,7 @@ $("#form_a1").submit(function(e){
   	 	url: base_url + "Procedure_one/insertDraftProposal",
   	 	data:$('#form_a1').serialize(),
         success:function(data){
+
         alert("Successful in creating a PPA Form");
         setTimeout(window.location.replace("home"),5000);
       },
@@ -399,6 +400,7 @@ $("#form_a").submit(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a').serialize(),
       success:function(data){
+        //sendEmail();
         alert("Successful in creating a PPA Form");
         setTimeout(window.location.replace("home"),2000);
       },
@@ -847,7 +849,7 @@ function validationProposalFormA()
   } else {
     return true;
   }
-
+}
 function validationProposalFormC()
 {
   if($("#inclusive-date1").val().length === 0){
@@ -886,12 +888,10 @@ function validationProposalFormC()
 
     return "Nature of the program is required";
 
-  } else if($("input[name='proram_area[]']:checked").length === 0) {
+  } else if($("input[name='program_area[]']:checked").length === 0) {
 
     return "Program area is required";
   } else {
     return true;
   }
-}
-
 }

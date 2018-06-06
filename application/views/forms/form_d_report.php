@@ -109,8 +109,8 @@
                         <div style="background-color:#C6E2FF; height:100px; width:100%;"><i>
                          <div style="padding:2px;"><center>created by:<br/><b><?php echo $res->who_created;?></b><br/>
                             <?php echo $res->creators_department;?><br/><?php echo $res->creators_school;?>
-                          </center></i>
-                          </div>
+                          </center>
+                          </div></i>
                         </div>
 
                     </div>
@@ -118,11 +118,12 @@
             </div>
              <?php } ?>
              </div>
-             </div>
-         </form>
+           </div><!-- Page Content Wrapper -->
+         
+         <?php include('application/views/footer.php');?>
 
+         </div><!-- Wrapper -->
 
-    </div>
 
                         <div style="position:fixed; top:8%; right:2%;">
                           <div style="float:left; padding:2px; padding-top:10px;">
@@ -147,7 +148,6 @@
                         <?php echo form_close();?>
 
                         </div>
-
                       
                        <div style="position:fixed; top:8%; right:2%;">
                          <?php if($role == "Student Organization Adviser") { ?>
@@ -172,6 +172,7 @@
                             </div>
                          <?php } ?>
                         </div>
+
 
                       <div style="position:fixed; top:8%; right:2%;">
                          <?php if($role == "Department Chair") { ?>
@@ -227,11 +228,6 @@
                             </div>
                          <?php } ?>
                         </div>
-
-
-
-            
-       
 
        <!-- jQuery -->
     <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>

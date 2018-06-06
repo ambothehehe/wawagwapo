@@ -325,11 +325,52 @@ class Users extends CI_Controller
 		$user = new User();
 
 		$user->user_id = $this->input->post('id', TRUE);
-
+		
 		$status = $user->accept_user_application();
 
 		echo json_encode($status);
 
+	}
+
+	public function send()
+	{
+		$this->load->model('Proposal_AB');
+		$user_id = $this->input->post('senderId');
+
+		$data['email'] = $this->Proposal_AB->getPendingEmail($user_id);
+		echo $data['email'];
+		?><script> alert("yuck fou");</script><?php
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			//$this->email->to($data['email']); 
+			$this->email->to($data['email']);
+			$this->email->subject('CES Proposal Notification From Representative');
+			$this->email->message('Good day! Your account has been approved by the Director. You can now use your account. Just login your account with your credentials');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+		  		echo "sayup";
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+		  		echo "hey";
+        		redirect(site_url());
+		  	}
 	}
 
 	public function denyUserApplication() {

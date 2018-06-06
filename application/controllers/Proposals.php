@@ -1154,10 +1154,48 @@ public function vpaaApproveProposal(){
 	
 	public function deanEndorseProp(){
 		$this->load->model('Proposal_AB');
+		$this->load->helper('array');
+
         $p= new Proposal_AB();
         //$p->id=$this->input->post('id');
         if($this->input->post('recommend') == "ReturnProposal") { 
 			$result=$p->deanReturn($this->input->post('id'));
+			//$designation = array('Coordinator' => '5','Representative' => '6');
+			$user_id = $this->input->post('senderId');
+			
+			$data['email'] = $this->Proposal_AB->getRepReturnEmail($this->input->post('id'),$this->session->office,$user_id);
+			?><script> alert("yuck fou");</script><?php
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Reciever');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();  
+		  	if(!$results)
+		  	{
+		  		// mail sent
+		  		echo "sayup";
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+		  		echo "hey";
+        		redirect(site_url());
+		  	}
 		} else {
 		    $result=$p->endorseProposal($this->input->post('id'));
 		}

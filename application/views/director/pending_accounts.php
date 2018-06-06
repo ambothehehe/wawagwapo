@@ -38,7 +38,8 @@
                                             <?php echo $applying_user->organization;?>
                                         </td>
                                         <td class="text-center">
-                                            <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Accept" onclick="accept_pending_user(<?php echo $applying_user->user_id; ?>)"><span class="glyphicon glyphicon-ok text-success"></span></a>
+                                            <input class="form-control" type ="hidden" name="senderId" value="<?php echo $applying_user->user_id; ?>">
+                                            <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Accept" onclick="accept_pending_user(<?php echo $applying_user->user_id; ?>); window.location='<?php echo base_url(); ?>index.php/Users/send'" ><span class="glyphicon glyphicon-ok text-success"></span></a>
                                             &nbsp 
                                             <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Deny" onclick="deny_pending_user(<?php echo $applying_user->user_id; ?>)"><span class="glyphicon glyphicon-remove text-danger"></span></a>
                                         </td>

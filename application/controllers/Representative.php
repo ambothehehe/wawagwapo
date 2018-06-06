@@ -69,6 +69,7 @@ class Representative extends CI_Controller
 
 			$this->email->subject('CES Proposal Notification From Representative');
 			$this->email->message('Good day! You have a proposal to be noted. Check it out at http://localhost/cesppms/index.php/Chair/home  ');
+	
 			$this->email->set_newline("\r\n");   
 			$result = $this->email->send();  
 		  	if(!$result)
@@ -435,6 +436,7 @@ public function addFormd() {
 	public function loadspecificproposal(){
 		$proposal_id= $this->uri->segment(3);
 		$data["id"] = $this->uri->segment(3);
+		var_dump($data["id"]);
 		//$data["status"] = $this->uri->segment(4);
 		$data['fname'] = $this->session->firstloadspecificproposalname;
 		$data['lname'] = $this->session->lastname;

@@ -109,8 +109,9 @@
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
-
-                              <button type="submit" class="btn btn-success btn-block" id="submit" name="submit" value="submit_prop" onsubmit= "window.location='<?php echo base_url(); ?>/index.php/Representative/send'"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
+                   <!-- <a href = "#" id = "myAnchor"> -->
+                              <button type ="submit" class="btn btn-success btn-block" id="submit" name="submit" value="submit_prop" onsubmit = "window.location='<?php echo base_url(); ?>index.php/Representative/send'"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
+                            <!-- </a> -->
                             </div>
                             
                         <?php echo form_close();?>
@@ -128,6 +129,7 @@
     <br>
     <?php include('application/views/footer.php');?>
 <script type="text/javascript">
+
     $(document).ready(function () {
       var data;
       <?php if(isset($proposal)):?>

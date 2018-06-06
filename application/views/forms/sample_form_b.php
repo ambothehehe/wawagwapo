@@ -24,6 +24,7 @@
 							<h1>USC-CES FORM A <small>CES Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
 							<hr>
 							<div class="panel" align="center" >
+								<input hidden="true" value="<?php echo $specprop->user_id;?>"/>
 								<div class="panel-body"><p>
 									  <h2><?php if(property_exists($specprop,"title")){ echo $specprop->title; } ?><!-- Barangay Labangon River Clean-up --></h2>
 									  <h3><?php if(property_exists($specprop,"school")){ echo $specprop->school; } ?><!-- School of Arts & Sciences --></h3>
@@ -1031,6 +1032,8 @@
  <?php } else if($role == "School Dean") { ?>
 		<div style="float:left; padding:2px; padding-top:10px;">
 			<?php echo form_open('Proposals/deanEndorseProp');?>
+			<input class="form-control" type="hidden" name="senderId" value="<?php echo $specprop->user_id; ?>">
+			
 			<input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
 			<button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 			<button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Endorse to Director&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>

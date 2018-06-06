@@ -708,7 +708,7 @@
                                 <td></td>
                                 <td>
                                   <select id="school" class="form-control" name="office" required>
-                                    <option readonly>-- Select your School --</option>
+                                    <option value = "" readonly>-- Select your School --</option>
                                       <option value="School of Architecture, Fine Arts and Design">School of Architecture, Fine Arts and Design</option>
                                       <option value="School of Arts and Sciences">School of Arts and Sciences</option>
                                       <option value="School of Education">School of Education</option>
@@ -724,7 +724,7 @@
                                 <td></td>
                                 <td>
                                   <select id="department" class="form-control" name="department" required>
-                                      <option data-group="all" readonly>-- Select your Department --</option>
+                                      <option data-group="all" value = "" readonly>-- Select your Department --</option>
                                       <option disabled>-- School of Architecture, Fine Arts and Design --</option>
                                         <option data-group="School of Architecture, Fine Arts and Design" value="Architecture">Architecture</option>
                                         <option data-group="School of Architecture, Fine Arts and Design" value="Fine Arts">Fine Arts</option>

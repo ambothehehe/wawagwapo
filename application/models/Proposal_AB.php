@@ -1419,7 +1419,7 @@ public function decisionApprove(){
     public function getChairEmail($department,$fkid){
     
         $conditions = array('user_account.department' => $department, 
-                        'user_account.designation_fkid' => $fkid 
+                        'user_account.designation_fkid' => $fkid
                     );
         $this->db->select('*');
         $this->db->from('user_account');
@@ -1471,5 +1471,37 @@ public function decisionApprove(){
 
         foreach($result->result_array() as $rows){}
         return $rows['email'];
+    }
+
+    public function getRepReturnEmail($proposal_id, $office, $user_id){
+
+        $conditions = array('proposal_id' => $proposal_id,
+                            'user_account.user_id' => $user_id
+                        );
+
+        $this->db->select('*');
+
+        $this->db->from('proposal_json_full_info');
+        $this->db->join('user_account','user_account.office = proposal_json_full_info.office');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+
+    public function getPendingEmail($user_id){
+        $last_row=$this->db->select('user_id')->order_by('user_id',"desc")->limit(1)->get('user_account')->row();
+        var_dump($last_row);
+        $user_id = $last_row->user_id;
+        $conditions = array('user_account.user_id' => $user_id);
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+
+        // var_dump($query);
+        foreach($query->result_array() as $row){}
+        return $row['email'];
     }
 }

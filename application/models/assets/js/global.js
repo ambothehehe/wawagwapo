@@ -386,6 +386,7 @@ function accept_pending_user(id) {
                                         <strong>User Accepted!</strong>You have successfully accepted user registration application.</div>');
                 $('#success_modal .modal-footer').html('<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>');
                 $('#success_modal').modal('show');
+                console.log(data);
             },
             error: function(data) {
                 console.log('Something is wrong');
