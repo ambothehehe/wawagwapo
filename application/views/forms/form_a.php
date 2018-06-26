@@ -27,35 +27,46 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header text-left">
+                      <h4>
+                      <p>Required fields: <strong>****</strong></span></p>
+                      </h4>
+                    </div>
+                </div>
+            </div>
 
-            <div class="container-fluid">
-                <div class="row tab-content">
-                    <div>
+
+<div class="container-fluid">
+    <div class="row tab-content">
+        <div>
                       <!--<?php echo form_open('Procedure_one/');?>-->
-                        <form method="post" name="form_a" id="form_a">                          
+<form method="post" name="form_a" id="form_a">                          
                             <?php //include('proposal_header.php');?>
 
 <!-- START proposal header of form_a1.php -->
-<div class="panel panel-success" align="center">
+<div class="panel panel-success">
     <div class="panel-body">
       <table width="100%">
         <tr>
-          <td><label>Title:</label></td>
-          <td colspan="4"><input type="text" class="form-control" name="title" data-toggle="tooltip" placeholder="Name of the Program/Project/Activity" required>
+          <td class="has-success">
+            <label>Title:</label>
+          </td>
+          <td colspan="3">
+            <input type="text" class="form-control" id = "title" name="title" data-toggle="tooltip" placeholder="****  Name of the Program/Project/Activity  ****" data-validation="alphanumeric"  required required="required">
 
             <input type="hidden" class="form-control" name="user_id" data-toggle="tooltip" value="<?php echo $user_id?>">
-            <!--<input type="hidden" class="form-control" name="form_type" data-toggle="tooltip" value="<?php if(isset($form_type)) echo $form_type; ?>">-->
+          <!--<input type="hidden" class="form-control" name="form_type" data-toggle="tooltip" value="<?php if(isset($form_type)) echo $form_type; ?>">-->
           </td>
-          <td></td>
-          <td></td>
         </tr>
         <tr>
          
           <td>
             <input type="hidden" name="school" value="<?php echo $user_office?>" >
-    <?php if(isset($proposal_id)):?>
-      <input type="hidden" name="proposal_id" value="<?php echo $proposal_id?>" >
-    <?php endif;?>  
+              <?php if(isset($proposal_id)):?>
+                <input type="hidden" name="proposal_id" value="<?php echo $proposal_id?>" >
+              <?php endif;?>  
           </td>
           <td>
              <input type="hidden" class="form-control" name="department" value="<?=$user_dept?>" >
@@ -67,13 +78,13 @@
         </tr> 
         <tr>
             <td><label>Inclusive Date:</label></td>
-            <td><input type="text" id="inclusive-date1" name="inclusive_date1" data-toggle="tooltip" placeholder="Date Start of Activity (mm/dd/yyyy)" class="form-control datepicker" required></td>
+            <td><input type="text" id="inclusive-date1" name="inclusive_date1" data-toggle="tooltip" placeholder="****  Date Start of Activity (mm/dd/yyyy)  ****" class="form-control datepicker" required></td>
             <td class="text-center"><em>to</em></td>
-            <td><input type="text" id="inclusive-date2" name="inclusive_date2" data-toggle="tooltip" placeholder="Date End of Activity (mm/dd/yyyy)" class="form-control datepicker" required></td>
+            <td><input type="text" id="inclusive-date2" name="inclusive_date2" data-toggle="tooltip" placeholder="****  Date End of Activity (mm/dd/yyyy)  ****" class="form-control datepicker" required></td>
         </tr>
         <tr>
-            <td><label>Venue:</label></td>
-            <td colspan="3"><input type="text" id="venue" class="form-control" data-toggle="tooltip" name="venue" placeholder="Where will the activity take place?" required></td>
+            <td><label>Venue:</label></span></td>
+            <td colspan="3"><input type="text" id="venue" class="form-control" data-toggle="tooltip" name="venue" placeholder="****  Where will the activity take place?  ****" required></td>
             <td></td>
             <td></td>
         </tr>
@@ -110,7 +121,7 @@
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
 
-                              <button type="submit" class="btn btn-success btn-block" id="submit" name="submit" value="submit_prop" onclick= "window.location='<?php echo base_url(); ?>index.php/Representative/send'"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
+                              <button type="submit" class="btn btn-success btn-block" id="submit" name="submit" value="submit_prop" onsubmit= "window.location='<?php echo base_url(); ?>/index.php/Representative/send'"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp Submit</button>
                             </div>
                             
                         <?php echo form_close();?>
@@ -126,6 +137,8 @@
 
     <br>
     <br>
+        <?php include('application/views/modals.php'); ?>
+
     <?php include('application/views/footer.php');?>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -224,7 +237,38 @@
     });
   </script>
 
+
+<!-- IMPORTANT! THE HOLY CODE FOR SUBMIT-->
+<script>
+
+    $("#form_a").submit(function() {
+    var id = $('#prod').val();
+    $.ajax({
+                type:'POST',
+                url:'<?php echo base_url("index.php/Representative/send"); ?>',
+                data:{'id':id},
+                success:function(data){
+                }
+            });
+    });
+
+
+ // if(document.getElementsByName("title")[0].value > 0){
+ //     $(this).closest("tr").find("span").show();
+ //  }
+
+    $("input[type=text]").keypress(function(){
+
+      $(this).closest("tr").find("span").hide();
+
+    });
+
     
+ 
+</script>
+<!-- IMPORTANT! THE HOLY CODE FOR SUBMIT-->
+
+
 </body>
 
 </html>

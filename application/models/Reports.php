@@ -27,14 +27,39 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
-
-	public function LoadReport_dFACULTY($dept){
+	public function LoadReport_dFACULTY($dept, $user_id, $organization){
 		$results = array();
 
 		$this->db->select('*');
 		$this->db->from('report_d'); 
 		//$this->db->where('report_status',3);
 		$this->db->where('creators_department',$dept);
+
+		$this->db->where('report_status', 3);
+		$this->db->where('creators_organization', $organization);
+		$this->db->where('isSubmittedByFaculty', 0);
+		$this->db->where_not_in('creator_id', $user_id);
+
+		//$this->db->order_by("datecreated");
+		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
+		//$this->db->where('who_created', '$completename');
+
+		 // $query = $this->db->get_where('who_created =', $completename);
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		return $results;
+	}
+
+	public function LoadReport_dmyFACULTY($dept, $user_id){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_d'); 
+		$this->db->where('creators_department',$dept);
+		$this->db->where('creator_id', $user_id);
 		$this->db->where('report_status', 3);
 
 		//$this->db->order_by("datecreated");
@@ -50,7 +75,7 @@ class Reports extends CI_Model
 		return $results;
 	}
 
-	public function LoadReport_eFACULTY($dept){
+	public function LoadReport_eFACULTY($dept, $user_id){
 		$results = array();
 
 		$this->db->select('*');
@@ -58,6 +83,8 @@ class Reports extends CI_Model
 		//$this->db->where('report_status',3);
 		$this->db->where('creators_department',$dept);
 		$this->db->where('report_status', 3);
+		$this->db->where('isSubmittedByFaculty', 0);
+		$this->db->where_not_in('creator_id', $user_id);
 
 		//$this->db->order_by("datecreated");
 		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
@@ -72,6 +99,71 @@ class Reports extends CI_Model
 		return $results;
 	}
 
+	public function LoadReport_emyFACULTY($dept, $user_id){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_e'); 
+		//$this->db->where('report_status',3);
+		$this->db->where('creators_department',$dept);
+		$this->db->where('creator_id', $user_id);
+
+		//$this->db->order_by("datecreated");
+		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
+		//$this->db->where('who_created', '$completename');
+
+		 // $query = $this->db->get_where('who_created =', $completename);
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		return $results;
+	}
+
+	public function LoadReport_dSO($dept, $organization){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_d'); 
+		//$this->db->where('report_status',3);
+
+		$this->db->where('report_status',24);
+		$this->db->where('creators_organization',$organization);
+		//$this->db->order_by("datecreated");
+		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
+		//$this->db->where('who_created', '$completename');
+
+		 // $query = $this->db->get_where('who_created =', $completename);
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		return $results;
+	}
+
+	public function LoadReport_eSO($dept, $organization){
+		$results = array();
+
+		$this->db->select('*');
+		$this->db->from('report_e'); 
+		//$this->db->where('report_status',3);
+		$this->db->where('report_status', 24);
+		$this->db->where('creators_organization',$organization);
+
+		//$this->db->order_by("datecreated");
+		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
+		//$this->db->where('who_created', '$completename');
+
+		 // $query = $this->db->get_where('who_created =', $completename);
+		$query = $this->db->get();	
+
+		    if($query->num_rows() > 0) {
+		        $results = $query->result();
+		    }
+		return $results;
+	}
 
 
 	public function LoadReport_dCHAIR($dept){
@@ -81,7 +173,8 @@ class Reports extends CI_Model
 		$this->db->from('report_d'); 
 		//$this->db->where('report_status',3);
 		$this->db->where('creators_department',$dept);
-		$this->db->where('report_status', 3);
+		$this->db->where('report_status',3);
+		$this->db->where('isSubmittedByChair', 0);
 
 		//$this->db->order_by("datecreated");
 		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
@@ -104,6 +197,7 @@ class Reports extends CI_Model
 		//$this->db->where('report_status',3);
 		$this->db->where('creators_department',$dept);
 		$this->db->where('report_status', 3);
+		$this->db->where('isSubmittedByChair', 0);
 
 		//$this->db->order_by("datecreated");
 		//$this->db->join('user_account', 'user_account.user_id = report_d.creator_id', 'inner');
@@ -121,10 +215,14 @@ class Reports extends CI_Model
 	public function LoadReport_dCOORD($office){
 		$results = array();
 
+		$where = "(report_status = '3' and isSubmittedByFaculty ='1' and isSubmittedByChair ='1')";
+		$where1 = "(report_status = '3' and isSubmittedByChair ='1' and creators_organization = '')";
 		$this->db->select('*');
 		$this->db->from('report_d'); 
 		$this->db->where('creators_school',$office);
 		$this->db->where('report_status', 4);
+        $this->db->or_where($where);
+        $this->db->or_where($where1	);
 
 		$query = $this->db->get();	
 
@@ -134,14 +232,13 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
-	public function LoadReport_dmyCOORD($office, $coord_id){
+	public function LoadReport_dmyCOORD($office, $user_id){
 		$results = array();
 
 		$this->db->select('*');
 		$this->db->from('report_d'); 
 		$this->db->where('creators_school',$office);
-		$this->db->where('creator_id',$coord_id);
-		$this->db->where('report_status', 4);
+		$this->db->where('creator_id',$user_id);
 
 		$query = $this->db->get();	
 
@@ -153,11 +250,16 @@ class Reports extends CI_Model
 
 	public function LoadReport_eCOORD($office){
 		$results = array();
+		
+		$where = "(report_status = '3' and isSubmittedByFaculty ='1' and isSubmittedByChair ='1')";
+
+		$where = "(report_status = '3' and isSubmittedByChair ='1' and creators_organization = '')";
 
 		$this->db->select('*');
 		$this->db->from('report_e'); 
 		$this->db->where('creators_school',$office);
 		$this->db->where('report_status', 4);
+        $this->db->or_where($where);
 
 		$query = $this->db->get();	
 
@@ -167,14 +269,13 @@ class Reports extends CI_Model
 		    return $results;
 	}
 
-	public function LoadReport_emyCOORD($office, $coord_id){
+	public function LoadReport_emyCOORD($office, $user_id){
 			$results = array();
 
 			$this->db->select('*');
 			$this->db->from('report_e'); 
 			$this->db->where('creators_school',$office);
-			$this->db->where('creator_id',$coord_id);
-			$this->db->where('report_status', 4);
+			$this->db->where('creator_id',$user_id);
 
 			$query = $this->db->get();	
 
@@ -385,7 +486,6 @@ public function updateform_d(){
  
     $this->db->where('fd_id',$this->fd_id);
     $query=$this->db->update('report_d',$this);
-   /*  ?><script>alert("POTANGINAMORIN");</script><?php*/
     return $query;
 }
 
@@ -394,7 +494,6 @@ public function updateform_d(){
  public function saveChanges_e(){
         if(isset($this->fe_id)){
             $query=$this->updateform_e();
-          /*  ?><script>alert("POTANGINAMORIN");</script><?php*/
         }else{
             $query=$this->AddFormE();
         }
@@ -405,9 +504,7 @@ public function updateform_d(){
          public function saveChanges_d(){
         if(isset($this->fd_id)){
             $query=$this->updateform_d();
-           /* ?><script>alert("POTANGINAMO");</script><?php*/
          }else{
-         	 /* ?><script>alert("FUCK");</script><?php*/
             $query=$this->AddFormD();
 
          }

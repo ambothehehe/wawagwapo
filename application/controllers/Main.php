@@ -31,7 +31,10 @@ class Main extends CI_Controller
 		else if ($designation === 'Representative')
 		   redirect(site_url('Representative/home'));
 
-		else if ($designation === 'Co-Curricular Organization' || $designation === 'Extra-Curricular Organization')
+		else if ($designation === 'Co-Curricular Organization')
+		   redirect(site_url('CoCurricular/home'));
+
+		else if ($designation === 'Extra-Curricular Organization')
 		   redirect(site_url('ExtraCurricular/home'));
 
 		else if ($designation === 'Faculty')

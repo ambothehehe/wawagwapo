@@ -572,21 +572,15 @@
     </div>
                       </div> <!-- END of div for the whole proposal view without the Edit button -->
 
-                      
+
                         <div style="position:fixed; top:8%; right:2%;">
                           <div style="float:left; padding:2px; padding-top:10px;">
 
-                            <?php if($role == 'Representative'){ 
+                              <!-- <button type="submit" class="btn btn-primary btn-md btn-block" onclick="printDiv('printThisArea')" >
+                                <span class="glyphicon glyphicon-print" aria-hidden="true"></span>&nbsp Print
+                              </button> -->
 
-                              echo form_open('Representative/viewEditForme');?>
-
-                              <input class="form-control" type="hidden" name="id" value="<?php echo $res->fe_id; ?>">
-                              <button type="submit" class="btn btn-warning btn-md btn-block" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp Edit</button>
-
-                              </form>
-                              <?php } ?>
-                        
-                        </div> 
+                        </div>
 
                         <div style="float:left; padding:10px;">
                           <?php if($role == 'Representative'){
@@ -605,11 +599,35 @@
                       </div>
 
                          <div style="position:fixed; top:8%; right:2%;">
+                         <?php if($role == "Student Organization Adviser") { ?>
+                            <div style="float:left; padding:2px; padding-top:10px;">
+                            <?php echo form_open('Proposals/SONotesReporte'); ?>
+                                <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+
+                                <?php form_close();?>
+                            </div>
+                            <?php } ?>
+                         </div>
+
+                         <div style="position:fixed; top:8%; right:2%;">
+                         <?php if($role == "Faculty") { ?>
+                            <div style="float:left; padding:2px; padding-top:10px;">
+                            <?php echo form_open('Proposals/facNotesReporte'); ?>
+                                <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+
+                                <?php form_close();?>
+                            </div>
+                            <?php } ?>
+                         </div>
+
+                         <div style="position:fixed; top:8%; right:2%;">
                          <?php if($role == "Department Chair") { ?>
                             <div style="float:left; padding:2px; padding-top:10px;">
                             <?php echo form_open('Proposals/chairNotesReporte'); ?>
                                 <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Proceed to Coordinator&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
                                 <?php form_close();?>
                             </div>
@@ -621,7 +639,7 @@
                             <div style="float:left; padding:2px; padding-top:10px;">
                             <?php echo form_open('Proposals/coordNotesReporte'); ?>
                             <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Proceed to Dean&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
                                 <?php form_close();?>
                             </div>
@@ -633,7 +651,7 @@
                             <div style="float:left; padding:2px; padding-top:10px;">
                             <?php echo form_open('Proposals/deanNotesReporte'); ?>
                             <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Proceed to Director&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
                                 <?php form_close();?>
                             </div>
@@ -645,7 +663,7 @@
                             <div style="float:left; padding:2px; padding-top:10px;">
                             <?php echo form_open('Proposals/adminNotesReporte'); ?>
                             <input class="form-control" type="hidden" name="reporte_id" value="<?php echo $id;?>"/>
-                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Proceed to VPAA&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+                                <button type="submit" class="btn btn-primary btn-md" name="notereport" value="ProceedReport">Submit&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 
                                 <?php form_close();?>
                             </div>

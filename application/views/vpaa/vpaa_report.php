@@ -46,6 +46,8 @@
     width: 100%;
     height: 500px;">
 <div class="tab-content" style=" margin:5px;">
+
+
   <div id="Form_d_others" class="tab-pane fade in active">
    
 <!--start FORM D table of my reports -->
@@ -56,11 +58,12 @@
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
-                            <th></th>
+                            <th>Created By</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -95,7 +98,9 @@
                                         </td>
 
                                         <!-- DELETE BUTTON -->
-                                        <td></td>
+                                        <td>
+                                            <?php echo $repd->who_created;?>
+                                        </td>
                                          </tr>
                                         <?php  }?>
 
@@ -111,16 +116,18 @@
   <div id="Form_e_others" class="tab-pane fade">
    <!--start FORM E table of my reports -->
  <div class="lists-table">
-                    <table id="reportd" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                    <table id="reportd" class="table table-striped table-bordered table-hover lists-table" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
+                            <th>Created By</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -138,7 +145,7 @@
                            
                                     <tr>
                                         <td>
-                                            <a href="<?php echo base_url() ?>index.php/Chair/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title;?></a>
+                                            <a href="<?php echo base_url() ?>index.php/Vpaa/loadreporte/<?php echo $allrepe->fe_id; ?>"><?php echo $allrepe->title;?></a>
                                         </td>
 
                                         <td>
@@ -148,10 +155,15 @@
                                         </td>
 
                                         <td>
-                                            <?php echo $repd->fd_dept;?><br><p style="font-size:75%;"><?php echo $repd->fd_school;?></p>
+                                            <?php echo $allrepe->creators_department;?><br><p style="font-size:75%;"><?php echo $allrepe->creators_school;?></p>
                                         </td>
-                                                </tr>
-                                        <?php } ?>
+
+                                        <td>
+                                            <?php echo $allrepe->who_created;?>
+                                        </td>
+
+                                    </tr>
+                        <?php } ?>
                              </tbody>
                     </table>
 

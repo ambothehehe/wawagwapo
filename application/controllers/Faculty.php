@@ -76,7 +76,7 @@ class Faculty extends CI_Controller
 	// 	if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 9)
 	// 	{
 	// 		//$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
-	// 		echo $data['email'];
+	// 		
 	// 		
 	// 		$this->load->library('email');
 	// 		$config = Array('protocol' => 'smtp',
@@ -99,23 +99,21 @@ class Faculty extends CI_Controller
 	// 		$this->email->set_newline("\r\n");   
 	// 		$result = $this->email->send();  
 	// 	  	if(!$result)
-	// 	  	{
-	// 	  		// mail sent
-	// 	  		echo "sayup";
- //        		//redirect(site_url());
-	// 	  	}
-	// 	  	else
-	// 	  	{
-	// 	  		echo "hey";
- //        		//redirect(site_url());
-	// 	  	}
+		  	// {
+		  	// 	// mail sent
+     //    		redirect(site_url());
+		  	// }
+		  	// else
+		  	// {
+     //    		redirect(site_url());
+		  	// }
 	// 	}else if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 5)
 	// 	{
 	// 		echo $_SESSION['designation_fkid'];
 			
 	// 		$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
 			
-	// 		echo $data['email'];
+	// 		
 	// 		
 	// 		$this->load->library('email');
 	// 		$config = Array('protocol' => 'smtp',
@@ -137,16 +135,14 @@ class Faculty extends CI_Controller
 	// 		$this->email->set_newline("\r\n");   
 	// 		$result = $this->email->send();  
 	// 	  	if(!$result)
-	// 	  	{
-	// 	  		// mail sent
-	// 	  		echo "sayup";
- //        		redirect(site_url());
-	// 	  	}
-	// 	  	else
-	// 	  	{
-	// 	  		echo "hey";
- //        		redirect(site_url());
-	// 	  	}
+		  	// {
+		  	// 	// mail sent
+     //    		redirect(site_url());
+		  	// }
+		  	// else
+		  	// {
+     //    		redirect(site_url());
+		  	// }
 	// 	}
 	// }
 
@@ -158,19 +154,23 @@ class Faculty extends CI_Controller
 			$data['role']	= $this->session->designation;
 			$data['department']	= $this->session->department;
 			$data['organization']	= $this->session->organization;
+			$data['office']	= $this->session->office;
 			$data['user_id']	= $this->session->user_id;
 
 			$this->load->model('Reports');
 			
-			$data['list_d']=$this->Reports->LoadReport_dFACULTY($data['department']);
-			$data['list_e']=$this->Reports->LoadReport_eFACULTY($data['department']);
+			$data['myfaculty_d']=$this->Reports->LoadReport_dmyFACULTY($data['department'], $data['user_id']);
+			$data['myfaculty_e']=$this->Reports->LoadReport_emyFACULTY($data['department'], $data['user_id']);
+			
+			$data['list_d']=$this->Reports->LoadReport_dFACULTY($data['department'], $data['user_id'], $data['organization']);
+			$data['list_e']=$this->Reports->LoadReport_eFACULTY($data['department'], $data['user_id'], $data['organization']);
+
 			
 			$this->load->view('faculty/faculty_report', $data);
 		}else{
 			redirect(site_url());
-			$proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization); 
-		
-		echo json_encode($proplist);
+			// $proplist=$this->Proposal_AB->LoadProposalsFac($this->session->department, $this->session->organization); 
+			// echo json_encode($proplist);
 		}
 	}
 
@@ -310,21 +310,26 @@ class Faculty extends CI_Controller
 
 		$proposals2 = $this->Reports->get_title($data['creator_id']);
 		
-		foreach($proposals2 as $prop)
-		{
+		if(($proposals2)){
+			foreach($proposals2 as $prop)
+			{
 
-			$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
-						  "propdetails"=>$prop);
-										
-			array_push($proposal_array, $data2);
+				$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
+							  "propdetails"=>$prop);
+											
+				array_push($proposal_array, $data2);
+			}
+
+			$data["proposals"] = $proposal_array;
+			// $datum['titles']= $this->Reports->get_title();
+			//echo $this->session->designation;
+			//var_dump($proposal_array);
+
+			$this->load->view('forms/form_d_faculty', $data);
+		}else{
+			?><script type="text/javascript">alert("NO AVAILABLE PROPOSALS TO BE REPORTED");</script><?php
+			redirect(site_url('Faculty/create_report'), "refresh");
 		}
-
-		$data["proposals"] = $proposal_array;
-		// $datum['titles']= $this->Reports->get_title();
-		//echo $this->session->designation;
-		//var_dump($proposal_array);
-
-		$this->load->view('forms/form_d_faculty', $data);
 	}
 
 public function formd_titles(){
@@ -364,6 +369,9 @@ public function addFormd() {
 
 			$p->report_status = 3;
 
+			$p->creators_organization = $this->input->post('creators_organization');
+
+
 			$p->date_start=$this->input->post('act_duration1'); //INCLUSIVE DATE START
 			$p->date_end=$this->input->post('act_duration2'); //INCLUSIVE DATE END!
 			$p->introduction=$this->input->post('introduction');
@@ -386,6 +394,43 @@ public function addFormd() {
 			$result=$p->AddFormD();
 
 			$result1=$p->isreported($p->fd_id);
+
+			$this->load->model('Proposal_AB');
+
+			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Faculty has done creating the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		//redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		//redirect(site_url());
+		  	}
+
+
+
 
 			if(!$result){
 				$this->session->set_flashdata('error_msg',
@@ -466,6 +511,22 @@ public function addFormd() {
 		$this->load->view("forms/form_d_report", $data);
 	}
 
+	public function loadreportdmyreport(){
+		$reportd_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+		$data['creators_school']	= $this->session->office;
+
+		$this->load->model('Reports');
+		$data['reps']=$this->Reports->viewReport_d($reportd_id);
+		
+		$this->load->view("forms/form_d_report_noProceed", $data);
+	}
+
 //for form e
 	public function loadreporte(){
 		$reporte_id= $this->uri->segment(3);
@@ -480,6 +541,23 @@ public function addFormd() {
 		$this->load->model('Reports');
 		$data['repe']=$this->Reports->viewReport_e($reporte_id);
 		$this->load->view("forms/form_e_report", $data);
+	}
+
+	public function loadreportemyreport(){
+		$reporte_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+		$data['creators_school'] = $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['repe']=$this->Reports->viewReport_e($reporte_id);
+		
+		$this->load->view("forms/form_e_report_noProceed", $data);
 	}
 
 //for form e create report form e
@@ -576,6 +654,40 @@ public function addFormd() {
 			$p->creators_school=$this->input->post('creators_school');
 
 			$result=$p->AddFormE();
+
+			$this->load->model('Proposal_AB');
+
+			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Faculty has done creating a Report. You may now view the Report');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		//redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		//redirect(site_url());
+		  	}
 
 			if(!$result){
 			$this->session->set_flashdata('error_msg',
@@ -744,14 +856,14 @@ public function addFormd() {
 				redirect(site_url('Faculty/reports'), "refresh");
         }
         else{
-        	 /* ?><script>alert("POTANGINAMO BOBO");</script><?php*/
              $this->session->set_flashdata('success_msg',
 					'<strong>Report Updated!</strong> You have successfully updated Report D.');
 				
 				redirect(site_url('Faculty/reports'), "refresh");
             
         }
-					}
+	}
+
 
 
 
@@ -783,7 +895,11 @@ public function addFormd() {
     public function deleteForm_d(){
    	$this->load->model('Reports');
 
+
    $this->Reports->row_delete_d($this->input->post('id'));
+
+   $this->Reports->ezeronishabai($this->input->post('id'));
+   
    $this->session->set_flashdata('success_msg',
 					'<strong>Report Deleted!</strong> You have successfully deleted a report.');
 				
@@ -897,6 +1013,7 @@ public function addFormd() {
 			$data['fname'] 	= $this->session->firstname;
 			$data['lname'] 	= $this->session->lastname;
 			$data['role'] = $this->session->designation;
+			$data['organization'] = $this->session->organization;
 
 			$this->load->model('User');
 			$user = new User();

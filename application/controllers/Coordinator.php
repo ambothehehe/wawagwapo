@@ -32,6 +32,78 @@ class Coordinator extends CI_Controller
 		}
 	}
 
+	public function send()
+	{	
+		$this->load->model('Proposal_AB');
+		
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 5)
+		{
+			$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM COORDINATOR');
+			$this->email->message('Good day! Mr. Coordinator has done reviewing the proposal. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+		  		
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+		  		
+        		redirect(site_url());
+		  	}
+		  }
+		}
+
+		public function sendToAdmin()
+	{	
+		$this->load->model('Proposal_AB');
+		
+		//if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 5){
+			$data['email']=$this->Proposal_AB->getAdminEmail(2);
+			
+			/*?>
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM COORDINATOR');
+			$this->email->message('Good day! Mr. Coordinator has done reviewing the proposal. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  }*/
+		}
+
 
 
 	public function reports() {
@@ -42,6 +114,7 @@ class Coordinator extends CI_Controller
 			$data['role']	= $this->session->designation;
 			$data['user_id'] = $this->session->user_id;
 			$data['office']	= $this->session->office;
+			$data['organization']	= $this->session->organization;
 
 			$this->load->model('Reports');
 
@@ -55,6 +128,18 @@ class Coordinator extends CI_Controller
 		}else{
 			redirect(site_url());
 		}
+	}
+
+	public function viewform_e() {
+		$data['fname'] 	= $this->session->firstname;
+		$data['lname'] 	= $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
+		$this->load->model('Reports');
+		// $data=array();
+		$data['repaps']=$this->Reports->LoadReport_eCOORD();
+
+		$this->load->view('coordinator/other_reports', $data);
 	}
 
 	public function loadreportd(){
@@ -80,13 +165,47 @@ class Coordinator extends CI_Controller
 		$data['lname'] = $this->session->lastname;
 		$data['role']	= $this->session->designation;
 		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
 		$data['creators_school'] = $this->session->office;
 
 		$this->load->model('Reports');
 
 		$data['repe']=$this->Reports->viewReport_e($reporte_id);
 		
-		$this->load->view("forms/form_e_report", $data);
+		$this->load->view("forms/form_e_report_coord", $data);
+	}
+
+	public function loadreportdmyreport(){
+		$reportd_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['creators_school']	= $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['reps']=$this->Reports->viewReport_d($reportd_id);
+		
+		$this->load->view("forms/form_d_report_noProceed", $data);
+	}
+
+	public function loadreportemyreport(){
+		$reporte_id= $this->uri->segment(3);
+		$data["id"] = $this->uri->segment(3);
+		$data['fname'] = $this->session->firstname;
+		$data['lname'] = $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['organization']	= $this->session->organization;
+		$data['creators_school'] = $this->session->office;
+
+		$this->load->model('Reports');
+
+		$data['repe']=$this->Reports->viewReport_e($reporte_id);
+		
+		$this->load->view("forms/form_e_report_noProceed", $data);
 	}
 
 
@@ -317,6 +436,7 @@ class Coordinator extends CI_Controller
 	}
 	
 	public function form_d() {
+
 		$this->load->model('Reports');
 
 		$data['fname'] = $this->session->firstname;
@@ -330,21 +450,38 @@ class Coordinator extends CI_Controller
 
 		$proposals2 = $this->Reports->get_title($data['creator_id']);
 		
-		foreach($proposals2 as $prop)
-		{
+		if(($proposals2)){
+			foreach($proposals2 as $prop)
+			{
 
-			$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
-						  "propdetails"=>$prop);
-										
-			array_push($proposal_array, $data2);
+				$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
+							  "propdetails"=>$prop);
+											
+				array_push($proposal_array, $data2);
+			}
+
+			$data["proposals"] = $proposal_array;
+			// $datum['titles']= $this->Reports->get_title();
+			//echo $this->session->designation;
+			//var_dump($proposal_array);
+
+			$this->load->view('forms/form_d_coord', $data);
+		}else{
+			?><script type="text/javascript">alert("NO AVAILABLE PROPOSALS TO BE REPORTED");</script><?php
+			redirect(site_url('Coordinator/create_report'), "refresh");
 		}
+	}
 
-		$data["proposals"] = $proposal_array;
-		// $datum['titles']= $this->Reports->get_title();
-		//echo $this->session->designation;
-		//var_dump($proposal_array);
 
-		$this->load->view('forms/form_d_coord', $data);
+	public function form_e() {
+		$data['fname'] 	= $this->session->firstname;
+		$data['lname'] 	= $this->session->lastname;
+		$data['role']	= $this->session->designation;
+		$data['department']	= $this->session->department;
+		$data['creator_id']	= $this->session->user_id;
+		$data['creators_school']	= $this->session->office;
+		
+		$this->load->view('forms/form_e', $data);
 	}
 
 	public function addFormd() {
@@ -370,7 +507,7 @@ class Coordinator extends CI_Controller
 				$p->fd_dept=$this->input->post('fd_dept'); // para sa DEPARTMENT
 				$p->fd_venue=$this->input->post('fd_venue'); // para sa VENUE
 
-				$p->report_status = 3;
+				$p->report_status = 5;
 
 				$p->date_start=$this->input->post('act_duration1'); //INCLUSIVE DATE START
 				$p->date_end=$this->input->post('act_duration2'); //INCLUSIVE DATE END!
@@ -394,17 +531,48 @@ class Coordinator extends CI_Controller
 
 				$result1=$p->isreported($p->fd_id);
 
+				$this->load->model('Proposal_AB');
+
+			$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Coordinator has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result){
+		  		// mail sent
+        		//redirect(site_url());
+		  	}else{
+        		//redirect(site_url());
+		  	}
+
 				if(!$result){
 					$this->session->set_flashdata('error_msg',
 						'<strong>Something Went Wrong!</strong> An Error occured while saving your report.');
 
-					redirect(site_url('Representative/reports'), "refresh");
+					redirect(site_url('Coordinator/reports'), "refresh");
 				}
 				else{
 					$this->session->set_flashdata('success_msg',
 						'<strong>Report Created!</strong> You have successfully created Report D.');
 					
-					redirect(site_url('Representative/reports'), "refresh");
+					redirect(site_url('Coordinator/reports'), "refresh");
 				}
 				//echo "<br/>".$this->input->post('id');
 	}
@@ -448,25 +616,20 @@ class Coordinator extends CI_Controller
 		echo json_encode($results);
 	}
 	
-	public function form_e() {
-		$data['fname'] 	= $this->session->firstname;
-		$data['lname'] 	= $this->session->lastname;
-		$data['role']	= $this->session->designation;
-		$data['department']	= $this->session->department;
-		$data['creator_id']	= $this->session->user_id;
-		$data['creators_school']	= $this->session->office;
-		
-		$this->load->view('forms/form_e', $data);
-	}
+	
 
 	//add form e report throught submitting
 			public function coord_addForme() {
 			$this->load->model('Reports');
 			$p = new Reports();
 			
-			$p->title_of_program=$this->input->post('title_of_program');
+			$p->title=$this->input->post('title_of_program');
 			$p->unit_responsible=$this->input->post('unit_responsible');
 			$p->program_duration=$this->input->post('program_duration');
+
+			$p->report_status = 5;
+
+
 			// $actarr= array(
 			// 'acttitle' => $this->input->post('act_title'), 
 			// 'incdate' => $this->input->post('incdate'),
@@ -506,15 +669,52 @@ class Coordinator extends CI_Controller
 			// passing the info of creator
 			$p->who_created=$this->input->post('who_created');
 			$p->creators_department=$this->input->post('creators_department');
+			$p->creators_organization=$this->input->post('creators_organization');
 			$p->creator_id=$this->input->post('creator_id');
 			$p->creators_school=$this->input->post('creators_school');
 
 			$result=$p->AddFormE();
+
+			$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM COORDINATOR');
+			$this->email->message('Good day! Mr./Ms. Coordinator has submitted a report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		//redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		//redirect(site_url());
+		  	}
+
 			if(!$result){
 			echo mysqli_error($result);
+				redirect(site_url('Coordinator/reports'), "refresh");
 			}
 			else{
-			redirect('Coordinator/reports','refresh');
+				$this->session->set_flashdata('success_msg',
+					'<strong>Report Created!</strong> You have successfully created Report E.');
+				
+				redirect(site_url('Coordinator/reports'), "refresh");
 			}
 
 			}

@@ -86,7 +86,8 @@ class User extends CI_Model
 				//'office'			=> $this->office,
 				//'department'		=> $this->department,
 				'username'			=> $this->username,
-				'password'			=> $this->password
+				'password'			=> $this->password,
+				'updated_by'		=> $this->updated_by
 			);
 
 		$this->db->update('user_account', $record, array('user_id' => $this->user_id));
@@ -126,7 +127,8 @@ class User extends CI_Model
 				'department'	=> $this->department,
 				'organization'	=> $this->organization,
 				'username'		=> $this->username,
-				'password' 		=> $this->password
+				'password' 		=> $this->password,
+				'updated_by' 		=> $this->addedbyfirstname." ".$this->addedbylastname
 			);
 		
 		$query = $this->db->update('user_account', $record, array('user_id' => $this->user_id));
@@ -143,7 +145,9 @@ class User extends CI_Model
 	}
 
 	public function accept_user_application() {
-		$record = array('status' => 1);
+		$record = array('status' => 1,
+						'added_by' => $this->firstname." ".$this->lastname
+						);
 
 		$query = $this->db->update('user_account', $record, array('user_id' => $this->user_id));
 

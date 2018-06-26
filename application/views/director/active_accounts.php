@@ -31,7 +31,11 @@
                                 <td><?=$actives->office?></td>
                                 <td class="text-center">
                                     <span id="editAccount" data-toggle="modal" data-target="#editModal">
-                                        <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="launch_edit_profile_modal(<?php echo $actives->user_id; ?>)"><span class="glyphicon glyphicon-pencil text-success"></span></a>
+
+                                             <input class="form-control" type ="hidden" name="addedbyfirstname" value="<?php echo $fname; ?>">
+                                             <input class="form-control" type ="hidden" name="addedbylastname" value="<?php echo $lname; ?>">
+
+                                        <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="launch_edit_profile_modal(<?php echo $actives->user_id; ?>, '<?php echo $fname;?>', '<?php echo $lname;?>');"><span class="glyphicon glyphicon-pencil text-success"></span></a>
                                     </span>
                                     &nbsp 
                                     <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Delete" onclick="launch_delete_profile(<?php echo $actives->user_id; ?>)"><span class="glyphicon glyphicon-trash text-danger"></span></a>

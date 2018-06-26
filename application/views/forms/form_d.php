@@ -13,7 +13,7 @@
         <?php include('application/views/sidebar.php');?>
 
         <!-- Page Content -->
-         <?php echo form_open('Representative/addFormd');?>
+         <?php echo form_open('CoCurricular/addFormd');?>
         <div id="page-content-wrapper">
 
             <?php include('application/views/topNav.php');?>
@@ -64,6 +64,7 @@
                                        <tr><td> <input type="hidden" name="who_created" value="<?= $fname ?>&nbsp;<?= $lname ?>"></td>
                                         <td> <input type="hidden" name="creators_department" value="<?= $department ?>"></td>
                                          <td> <input type="hidden" name="creator_id" value="<?= $creator_id ?>"></td>
+                                         <td> <input type="hidden" name="creators_organization" value="<?= $creators_organization ?>"></td>
                                          <td> <input type="hidden" name="creators_school" value="<?= $creators_school ?>"></td>
 
                                         <tr>

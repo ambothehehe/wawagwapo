@@ -18,7 +18,7 @@
                                 <div class="panel-body">
                                     <table class="table table-bordered" width="100%">
                                       <thead>
-                                        <th class="bg-success">A. College/School/Department/Unit Responsible (<em>please <span class="text-danger">check/tick</span> the appropiate item</em>)</th>
+                                        <th class="bg-success">A. College/School/Department/Unit Responsible (<em>please <span class="text-danger">check/tick</span> the appropiate item</em>)<span style = "color: red;"> ****</span></th>
                                       </thead>
                                       <tbody>
                                         <tr> <td class="col-md-8">
@@ -29,7 +29,7 @@
                                               <tr>
                                                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                   <div class="checkbox">
-                                                    <label><input type="checkbox" name="unit_responsible[]" id="CES Office" value="CES Office">CES Office</label>
+                                                    <label><input type="checkbox" name="unit_responsible[]" id="CES Office" value="CES Office" required>CES Office</label>
                                                    <!--  <?php echo form_checkbox('unit_responsible[]', 'CES Office'); ?>CES Office -->
                                                   </div>
                                                 </td>
@@ -165,7 +165,7 @@
                                       </tbody>
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+ 2nd Part -->
                                       <thead>
-                                        <th class="bg-success">B. Time Frame (<em>please <span class="text-danger">check/tick</span> the appropriate item</em>)</th>
+                                        <th class="bg-success">B. Time Frame (<em>please <span class="text-danger">check/tick</span> the appropriate item</em>)<span style = "color: red;"> ****</span></th>
                                       </thead>
                                       <tbody>
                                         <tr>
@@ -250,7 +250,7 @@
                                       </tbody>
 <!-- +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_ 3rd Part -->
                                       <thead>
-                                        <th class="bg-success">C. Locus and Leadership (<em>please <span class="text-danger">check/tick</span> the appropriate item</em>)</th>
+                                        <th class="bg-success">C. Locus and Leadership (<em>please <span class="text-danger">check/tick</span> the appropriate item</em>)<span style = "color: red;"> ****</span></th>
                                       </thead>
                                       <tbody>
                                         <tr>
@@ -316,14 +316,14 @@
 
 <!-- +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_ 4th Part -->
                                       <thead>
-                                        <th class="bg-success">D. Nature of the Program/Project/Activity (<em>please <span class="text-danger">check/tick</span> the appropriate item</em>)</th>
+                                        <th class="bg-success">D. Nature of the Program/Project/Activity (<em>please <span class="text-danger">check/tick</span> the appropriate item</em>)<span style = "color: red;"> ****</span></th>
                                       </thead>
                                       
                                       <?php include('nature_of_the_program.php'); ?>
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+ 5th Part -->
                                       <thead>
-                                        <th class="bg-success">E. Program Area (<em>please <span class="text-danger">check/tick</span> the appropriate item</em>)</th>
+                                        <th class="bg-success">E. Program Area (<em>please <span class="text-danger">check/tick</span> the appropriate item</em>)<span style = "color: red;"> ****</span></th>
                                       </thead>
                                       
                                       <?php include('program_area.php'); ?>
@@ -345,7 +345,7 @@
 <!--STARRRRRRRTTTTTT HERE! radio buttons-->
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+ 1st Part -->
                                   <thead>
-                                    <th class="bg-success">A. Contextual Dimension: <em>establish responsive is the P/P/A to the local context:</em></th>
+                                    <th class="bg-success">A. Contextual Dimension: <em>establish responsive is the P/P/A to the local context:</em><span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
               <!--START OF FIRST PART RADIO BUTTON-->
@@ -711,7 +711,7 @@
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+ 2nd Part -->
                                   <thead>
-                                    <th class="bg-success">B. Productivity Dimension: <em>please <span class="text-danger">check/tick</span> the appropriate item if the P/P/A involves technology:</em></th>
+                                    <th class="bg-success">B. Productivity Dimension: <em>please <span class="text-danger">check/tick</span> the appropriate item if the P/P/A involves technology:</em><span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
                                     <tr>
@@ -762,7 +762,7 @@
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+ 3rd Part -->
                                   <thead>
-                                    <th class="bg-success">C. Economic Dimension: <em>please <span class="text-danger">check/tick</span> the appropriate item if the P/P/A has economic implications:</em></th>
+                                    <th class="bg-success">C. Economic Dimension: <em>please <span class="text-danger">check/tick</span> the appropriate item if the P/P/A has economic implications:</em><span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
                                     <tr>
@@ -812,7 +812,7 @@
                                   <thead>
                                     <th class="bg-success">
                                       D. Social Dimension: <em>please <span class="text-danger">check/tick</span> the appropriate item if the P/P/A will lead to or benefit: <small>PROVIDE THE ESTIMATED NUMBER OF BENEFICIARIES PER GROUP</small></em>
-                                    </th>
+                                    <span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
                                     <tr>
@@ -830,7 +830,7 @@
                                                   </label>
                                                 </div>
                                                 <div id="collapseOne" class="collapse col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                  <input type="number" class="form-control" name="social_dimension_household" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_household" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                               <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -838,7 +838,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="youth(male)" value="youth(male)" data-toggle="collapse" data-target="#youth_m">youth (male) <em>[13 to 30 years old]</em></label>
                                                 </div>
                                                 <div id="youth_m" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_youth_male" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_youth_male" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                             </tr>
@@ -848,7 +848,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="Local Government Units" value="Local Government Units" data-toggle="collapse" data-target="#2_lgu">Local Government Units</label>
                                                 </div>
                                                 <div id="2_lgu" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_local_government_unit" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_local_government_unit" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                               <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -856,7 +856,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="youth(female)" value="youth(female)" data-toggle="collapse" data-target="#youth_f">youth (female) <em>[13 to 30 years old]</em></label>
                                                 </div>
                                                 <div id="youth_f" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_youth_female" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_youth_female" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                             </tr>
@@ -866,7 +866,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="Organizations/Associations"  value="Organizations/Associations" data-toggle="collapse" data-target="#oa">Organizations/Associations</label>
                                                 </div>
                                                 <div id="oa" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_organization" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_organization" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                               <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -874,7 +874,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="children(boy)" value="children(boy)" data-toggle="collapse" data-target="#boy">children (boy) <em>[6 to 12 years old]</em></label>
                                                 </div>
                                                 <div id="boy" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_children_boy" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_children_boy" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                             </tr>
@@ -884,7 +884,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="senior citizens(male)" value="senior citizens(male)" data-toggle="collapse" data-target="#sr_m">senior citizens (male) <em>[at least 60 years old]</em></label>
                                                 </div>
                                                 <div id="sr_m" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_senior_citizen_male" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_senior_citizen_male" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                               <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -892,7 +892,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="children(girl)" value="children(girl)" data-toggle="collapse" data-target="#girl">children (girl) <em>[6 to 12 years old]</em></label>
                                                 </div>
                                                 <div id="girl" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_children_girl" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_children_girl" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                             </tr>
@@ -902,7 +902,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="senior citizens(female)" value="senior citizens(female)" data-toggle="collapse" data-target="#sr_f">senior citizens (female) <em>[at least 60 years old]</em></label>
                                                 </div>
                                                 <div id="sr_f" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_senior_citizen_female" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_senior_citizen_female" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                               <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -910,7 +910,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="infants(boy)" value="infants(boy)" data-toggle="collapse" data-target="#infants_b">infants (boy) <em>[0 to 5 years old]</em></label>
                                                 </div>
                                                 <div id="infants_b" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_infants_boy" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_infants_boy" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                             </tr>
@@ -920,7 +920,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="adults(male)" value="adults(male)" data-toggle="collapse" data-target="#adults_m">adults (male) <em>[31 to 59 years old]</em></label>
                                                 </div>
                                                 <div id="adults_m" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_adults_male" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_adults_male" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                               <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -928,7 +928,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="infants(girl)" value="infants(girl)" data-toggle="collapse" data-target="#infants_g">infants (girl) <em>[0 to 5 years old]</em></label>
                                                 </div>
                                                 <div id="infants_g" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_infants_girl" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_infants_girl" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                             </tr>
@@ -938,7 +938,7 @@
                                                   <label><input type="checkbox" name="social_dimension[]" id="adults(female)" value="adults(female)" data-toggle="collapse" data-target="#adults_f">adults (female) <em>[31 to 59 years old]</em></label>
                                                 </div>
                                                 <div id="adults_f" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 collapse">
-                                                  <input type="number" class="form-control" name="social_dimension_adults_female" placeholder="How many?">
+                                                  <input type="number" class="form-control" name="social_dimension_adults_female" placeholder="How many? ****">
                                                 </div>
                                               </td>
                                               <td>
@@ -947,7 +947,7 @@
                                               </div>
                                               <div id="benefit_others" class="collapse form-inline">
                                                 <input type="text" class="form-control" name="social_dimension_others" placeholder="Type Here...">
-                                                <input type="number" class="form-control" name="social_dimension_others_count" placeholder="How many?">
+                                                <input type="number" class="form-control" name="social_dimension_others_count" placeholder="How many? ****">
                                               </div>
                                             </td>
                                             </tr>
@@ -959,7 +959,7 @@
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+ 5th Part -->
                                   <thead>
-                                    <th class="bg-success">E. Environmental  Dimension: <em>the P/P/A addresses the environmental needs of the community</em></th>
+                                    <th class="bg-success">E. Environmental  Dimension: <em>the P/P/A addresses the environmental needs of the community</em><span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
                                     <tr>
@@ -1010,7 +1010,7 @@
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+ 6th Part -->
                                   <thead>
-                                    <th class="bg-success">F. Governance Dimension: <em>the program/project/activity will yield:</em></th>
+                                    <th class="bg-success">F. Governance Dimension: <em>the program/project/activity will yield:</em><span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
                                     <tr>
@@ -1097,7 +1097,7 @@
                                 <table class="table table-bordered" width="100%">
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+ 1st Part -->
                                   <thead>
-                                    <th class="bg-success">A. Practical Counts: <em>please provide below your estimated count per item:</em></th>
+                                    <th class="bg-success">A. Practical Counts: <em>please provide below your estimated count per item:</em><span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
                                     <tr>
@@ -1107,7 +1107,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="hours_needed_to_prepare" class="form-control" required></td>
+                                                  <td width="20%"><input type="number" name="hours_needed_to_prepare" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of man hours needed to prepare the P/P/A</td>
                                                 </tr>
@@ -1116,7 +1116,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="hours_needed_to_complete" class="form-control" required></td>
+                                                  <td width="20%"><input type="number" name="hours_needed_to_complete" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of man hours needed to complete the P/P/A</td>
                                                 </tr>
@@ -1127,7 +1127,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="faculty_members_involved_count" class="form-control" required></td>
+                                                  <td width="20%"><input type="number" name="faculty_members_involved_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of faculty members who will be involved</td>
                                                 </tr>
@@ -1136,7 +1136,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="course_based_students_involved_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="course_based_students_involved_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of course-based students who will be involved</td>
                                                 </tr>
@@ -1147,7 +1147,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="student_organization_members_involved_count" class="form-control" required></td>
+                                                  <td width="20%"><input type="number" name="student_organization_members_involved_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of Student Organization members who will be involved</td>
                                                 </tr>
@@ -1156,7 +1156,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="staff_involved_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="staff_involved_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of staff who will be involved</td>
                                                 </tr>
@@ -1167,7 +1167,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="campaign_materials_to_produce_count" class="form-control" required></td>
+                                                  <td width="20%"><input type="number" name="campaign_materials_to_produce_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of Information and Education Campaign materials to be produced</td>
                                                 </tr>
@@ -1176,7 +1176,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="campaign_materials_to_improve_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="campaign_materials_to_improve_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of Information and Education Campaign materials to be improved/enhanced</td>
                                                 </tr>
@@ -1187,7 +1187,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="curriculum_programs_to_develop_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="curriculum_programs_to_develop_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of curricular programs to be developed</td>
                                                 </tr>
@@ -1196,7 +1196,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="curriculum_programs_to_improve_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="curriculum_programs_to_improve_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of curricular programs to be improved/enhanced</td>
                                                 </tr>
@@ -1207,7 +1207,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="proposals_to_develop_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="proposals_to_develop_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of proposals to be developed</td>
                                                 </tr>
@@ -1216,7 +1216,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="papers_presented_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="papers_presented_count" class="form-control" placeholder = "****" ></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of papers to be presented</td>
                                                 </tr>
@@ -1227,7 +1227,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="papers_published_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="papers_published_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of papers to be published</td>
                                                 </tr>
@@ -1236,7 +1236,7 @@
                                             <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                               <table width="100%">
                                                 <tr>
-                                                  <td width="20%"><input type="number" name="policies_to_advocate_count" class="form-control"></td>
+                                                  <td width="20%"><input type="number" name="policies_to_advocate_count" class="form-control" placeholder = "****" required></td>
                                                   <td>&nbsp</td>
                                                   <td>No. of policies to be advocated</td>
                                                 </tr>
@@ -1250,7 +1250,7 @@
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+ 2nd Part -->
                                   <thead>
-                                    <th class="bg-success">B. Human Resource Implications: <em>please provide the specifics:</em></th>
+                                    <th class="bg-success">B. Human Resource Implications: <em>please provide the specifics:</em><span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
                                     <tr>
@@ -1267,13 +1267,13 @@
                                             </tr>
                                             <tr>
                                               <td><span class="glyphicon glyphicon-triangle-right"></span>&nbsp Expertise and/or specialization needed</td>
-                                              <td><textarea class="form-control" rows="3" name="preparation_expertise_needed_faculty_members"></textarea></td>
-                                              <td><textarea class="form-control" rows="3" name="preparation_expertise_needed_students"></textarea></td>
+                                              <td><textarea class="form-control" rows="3" name="preparation_expertise_needed_faculty_members" placeholder = "****"></textarea></td>
+                                              <td><textarea class="form-control" rows="3" name="preparation_expertise_needed_students" placeholder = "****"></textarea></td>
                                             </tr>
                                             <tr>
                                               <td><span class="glyphicon glyphicon-triangle-right"></span>&nbsp Roles/tasks</td>
-                                              <td><textarea class="form-control" rows="3" name="preparation_roles_faculty_members"></textarea></td>
-                                              <td><textarea class="form-control" rows="3" name="preparation_roles_students"></textarea></td>
+                                              <td><textarea class="form-control" rows="3" name="preparation_roles_faculty_members" placeholder = "****"></textarea></td>
+                                              <td><textarea class="form-control" rows="3" name="preparation_roles_students" placeholder = "****"></textarea></td>
                                             </tr>
                                           </tbody>
                                         </table>
@@ -1290,13 +1290,13 @@
                                             </tr>
                                             <tr>
                                               <td><span class="glyphicon glyphicon-triangle-right"></span>&nbsp Expertise and/or specialization needed</td>
-                                              <td><textarea class="form-control" rows="3" name="implementation_expertise_needed_faculty_members"></textarea></td>
-                                              <td><textarea class="form-control" rows="3"name="implementation_expertise_needed_students"></textarea></td>
+                                              <td><textarea class="form-control" rows="3" name="implementation_expertise_needed_faculty_members" placeholder = "****"></textarea></td>
+                                              <td><textarea class="form-control" rows="3"name="implementation_expertise_needed_students" placeholder = "****"></textarea></td>
                                             </tr>
                                             <tr>
                                               <td><span class="glyphicon glyphicon-triangle-right"></span>&nbsp Roles/tasks</td>
-                                              <td><textarea class="form-control" rows="3" name="implementation_roles_faculty_members"></textarea></td>
-                                              <td><textarea class="form-control" rows="3" name="implementation_roles_students"></textarea></td>
+                                              <td><textarea class="form-control" rows="3" name="implementation_roles_faculty_members" placeholder = "****"></textarea></td>
+                                              <td><textarea class="form-control" rows="3" name="implementation_roles_students" placeholder = "****"></textarea></td>
                                             </tr>
                                           </tbody>
                                         </table>
@@ -1320,7 +1320,7 @@
 
 <!-- _+_+_+_+_+_+_+_+_+_+_+_+_+_+ 2nd Part -->
                                   <thead>
-                                    <th class="bg-success"> Nature of Linkage/Partnership: <em>please specify:</em></th>
+                                    <th class="bg-success"> Nature of Linkage/Partnership: <em>please specify:</em><span style = "color: red;"> ****</span></th>
                                   </thead>
                                   <tbody>
                                     <tr>
@@ -1338,29 +1338,29 @@
                                                     <tr>
                                                       <td class="text-right"><label>Date Signed:</label></td>
                                                       <td width="2%"></td>
-                                                      <td><input type="text" name="date_signed" class="form-control datepicker" placeholder="mm/dd/yyyy"><br></td>
+                                                      <td><input type="text" name="date_signed" class="form-control datepicker" placeholder="mm/dd/yyyy ****"><br></td>
                                                     </tr>
                                                     <tr>
                                                       <td class="text-right"><label>Signatories for USC:</label></td>
                                                       <td></td>
-                                                      <td><input type="text" name="signatories_for_usc" class="form-control" placeholder="Type Here..."><br></td>
+                                                      <td><input type="text" name="signatories_for_usc" class="form-control" placeholder="Type Here... ****"><br></td>
                                                     </tr>
                                                     <tr>
                                                       <td class="text-right"><label>Signatories for Partner:</label></td>
                                                       <td></td>
-                                                      <td><input type="text" name="signatories_for_partner" class="form-control" placeholder="Type Here..."><br></td>
+                                                      <td><input type="text" name="signatories_for_partner" class="form-control" placeholder="Type Here... ****"><br></td>
                                                     </tr>
                                                     <tr>
                                                       <td colspan="3">
                                                         <hr>
                                                         <label>Enumerate the Major duties of USC/Unit:</label>
-                                                        <textarea class="form-control" rows="5" name="major_duties_of_usc_unit" placeholder="Type Here..."></textarea>
+                                                        <textarea class="form-control" rows="5" name="major_duties_of_usc_unit" placeholder="Type Here... ****"></textarea>
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td colspan="3">
                                                         <label>Enumerate the Major duties of Partner/s:</label>
-                                                        <textarea class="form-control" rows="5" name="major_duties_of_partner" placeholder="Type Here..."></textarea>
+                                                        <textarea class="form-control" rows="5" name="major_duties_of_partner" placeholder="Type Here... ****"></textarea>
                                                       </td>
                                                     </tr>
                                                     
@@ -1378,18 +1378,18 @@
                                                     <tr>
                                                       <td class="text-right"><label>Since when is the linkage:</label></td>
                                                       <td width="2%"></td>
-                                                      <td><input type="text" name="date_linkage_started" class="form-control datepicker"><br></td>
+                                                      <td><input type="text" name="date_linkage_started" class="form-control datepicker" placeholder="Type Here... ****"><br></td>
                                                     </tr>
                                                     <tr>
                                                       <td class="text-right"><label>Who initiated the linkage:</label></td>
                                                       <td></td>
-                                                      <td><input type="text" name="who_initiated_linkage" class="form-control" placeholder="Type Here..."><br></td>
+                                                      <td><input type="text" name="who_initiated_linkage" class="form-control" placeholder="Type Here... ****"><br></td>
                                                     </tr>
                                                     <tr>
                                                       <td colspan="3">
                                                         <hr>
                                                         <label>Enumerate the activities already done:</label>
-                                                        <textarea name="activities_done" class="form-control" rows="5" placeholder="Type Here..."></textarea>
+                                                        <textarea name="activities_done" class="form-control" rows="5" placeholder="Type Here... ****"></textarea>
                                                       </td>
                                                     </tr>
                                                     
@@ -1403,11 +1403,11 @@
                                         </table>
                                          <div>
                                                         <label>Enumerate the opportunities identified:</label>
-                                                        <textarea class="form-control" rows="5" name="opportunities_identified" placeholder="Type Here..."></textarea>
+                                                        <textarea class="form-control" rows="5" name="opportunities_identified" placeholder="Type Here... ****"></textarea>
                                                     </div>
                                                     <div>
                                                         <label>Enumerate the challenges/problems encountered:</label>
-                                                        <textarea class="form-control" rows="5" name="challenges_encountered" placeholder="Type Here..."></textarea>
+                                                        <textarea class="form-control" rows="5" name="challenges_encountered" placeholder="Type Here... ****"></textarea>
                                                      </div>
                                       </td>
                                     </tr>

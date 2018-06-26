@@ -16,10 +16,10 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><input type="text" name="tentative_date[]" class="form-control datepicker" data-toggle="tooltip" required></td>
-                  <td><input type="text" name="activities[]" class="form-control" data-toggle="tooltip" required></td>
-                  <td><input type="number" name="participants_needed[]" class="form-control" data-toggle="tooltip" required></td>
-                  <td><input type="text" name="persons_incharge[]" class="form-control" data-toggle="tooltip" required></td>
+                  <td><input type="text" name="tentative_date[]" class="form-control datepicker" data-toggle="tooltip" placeholder = "****"required></td>
+                  <td><input type="text" name="activities[]" class="form-control" data-toggle="tooltip" placeholder = "****" required></td>
+                  <td><input type="number" name="participants_needed[]" class="form-control" data-toggle="tooltip" placeholder = "****" required></td>
+                  <td><input type="text" name="persons_incharge[]" class="form-control" data-toggle="tooltip" placeholder = "****" required></td>
                   <td></td>
                 </tr>
               </tbody>

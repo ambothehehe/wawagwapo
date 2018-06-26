@@ -26,6 +26,7 @@
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
                             <th>School and Department</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -33,10 +34,11 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                     </tfoot>
                     <tbody> 
-                        <?php if(empty($coord_d)) {?>
+                        <?php if(empty($mycoord_d)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
                             </tr>
@@ -48,7 +50,7 @@
                             
                                 <tr>
                                     <td>
-                                        <a href="<?php echo base_url() ?>index.php/Coordinator/loadreportd/<?php echo $myrepd->fd_id; ?>">
+                                        <a href="<?php echo base_url() ?>index.php/Coordinator/loadreportdmyreport/<?php echo $myrepd->fd_id; ?>">
                                              <?php echo $myrepd->fd_title;?></a>
                                     </td>
                                    
@@ -63,10 +65,17 @@
 
                                     <!-- DELETE BUTTON -->
                                     <td>
-                                     <?php
-                                        echo form_open('Representative/deleteForm_d');?>
-                                        <input class="form-control" type="hidden" name="id" value="<?php echo $myrepd->fd_id;?>" >
-                                        </form> </td>
+                                     <?php if($myrepd->report_status == 5) {
+                                         echo form_open('Faculty/deleteForm_d');?>
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $myrepd->fd_id;?>" >
+                                            <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                            </form> 
+                                    </td>
+                                    <?php }else{ ?>
+                                                <input class="form-control" type="hidden" name="id" value="<?php echo $myrepd->fd_id;?>" >
+                                                <button class="btn btn-sm btn-danger" disabled type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                            </form> 
+                                            <?php } ?>
                                      </tr>
                         <?php  }?>
 
@@ -78,14 +87,17 @@
 
 
   </div>
+
   <div id="Form_e_list" class="tab-pane fade">
+    
    <!--start FORM E table of my reports -->
- <div class="lists-table">
+    <div class="lists-table">
                     <table id="reportd" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Title of Project/Program/Activity Report</th>
                             <th>Date & Time Created</th>
+                            <th>School and Department</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -94,35 +106,53 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                     </tfoot>
                     <tbody> 
-                        <?php if(empty($own_reports_e)) {?>
+                        <?php if(empty($mycoord_e)) {?>
                             <tr>
                                 <td class="text-center" colspan="4"><em>--- No Created Reports ---</em></td>
                             </tr>
                         <?php } ?>
 
 
-                        <?php foreach($coord_e as $myreps_e) {?>
-                            <?php if($myreps_e->creator_id == $user_id) { ?>
+                        <?php 
+                        foreach($mycoord_e as $repe) {?>
+                            
                                     <tr>
-                                        <td><a href="<?php echo base_url() ?>/Representative/loadreporte/<?php echo $myreps_e->id; ?>"><?php echo $myreps_e->title_of_program;?></a></td>
-                                        <td><?php echo $myreps_e->datecreated;?>
-                                             <br/>
-                                            <input type="hidden" name="creator_id" value="<?php echo $myreps_e->creator_id ;?>">
+                                        <td>
+                                            <a href="<?php echo base_url() ?>index.php/Coordinator/loadreportemyreport/<?php echo $repe->fe_id; ?>">
+                                                 <?php echo $repe->title;?></a>
                                         </td>
-                                        <td><?php
-                                            echo form_open('Representative/deleteForm_e');?>
-                                            <input class="form-control" type="hidden" name="id" value="<?php echo $myreps_e->id;?>" >
-                                           <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
-                                            </form> </td>
-                                    </tr>
-                            <?php }} ?>
-                    </tbody>
-                    </table>
+                                       
+                                        <td>
+                                            <?php echo $repe->datecreated;?><br/>
+                                            <input type="hidden" name="creator_id" value="<?php echo $repe->creator_id ;?>">
+                                        </td>
 
-                    </div> 
+                                        <td>
+                                            <?php echo $repe->creators_department;?><br><p style="font-size:75%;"><?php echo $repe->creators_school;?></p>
+                                        </td>
+                                        
+                                        <td>
+                                            <?php if($repe->report_status == 5){
+                                            echo form_open('Faculty/deleteForm_e');?>
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $repe->fe_id;?>" >
+                                            <button class="btn btn-sm btn-danger" type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                            </form> 
+                                        </td>
+                                             <?php }else{ ?>
+                                                <input class="form-control" type="hidden" name="id" value="<?php echo $repe->fe_id;?>" >
+                                                <button class="btn btn-sm btn-danger" disabled type="submit" name="form_submit" value="DELETE FORM" onclick="return confirm('Are you sure you want to delete this item?')"><span class="glyphicon glyphicon-trash"></button>
+                                            </form> 
+                                            <?php } ?>
+
+                                         </tr>
+                                        <?php  }?>
+                        </tbody>
+                    </table>
+                </div> 
                     <!-- end Form E of my reports -->
   </div>
  

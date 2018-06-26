@@ -205,6 +205,8 @@ class Users extends CI_Controller
 		$user = new User();
 		
 		$user->user_id = $this->input->post('id', TRUE);
+		$user->firstname = $this->input->post('fname', TRUE);
+		$user->lastname = $this->input->post('lname', TRUE);
 		
 		$data = $user->get_one_user();
 		
@@ -224,6 +226,10 @@ class Users extends CI_Controller
 		$user->username = $this->input->post('username', TRUE);
 		$old_password = $this->input->post('old_password', TRUE);
 		$user->password = $old_password;
+
+		$user->addedbyfirstname = $this->input->post('addedbyfirstname', TRUE);
+		$user->addedbylastname = $this->input->post('addedbylastname', TRUE);
+		
 		$status = $user->edit_user_profile();
 
 		echo json_encode($status);
@@ -245,6 +251,9 @@ class Users extends CI_Controller
 			//$user->deparment 	= $this->input->post('deparment');
 			$user->username 	= $this->input->post('username');
 			$user->password 	= $this->input->post('password');
+
+			$user->updated_by 	= $this->input->post('updated_by');
+
 		  	$state = $user->update_user();
 
 		  	if ($state == TRUE) {
@@ -260,6 +269,7 @@ class Users extends CI_Controller
 				  	'office' 		=> $user->office,
 				  	'department'	=> $user->department,
 				  	'organization'	=> $this->session->organization,
+				  	'updated_by'	=> $user->updated_by,
 				  	'logged_in' 	=> TRUE
 				);
 				
@@ -326,10 +336,50 @@ class Users extends CI_Controller
 
 		$user->user_id = $this->input->post('id', TRUE);
 
+		$user->lastname = $this->input->post('lname', TRUE);
+		$user->firstname = $this->input->post('fname', TRUE);
+
 		$status = $user->accept_user_application();
 
 		echo json_encode($status);
 
+	}
+
+	public function send()
+	{
+		$this->load->model('Proposal_AB');
+		$user_id = $this->input->post('senderId');
+
+		//$data['email'] = $this->Proposal_AB->getPendingEmail($user_id);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			//$this->email->to($data['email']); 
+			//$this->email->to($data['email']);
+			$this->email->subject('CES Proposal Notification From Representative');
+			$this->email->message('Good day! Your account has been approved by the Director. You can now use your account. Just login your account with your credentials');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url('Director/manage_accounts'), "refresh");
+		  	}
+		  	else
+		  	{
+        		redirect(site_url('Director/manage_accounts'), "refresh");
+		  	}
 	}
 
 	public function denyUserApplication() {

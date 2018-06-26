@@ -33,6 +33,127 @@ class Director extends CI_Controller
 		}
 	}
 
+	public function send()
+	{	
+		$this->load->model('Proposal_AB');
+		
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 3)
+		{
+			$data['email']=$this->Proposal_AB->getCoordReviewEmail($this->session->office,5);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM DIRECTOR');
+			$this->email->message('Good day!');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+		  }
+		}
+
+		public function returnEmail(){
+
+			$this->load->model('Proposal_AB');
+		
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 4)
+		{
+			$data['email']=$this->Proposal_AB->getRepEmail($this->session->user_id,6);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Chair');
+			$this->email->message('Good day! Mr. Chair is done reviewing the proposal. Your Proposal was Denied. Please Edit');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+		  }
+
+
+
+		}
+
+
+		public function sendToVpaa()
+	{	
+		$this->load->model('Proposal_AB');
+		
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 3)
+		{
+			$data['email']=$this->Proposal_AB->getVPAAEmail(1);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM DIRECTOR');
+			$this->email->message('Good day!');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+		  }
+		}
+
 	public function loadreportd(){
 		$reportd_id= $this->uri->segment(3);
 		$data["id"] = $this->uri->segment(3);
@@ -251,8 +372,7 @@ class Director extends CI_Controller
 
 				redirect(site_url('Director/home'), "refresh");
 		}else{
-				$this->session->set_flashdata('success_msg',
-					'<strong>Proposal Distributed to Reviewers!</strong> You have successfully passed the proposal for reviewing.');
+				
 				
 				$data['email'] = $this->Proposal_AB->getReviewerEmail1($this->input->post('proposal_id'), $this->input->post('reviewer1'), $this->input->post('reviewer2'));
 
@@ -275,38 +395,26 @@ class Director extends CI_Controller
 				$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
 				//$this->email->to($data['email']); 
 				$this->email->to($list);
-				$this->email->subject('CES Proposal Notification From Representative');
-				$this->email->message('Good day!');
+				$this->email->subject('CES Proposal Notification From CES Director');
+				$this->email->message('Good day! You are assigned by the CES Director to review a proposal. Go, check it out');
 				$this->email->set_newline("\r\n");   
 				$result = $this->email->send();  
 			  	if(!$result)
-			  	{
-			  		// mail sent
-			  		echo "sayup";
-	        		//redirect(site_url());
-			  	}
-			  	else
-			  	{
-			  		echo "hey";
-	        		//redirect(site_url());
-			  	}
-				//redirect(site_url('Director/home'), "refresh");
+		  	{
+		  		// mail sent
+        		$this->session->set_flashdata('success_msg',
+					'<strong>Proposal Distributed to Reviewers!</strong> You have successfully passed the proposal for reviewing.');
+		  	}
+		  	else
+		  	{
+        		$this->session->set_flashdata('success_msg',
+					'<strong>Proposal Distributed to Reviewers!</strong> You have successfully passed the proposal for reviewing.');
+		  	}
+				redirect(site_url('Director/home'), "refresh");
 		}
 	}
 
-	public function sendToReviewer()
-	{
-		$this->addReviewer();
-		$this->load->model('Proposal_AB');
 
-		$data['email'] = $this->Proposal_AB->getRreviewerEmail($this->input->post('proposal_id'), $this->input->post('reviewer1'), $this->input->post('reviewer2'));
-
-		if(!$data['email']){
-			echo "SAD";
-		}else{
-			echo $data['email'];
-		}
-	}
 	public function getForEndorsementDirector()
 	{
 		$this->load->model('Proposal_AB');

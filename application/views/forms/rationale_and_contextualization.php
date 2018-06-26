@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="form-group">
-              <textarea class="form-control" rows="5" id="rationale_and_contextualization" name="rationale_and_contextualization" data-toggle="tooltip" placeholder="Type Here..."></textarea>
+              <textarea class="form-control" rows="5" id="rationale_and_contextualization" name="rationale_and_contextualization" data-toggle="tooltip" placeholder="****  Type Here...  ****" required></textarea>
             </div>
         </div>
     </div>

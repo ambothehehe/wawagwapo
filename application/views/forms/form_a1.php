@@ -26,6 +26,15 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header text-left">
+                      <h4>
+                      <p>Required fields: <strong>****</strong></span></p>
+                      </h4>
+                    </div>
+                </div>
+            </div>
 
             <div class="container-fluid">
                 <div class="row tab-content">
@@ -39,10 +48,10 @@
       <table width="100%">
         <tr>
           <td><label>Title:</label></td>
-          <td colspan="4"><input type="text" class="form-control" name="title" data-toggle="tooltip" placeholder="Name of the Program/Project/Activity" required>
+          <td colspan="4"><input type="text" class="form-control" name="title" data-toggle="tooltip" placeholder="****  Name of the Program/Project/Activity  ****" required>
 
             <input type="hidden" class="form-control" name="user_id" data-toggle="tooltip" value="<?php echo $user_id?>">
-             <input type="hidden" class="form-control" name="form_type" data-toggle="tooltip" value="<?php if(isset($form_type)) echo $form_type; ?>">
+             <input type="hidden" class="form-control" name="form_type" data-toggle="tooltip" value="1">
           </td>
           <td></td>
           <td></td>
@@ -64,13 +73,13 @@
         </tr> 
         <tr>
             <td><label>Inclusive Date:</label></td>
-            <td><input type="text" id="inclusive-date1" name="inclusive_date1" data-toggle="tooltip" placeholder="Date Start of Activity (mm/dd/yyyy)" class="form-control datepicker" required></td>
+            <td><input type="text" id="inclusive-date1" name="inclusive_date1" data-toggle="tooltip" placeholder="****  Date Start of Activity (mm/dd/yyyy)  ****" class="form-control datepicker" required></td>
             <td class="text-center"><em>to</em></td>
-            <td><input type="text" id="inclusive-date2" name="inclusive_date2" data-toggle="tooltip" placeholder="Date End of Activity (mm/dd/yyyy)" class="form-control datepicker" required></td>
+            <td><input type="text" id="inclusive-date2" name="inclusive_date2" data-toggle="tooltip" placeholder="****  Date End of Activity (mm/dd/yyyy)  ****" class="form-control datepicker" required></td>
         </tr>
         <tr>
             <td><label>Venue:</label></td>
-            <td colspan="3"><input type="text" id="venue" class="form-control" data-toggle="tooltip" name="venue" placeholder="Where will the activity take place?" required></td>
+            <td colspan="3"><input type="text" id="venue" class="form-control" data-toggle="tooltip" name="venue" placeholder="****  Where will the activity take place?  ****" required></td>
             <td></td>
             <td></td>
         </tr>
@@ -138,6 +147,8 @@
     </div>
     <br>
     <br>
+
+    <?php include('application/views/modals.php'); ?>
     <?php include('application/views/footer.php');?>
 	<script type="text/javascript">
 		$(document).ready(function () {
@@ -634,6 +645,18 @@
 				
 		});
 	</script>
+	<script>
+    $("#form_a1").submit(function() {
+  var id = $('#prod').val();
+    $.ajax({
+                type:'POST',
+                url:'<?php echo base_url("index.php/Representative/send"); ?>',
+                data:{'id':id},
+                success:function(data){
+                }
+            });
+});
+</script>
 </body>
 
 </html>

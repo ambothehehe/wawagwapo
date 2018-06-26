@@ -64,7 +64,8 @@
                                        <tr><td> <input type="hidden" name="who_created" value="<?= $fname ?>&nbsp;<?= $lname ?>"></td>
                                         <td> <input type="hidden" name="creators_department" value="<?= $department ?>"></td>
                                          <td> <input type="hidden" name="creator_id" value="<?= $creator_id ?>"></td>
-                                         <td> <input type="hidden" name="creators_school" value="<?= $creators_school ?>"></td>
+                                         <td> <input type="hidden" name="creator_id" value="<?= $creator_id ?>"></td>
+                                         <td> <input type="hidden" name="creators_organization" value="<?= $organization ?>"></td>
 
                                         <tr>
                                   <!-- END part of the info of creator -->

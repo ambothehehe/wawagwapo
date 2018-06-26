@@ -45,11 +45,17 @@
 						<?php if ($this->uri->segment(2) === "home") { ?>
 							<a href="<?php echo site_url('CoCurricular/create_proposal');?>" style="text-decoration:none"><button class="btn btn-success outline"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp Create Proposal</button></a>
 						<?php } ?>
+						<?php if ($this->uri->segment(2) === "reports" || $this->uri->segment(2) === "viewform_d" || $this->uri->segment(2) === "viewform_e") { ?>
+							<a href="<?php echo site_url('CoCurricular/create_report');?>" style="text-decoration:none"><button class="btn btn-success outline"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp Create Report</button></a>
+						<?php } ?>
 					<?php } ?> 
 
 					<?php if ($role === 'Extra-Curricular Organization') { ?>
 						<?php if ($this->uri->segment(2) === "home") { ?>
 							<a href="<?php echo site_url('ExtraCurricular/create_proposal');?>" style="text-decoration:none"><button class="btn btn-success outline"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp Create Proposal</button></a>
+						<?php } ?>
+						<?php if ($this->uri->segment(2) === "reports" || $this->uri->segment(2) === "viewform_d" || $this->uri->segment(2) === "viewform_e") { ?>
+							<a href="<?php echo site_url('ExtraCurricular/create_report');?>" style="text-decoration:none"><button class="btn btn-success outline"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp Create Report</button></a>
 						<?php } ?>
 					<?php } ?> 
 

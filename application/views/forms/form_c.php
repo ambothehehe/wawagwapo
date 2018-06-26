@@ -367,7 +367,7 @@
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                              <button type="submit" class="btn btn-default btn-block" name="submit" value="save_prop"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp SAVE & QUIT</button>
+                              <button type="submit" class="btn btn-default btn-block" id ="save_c" name="submit" data-toggle="modal" data-target="#saveasdraft" value="save_prop"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp SAVE & QUIT</button>
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
@@ -518,7 +518,6 @@
           }
 
         }
-        //alert('hey');
         //console.log(data.hasOwnProperty("nature_of_the_program"));
         if(data.hasOwnProperty("nature_of_the_program"))
         {
@@ -544,6 +543,19 @@
       }  
     });
   </script>
+
+  <script>
+    $("#form_c").submit(function() {
+  var id = $('#prod').val();
+    $.ajax({
+                type:'POST',
+                url:'<?php echo base_url("index.php/Representative/send"); ?>',
+                data:{'id':id},
+                success:function(data){
+                }
+            });
+});
+</script>
 
 </body>
 

@@ -36,6 +36,45 @@ class Chair extends CI_Controller
 		echo json_encode($proplist);
 	}
 
+	/*public function send()
+	{	
+		$this->load->model('Proposal_AB');
+		
+		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 4)
+		{
+			$data['email']=$this->Proposal_AB->getCoordEmail($this->session->office,5);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Chair');
+			$this->email->message('Good day! Mr. Chair is done reviewing the proposal. You may now view the reviewed.');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		//redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		//redirect(site_url());
+		  	}
+		  }
+		} */
+
 	public function profile_settings() {
 		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 4)
 		{

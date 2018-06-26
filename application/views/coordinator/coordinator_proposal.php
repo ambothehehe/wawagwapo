@@ -81,9 +81,10 @@
 			$.ajax({
 				type: "POST",
 				url: base_url + "Coordinator/getToBeEndorsedProposal",
+				data:data,
 				success:function(data2){
 					dataJSON = JSON.parse(data2);
-					console.log(dataJSON);
+					//console.log(dataJSON);
 					var dataRows=[];
 					for(var i = 0; i < dataJSON.length; i++)
 					{	
@@ -96,12 +97,49 @@
 						}else if(dataJSON[i].form_type == 0){
 							var link = "<a href="+base_url+"Representative/loadspecificproposal_c/"+dataJSON[i].proposal_id+">";
 						}
-						//console.log(proposal_details);
+
+						// HOLY CODE FOR DATES
+
+						//[0 - 11]
+						var monthNames = ["January", "February", "March", "April", "May", "June",
+											  "July", "August", "September", "October", "November", "December"
+											];
+
+						//[0 - 11]
+						var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+						var datehehe = new Date(dataJSON[i].datetime_created);
+						var timeIsReal = new Date(dataJSON[i].datetime_created).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+
+						var curr_date = datehehe.getDate(); //1 - 31
+						var curr_month = datehehe.getMonth() + 1; //Months are zero based
+						var curr_year = datehehe.getFullYear();
+						var curr_day = datehehe.getDay(); // 1-7
+						var curr_hours = datehehe.getHours();
+						var curr_mins = datehehe.getMinutes();
+
+						// console.log(curr_date);
+						//console.log(curr_month);
+						// console.log(curr_year);
+						//console.log(curr_day);
+						// console.log(curr_hours);
+						// console.log(curr_mins);
+						// console.log(monthNames[datehehe.getMonth()]);
+
+						var month = monthNames[datehehe.getMonth()];
+						//console.log(month);
+						var day = dayNames[curr_day];
+						
+
+
+						// BAI USBA ANG NAA SA dataRows.push kanang date diha usba haha
+						// HOLY CODE FOR DATES
+
 						var user_id = "<?php echo $user_id; ?>";
 						dataRows.push([
 							"<td>"+link+proposal_details.title+"</a>"+"</td>",
 							"<td>"+"<a onclick="+"launch_submitted_user_profile("+user_id+")"+">"+dataJSON[i].lastname+"</a></td>",
-							"<td>"+dataJSON[i].datetime_created+"</td>"
+							day + " | " + month + " " + curr_date + ", " + curr_year  + " (" +timeIsReal+")"+"</td>",
 						]);
 						//dataRows.push("<tr>"+"<td>"+dataJSON[i].proposal_json_format.title+"</td>"+"<td>"+dataJSON[i].proposal_json_format.inclusive_date1+"</td>"+"</tr>");
 					}
@@ -170,24 +208,62 @@
 				url: base_url + "Procedure_one/getSubmittedProposal",
 				success:function(data2){
 					dataJSON = JSON.parse(data2);
+					//console.log(dataJSON);
 					var dataRows=[];
 					for(var i = 0; i < dataJSON.length; i++)
 					{	
 						var proposal_details = dataJSON[i].proposal_json_format;
 						if(dataJSON[i].form_type == 1){
-							var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
+							var link = "<a href="+base_url+"Representative/form_a_1?proposal_id="+dataJSON[i].proposal_id+">";
 						}
 						else if(dataJSON[i].form_type == 2){
-							var link = "<a href="+base_url+"Representative/loadspecificproposal/"+dataJSON[i].proposal_id+">";
+							var link = "<a href="+base_url+"Representative/form_a?proposal_id="+dataJSON[i].proposal_id+">";;
 						}else if(dataJSON[i].form_type == 0){
-							var link = "<a href="+base_url+"Representative/loadspecificproposal_c/"+dataJSON[i].proposal_id+">";
+							var link = "<a href="+base_url+"Representative/form_c/"+dataJSON[i].proposal_id+">";
 						}
-						//console.log(proposal_details);
+						
+						// HOLY CODE FOR DATES
+
+						//[0 - 11]
+						var monthNames = ["January", "February", "March", "April", "May", "June",
+											  "July", "August", "September", "October", "November", "December"
+											];
+
+						//[0 - 11]
+						var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+						var datehehe = new Date(dataJSON[i].date_created);
+						var timeIsReal = new Date(dataJSON[i].date_created).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+
+						var curr_date = datehehe.getDate(); //1 - 31
+						var curr_month = datehehe.getMonth() + 1; //Months are zero based
+						var curr_year = datehehe.getFullYear();
+						var curr_day = datehehe.getDay(); // 1-7
+						var curr_hours = datehehe.getHours();
+						var curr_mins = datehehe.getMinutes();
+
+						// console.log(curr_date);
+						//console.log(curr_month);
+						// console.log(curr_year);
+						//console.log(curr_day);
+						// console.log(curr_hours);
+						// console.log(curr_mins);
+						// console.log(monthNames[datehehe.getMonth()]);
+
+						var month = monthNames[datehehe.getMonth()];
+						//console.log(month);
+						var day = dayNames[curr_day];
+						
+
+
+						// BAI USBA ANG NAA SA dataRows.push kanang date diha usba haha
+						// HOLY CODE FOR DATES
+
 						var user_id = "<?php echo $user_id; ?>";
 						dataRows.push([
 							"<td>"+dataJSON[i].proposal_id+"</td>",
 							"<td>"+link+proposal_details.title+"</a>"+"</td>",
-							"<td>"+dataJSON[i].date_created+"</td>",
+							day + " | " + month + " " + curr_date + ", " + curr_year  + " (" +timeIsReal+")"+"</td>",
 							"<td>Submitted</td>"
 						]);
 						//dataRows.push("<tr>"+"<td>"+dataJSON[i].proposal_json_format.title+"</td>"+"<td>"+dataJSON[i].proposal_json_format.inclusive_date1+"</td>"+"</tr>");

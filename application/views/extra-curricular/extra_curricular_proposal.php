@@ -126,8 +126,14 @@
 						}
 						else
 							var link = "<a href="+base_url+"Representative/form_a?proposal_id="+dataJSON[i].proposal_id+">";
+
+
 						if(dataJSON[i].status == 1){
-							status = "For chair endorsement";
+							if(dataJSON[i].proposal_json_format.organization.length > 0){
+							status = "For Student organization Adviser endorsement";
+							}else{
+								status = "For chair endorsement";
+							}
 						}else if(dataJSON[i].status == 3){
 							status = "For coordinator endorsement";
 						}else if(dataJSON[i].status == 4){

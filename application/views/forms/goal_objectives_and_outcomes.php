@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="form-group">
-              <textarea class="form-control" rows="5" id="goal_objectives_and_outcomes" name="goal_objectives_and_outcomes" data-toggle="tooltip" placeholder="Type Here..."></textarea>  
+              <textarea class="form-control" rows="5" id="goal_objectives_and_outcomes" name="goal_objectives_and_outcomes" data-toggle="tooltip" placeholder="****  Type Here...  ****"></textarea>  
             </div>
         </div>
     </div>

@@ -88,7 +88,7 @@
 						if(dataJSON[i].form_type == 1) /*if form a and b*/
 							var link = "<a href="+base_url+"Representative/form_a_1?proposal_id="+dataJSON[i].proposal_id+">";
 						else
-							var link = "<a href=#>";
+							var link = "<a href="+base_url+"Representative/form_a?proposal_id="+dataJSON[i].proposal_id+">";
 						dataRows.push([
 							"<td>"+link+dataJSON[i].proposal_json_format.title+"</a>"+"</td>",
 							dataJSON[i].proposal_json_format.inclusive_date1+"</td>"
@@ -128,7 +128,11 @@
 							var link = "<a href="+base_url+"Representative/form_a?proposal_id="+dataJSON[i].proposal_id+">";
 
 						if(dataJSON[i].status == 1){
-							status = "For chair endorsement";
+							if(dataJSON[i].proposal_json_format.organization.length > 0){
+							status = "For Student organization Adviser and Chair endorsement";
+							}else{
+								status = "For chair endorsement";
+							}
 						}else if(dataJSON[i].status == 3){
 							status = "For coordinator endorsement";
 						}else if(dataJSON[i].status == 4){
@@ -180,7 +184,7 @@
 						if(dataJSON[i].form_type == 1) /*if form a and b*/
 							var link = "<a href="+base_url+"Representative/form_a_1?proposal_id="+dataJSON[i].proposal_id+">";
 						else
-							var link = "<a href=#>";
+							var link = "<a href="+base_url+"Representative/form_a?proposal_id="+dataJSON[i].proposal_id+">";
 						dataRows.push([
 							"<td>"+link+dataJSON[i].proposal_json_format.title+"</a>"+"</td>",
 							dataJSON[i].proposal_json_format.inclusive_date1+"</td>",

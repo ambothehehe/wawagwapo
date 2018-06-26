@@ -221,7 +221,10 @@
             <?php if($proposal[0]->status == "10"):  ?>
             
             <?php echo form_open('Proposals/vpaaEndorseProp');?>
+
             <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+            <input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ?>">
+
             <button type="submit" class="btn btn-danger btn-md" name="vpaaEndorse" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
             <button type="submit" class="btn btn-primary btn-md" name="vpaaEndorse" value="ProceedProposal">Endorse to VPAA&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
             
@@ -232,7 +235,10 @@
             <?php if($proposal[0]->status == "10"):  ?>
             
             <?php echo form_open('Proposals/vpaaEndorseProp');?>
+
             <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+            <input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ?>">
+
             <button type="submit" class="btn btn-danger btn-md" name="vpaaEndorse" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
             <?php endif;?>
            

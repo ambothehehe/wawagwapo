@@ -1,4 +1,4 @@
-f<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -45,9 +45,8 @@ class Representative extends CI_Controller
 		
 		if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 6)
 		{
-			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
-			echo $data['email'];
-			?><script> alert("yuck fou");</script><?php
+			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4); //Representative to Chair
+			
 			$this->load->library('email');
 			$config = Array('protocol' => 'smtp',
 			'smtp_host'    => 'ssl://smtp.gmail.com',
@@ -63,30 +62,105 @@ class Representative extends CI_Controller
 			$this->email->initialize($config);
 			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
 			//$this->email->to($data['email']); 
+
+
 			$this->email->to($data['email']);
+
 			$this->email->subject('CES Proposal Notification From Representative');
-			$this->email->message('Good day!');
+			$this->email->message('Good day! You have a proposal to be noted. Go,check it out.');
 			$this->email->set_newline("\r\n");   
 			$result = $this->email->send();  
 		  	if(!$result)
 		  	{
 		  		// mail sent
-		  		echo "sayup";
         		redirect(site_url());
 		  	}
 		  	else
 		  	{
-		  		echo "hey";
+        		redirect(site_url());
+		  	}	
+		  	}elseif(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 7) //Co-Curricular to Faculty
+		{
+			$data['email']=$this->Proposal_AB->getFacultyEmail($this->session->organization,9);
+			$data2['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+			
+			$list = array($data['email'], $data2['email']);
+
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			//$this->email->to($data['email']); 
+
+
+			$this->email->to($list);
+
+			$this->email->subject('CES Proposal Notification From Co-Curricular');
+			$this->email->message('Good day! Mr./Ms. Co-Curricular has created a proposal. You have a proposal to be noted. ');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url('CoCurricular/home'), "refresh");
+		  	}
+		  	else
+		  	{
+        		redirect(site_url('CoCurricular/home'), "refresh");
+		  	}
+
+		  	}elseif(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 8) //Extra-Curricular to Faculty
+		{
+			$data['email']=$this->Proposal_AB->getFacultyEmail($this->session->organization,12);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			//$this->email->to($data['email']); 
+
+
+			$this->email->to($data['email']);
+
+			$this->email->subject('CES Proposal Notification From Extra-Curricular');
+			$this->email->message('Good day! Mr./Ms. Co-Curricular has created a proposal. You have a proposal to be noted. ');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
         		redirect(site_url());
 		  	}
-		}else if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 5)
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+		}else if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 5) //coordinator to dean
 		{
-			echo $_SESSION['designation_fkid'];
+			
 			
 			$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
 			
-			echo $data['email'];
-			?><script> alert("yuck fou2");</script><?php
 			$this->load->library('email');
 			$config = Array('protocol' => 'smtp',
 			'smtp_host'    => 'ssl://smtp.gmail.com',
@@ -103,29 +177,25 @@ class Representative extends CI_Controller
 			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
 			$this->email->to($data['email']); 
 			$this->email->subject('CES Proposal Notification From Coordinator ');
-			$this->email->message('Good day!');
+			$this->email->message('Good day! Mr./Ms/ Coordinator has created a proposal. Please proceed to CESPPMS to review proposal ');
 			$this->email->set_newline("\r\n");   
 			$result = $this->email->send();  
 		  	if(!$result)
 		  	{
 		  		// mail sent
-		  		echo "sayup";
         		redirect(site_url());
 		  	}
 		  	else
 		  	{
-		  		echo "hey";
         		redirect(site_url());
 		  	}
 		}
-		else if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 9)
+		else if(isset($_SESSION['designation']) && $_SESSION['designation_fkid'] == 9) //Faculty to Chair
 		{
-			echo $_SESSION['designation_fkid'];
 			
-			//$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,4);
+			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
 			
-			echo $data['email'];
-			?><script> alert("yuck fou");</script><?php
+
 			$this->load->library('email');
 			$config = Array('protocol' => 'smtp',
 			'smtp_host'    => 'ssl://smtp.gmail.com',
@@ -143,19 +213,17 @@ class Representative extends CI_Controller
 			$this->email->to($data['email']); 
 			//$this->email->to('mariaclairetan143@gmail.com');
 			$this->email->subject('CES Proposal Notification From Faculty');
-			$this->email->message('Good day!');
+			$this->email->message('Good day! A proposal has been submitted. Go, check it out.');
 			$this->email->set_newline("\r\n");   
 			$result = $this->email->send();  
 		  	if(!$result)
 		  	{
 		  		// mail sent
-		  		echo "sayup";
-        		redirect(site_url());
+        		//redirect(site_url());
 		  	}
 		  	else
 		  	{
-		  		echo "hey";
-        		redirect(site_url());
+        		//redirect(site_url());
 		  	}
 		}
 	}
@@ -190,16 +258,6 @@ class Representative extends CI_Controller
 
 		
 		$this->load->view('representative/representative_create_proposal', $data);
-	}
-
-	public function create_report() {
-		$data['fname'] 	= $this->session->firstname;
-		$data['lname'] 	= $this->session->lastname;
-		$data['role']	= $this->session->designation;
-
-		
-
-		$this->load->view('representative/representative_create_report', $data);
 	}
 
 	public function form_a() {
@@ -314,7 +372,15 @@ class Representative extends CI_Controller
 	}
 
 
+public function create_report() {
+		$data['fname'] 	= $this->session->firstname;
+		$data['lname'] 	= $this->session->lastname;
+		$data['role']	= $this->session->designation;
 
+		
+
+		$this->load->view('representative/representative_create_report', $data);
+	}
 	
 
 //for form d create report form D
@@ -327,27 +393,33 @@ class Representative extends CI_Controller
 		$data['role']	= $this->session->designation;
 		$data['department'] = $this->session->department;
 		$data['creator_id'] = $this->session->user_id;
+		$data['creators_organization'] = $this->session->organization;
 		$data['creators_school']	= $this->session->office;
 
 		$proposal_array = array();
 
 		$proposals2 = $this->Reports->get_title($data['creator_id']);
 		
+		if(($proposals2)){
 		foreach($proposals2 as $prop)
 		{
 
-			$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
-						  "propdetails"=>$prop);
-										
-			array_push($proposal_array, $data2);
+				$data2 = array("proposalJsonDetails" => (object)json_decode($prop->proposal_json_format),
+							  "propdetails"=>$prop);
+											
+				array_push($proposal_array, $data2);
+			}
+
+			$data["proposals"] = $proposal_array;
+			// $datum['titles']= $this->Reports->get_title();
+			//echo $this->session->designation;
+			//var_dump($proposal_array);
+
+			$this->load->view('forms/form_d', $data);
+		}else{
+			 include('application/views/modals.php');
+			$this->load->view('modals', $data);
 		}
-
-		$data["proposals"] = $proposal_array;
-		// $datum['titles']= $this->Reports->get_title();
-		//echo $this->session->designation;
-		//var_dump($proposal_array);
-
-		$this->load->view('forms/form_d', $data);
 	}
 
 public function formd_titles(){
@@ -408,6 +480,39 @@ public function addFormd() {
 
 			$result1=$p->isreported($p->fd_id);
 
+			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Representative has done creating the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+
+
 			if(!$result){
 				$this->session->set_flashdata('error_msg',
 					'<strong>Something Went Wrong!</strong> An Error occured while saving your report.');
@@ -426,12 +531,36 @@ public function addFormd() {
 
 		// for loading specific proposal
 	public function loadspecificproposal(){
+		$this->load->model('Proposal_AB');
+	
+		
 		$proposal_id= $this->uri->segment(3);
 		$data["id"] = $this->uri->segment(3);
+		$data["proposal"] = $this->Proposal_AB->getProposalDetails($proposal_id);
+		$data["proposal_id"]= $proposal_id;
+		$proposal = $data["proposal"];
+		$data['specprop']=(object) json_decode($proposal[0]->proposal_json_format,FALSE);
+		
+		
 		//$data["status"] = $this->uri->segment(4);
-		$data['fname'] = $this->session->firstloadspecificproposalname;
+		$data['fname'] = $this->session->firstname;
+
 		$data['lname'] = $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['roleId'] = $this->session->designation_fkid;
+		$fkid	= $this->Proposal_AB->getSenderfkId($data['specprop']->user_id);
+		if($data['roleId']==6 || $data['roleId']==5){
+		$data['prevId'] = $fkid;
+		$data['nextId'] =$this->session->designation_fkid-2;
+		$data['rolePrev']	= $this->Proposal_AB->getDetails($fkid);
+		$data['roleNext']	= $this->Proposal_AB->getDetails($this->session->designation_fkid-2);	
+		}else{
+			$data['prevId'] = $fkid;
+		$data['nextId'] =$this->session->designation_fkid-1;
+		$data['rolePrev']	= $this->Proposal_AB->getDetails($fkid);
+		$data['roleNext']	= $this->Proposal_AB->getDetails($this->session->designation_fkid-1);	
+			
+		}
 		$data['department']	= $this->session->department;
 		$data['organization']	= $this->session->organization;
 		$data['creators_school'] = $this->session->office;
@@ -439,17 +568,15 @@ public function addFormd() {
 
 		$data['form_type'] = $this->session->form_type;
 
-		$this->load->model('Proposal_AB');
-		$data["proposal"] = $this->Proposal_AB->getProposalDetails($proposal_id);
-		$data["proposal_id"]= $proposal_id;
-		$proposal = $data["proposal"];
-		$data['specprop']=(object) json_decode($proposal[0]->proposal_json_format,FALSE);
 		$data['comments']=$this->Proposal_AB->LoadComments($proposal_id);
+	
+		$data['privacyDesignation'] = $this->Proposal_AB;
 
 		$this->load->view("forms/sample_form_b", $data);
 	}
 
 	public function loadspecificproposal_faculty(){
+		$this->load->model('Proposal_AB');
 		$proposal_id= $this->uri->segment(3);
 		$data["id"] = $this->uri->segment(3);
 		//$data["status"] = $this->uri->segment(4);
@@ -460,14 +587,16 @@ public function addFormd() {
 		$data['organization']	= $this->session->organization;
 		$data['creators_school'] = $this->session->office;
 		$data['user_id'] = $this->session->user_id;
+		$data['designation_fkid'] = $this->session->designation_fkid;
 
 		$data['form_type'] = $this->session->form_type;
-
 
 		$data['noted_by_faculty'] = $this->session->noted_by_faculty;
 		$data['noted_by_stat'] = $this->session->noted_by_stat;
 
-		$this->load->model('Proposal_AB');
+		$data['status'] = $this->session->status;
+
+		
 		$data["proposal"] = $this->Proposal_AB->getProposalDetails($proposal_id);
 		$data["proposal_id"]= $proposal_id;
 		$proposal = $data["proposal"];
@@ -475,15 +604,20 @@ public function addFormd() {
 		$data['comments']=$this->Proposal_AB->LoadComments($proposal_id);
 		
 		$this->load->view("forms/sample_form_b_faculty", $data);
+		
 	}
 
 	public function loadspecificproposal_c(){
+		$this->load->model('Proposal_AB');
 		$proposal_id= $this->uri->segment(3);
 		$data["id"] = $this->uri->segment(3);
 		//$data["status"] = $this->uri->segment(4);
 		$data['fname'] = $this->session->firstname;
 		$data['lname'] = $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$fkid	= $this->Proposal_AB->getSenderfkId($data['specprop']->user_id);
+		$data['rolePrev']	= $this->Proposal_AB->getDetails($fkid);
+		$data['roleNext']	= $this->Proposal_AB->getDetails($this->session->designation_fkid-1);
 		$data['department']	= $this->session->department;
 		$data['creators_school']	= $this->session->office;
 		$data['user_id'] = $this->session->user_id;
@@ -491,7 +625,7 @@ public function addFormd() {
 		$data['form_type'] = $this->session->form_type;
 		print_r($data['form_type']);
 
-		$this->load->model('Proposal_AB');
+		
 		$data["proposal"] = $this->Proposal_AB->getProposalDetails($proposal_id);
 		$data["proposal_id"]= $proposal_id;
 		$proposal = $data["proposal"];
@@ -560,6 +694,7 @@ public function addFormd() {
 		$data['role']	= $this->session->designation;
 		$data['department']	= $this->session->department;
 		$data['creators_school']	= $this->session->office;
+		$data['organization']	= $this->session->organization;
 		$data['creator_id'] = $this->session->user_id;
 
 		$this->load->view('forms/form_e', $data);
@@ -641,6 +776,41 @@ public function addFormd() {
 			$p->creators_school=$this->input->post('creators_school');
 
 			$result=$p->AddFormE();
+
+			$this->load->model('Proposal_AB');
+
+			$data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Representative has done creating the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+		  	
 			if(!$result){
 			$this->session->set_flashdata('error_msg',
 					'<strong>Something Went Wrong!</strong> An Error occured while saving your report.');
@@ -799,7 +969,6 @@ public function addFormd() {
 				redirect(site_url('Representative/reports'), "refresh");
         }
         else{
-        	 /* ?><script>alert("POTANGINAMO BOBO");</script><?php*/
              $this->session->set_flashdata('success_msg',
 					'<strong>Report Updated!</strong> You have successfully updated Report D.');
 				
@@ -819,9 +988,8 @@ public function addFormd() {
 					'<strong>Report Deleted!</strong> You have successfully deleted a report.');
 				
 	redirect(site_url('Representative/reports'), "refresh");
-	
-
    }
+
 
     public function deleteForm(){
    	$this->load->model('Proposal_AB');

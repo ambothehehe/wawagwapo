@@ -320,7 +320,7 @@
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                              <button type="submit" class="btn btn-default btn-block" name="submit" value="save_c"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp SAVE & QUIT</button>
+                              <button type="submit" class="btn btn-default btn-block" name="submit" data-toggle="modal" data-target="#saveasdraft" value="save_c"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp SAVE & QUIT</button>
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">

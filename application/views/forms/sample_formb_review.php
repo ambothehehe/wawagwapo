@@ -15,7 +15,7 @@
                                     <tr>
                                       <td>
                                       <?php
-                                      if(property_exists("unit_responsible","specprop")):
+                                      if(property_exists($specprop,"unit_responsible")):
                                       for($ur = 0; $ur < count($specprop->unit_responsible); $ur++) { ?>
 
                                         <ul>
@@ -74,7 +74,7 @@
                                       <td>
 
                                         <ul>
-                                          <li> <?php if(property_exists("specprop","term")):  echo $specprop->term." ". $specprop->semester;?>
+                                          <li> <?php if(property_exists($specprop,"term")):  echo $specprop->term." ". $specprop->semester;?>
 												<?php if(property_exists("specprop","semester") && $specprop->semester === "others") { echo " ". $specprop->semester_others; } ?>
                                               <?php endif; ?>
                                           </li>
@@ -90,7 +90,7 @@
                                   <tbody>
                                     <tr>
                                       <td>
-									  <?php if(property_exists("specprop","locus_and_leadership") && isset($specprop->locus_and_leadership)) {  ?>
+									  <?php if(property_exists($specprop,"locus_and_leadership") && isset($specprop->locus_and_leadership)) {  ?>
 									  <ul>
 									  <?php for($i = 0; $i < count($specprop->locus_and_leadership);$i++){ ?>
 
@@ -200,7 +200,7 @@
                               <tbody>
                                 <tr>
                                   <td>
-                                    <?php if(property_exists("specprop","prelimasschoice_contextdimension")): ?>
+                                    <?php if(property_exists($specprop,"prelimasschoice_contextdimension")): ?>
                                     <label><?php echo $specprop->prelimasschoice_contextdimension[0]?></label>
                                     <br>
                                     <?php if($specprop->prelimasschoice_contextdimension[0] == "unit have done preliminary needs assessment"){?>
@@ -296,7 +296,7 @@
                               <tbody>
                                 <tr>
                                   <td>
-                                      <?php if(property_exists("specprop","productivity_dimension")): ?>
+                                      <?php if(property_exists($specprop,"productivity_dimension")): ?>
                                     <?php
                                         $pd=count($specprop->productivity_dimension);
                                         for ($x=0; $x < $pd; $x++) {
@@ -318,7 +318,7 @@
                               <tbody>
                                 <tr>
                                   <td>
-                                      <?php if(property_exists("specprop","economic_dimension")): ?>
+                                      <?php if(property_exists($specprop,"economic_dimension")): ?>
                                       <?php
                                         $econn=count($specprop->economic_dimension);
                                         for ($x=0; $x < $econn; $x++) {
@@ -414,7 +414,7 @@
                               <tbody>
                                 <tr>
                                   <td>
-                                      <?php if(property_exists("specprop","environment_dimension")): ?>
+                                      <?php if(property_exists($specprop,"environment_dimension")): ?>
                                      <?php
                                         $envi=count($specprop->environment_dimension);
                                         for ($e=0; $e < $envi; $e++) {
@@ -435,7 +435,7 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <?php if(property_exists("specprop","government_dimension")): ?>
+                                  <?php if(property_exists($specprop,"government_dimension")): ?>
                                   <td>
                                     <?php
                                         $gov=count($specprop->government_dimension);

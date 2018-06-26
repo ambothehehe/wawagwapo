@@ -696,19 +696,34 @@
                               <tr>
                                 <td class="text-left"><label>First Name:</label></td>
                                 <td></td>
-                                <td><input type="text" class="form-control" name="firstname" placeholder="Type your firstname" data-validation-allowing="-_. "  data-validation="alphanumeric" required="required"><br></td>
+                                <td><input type="text" class="form-control" name="firstname" id="firstname" placeholder="Type your firstname" data-validation-allowing="-_. "  data-validation="alphanumeric" required required="required"><br></td>
                               </tr>
                               <tr>
                                 <td class="text-left"><label>Last Name:</label></td>
                                 <td width="2%"></td>
-                                <td><input type="text" class="form-control" name="lastname" placeholder="Type your lastname" data-validation="alphanumeric" data-validation-allowing="-_. " required><br></td>
+                                <td><input type="text" class="form-control" name="lastname" id="lastname" placeholder="Type your lastname" data-validation="alphanumeric" data-validation-allowing="-_. " required><br></td>
                               </tr>
+
+                              <tr>
+                                <td class="text-left"><label>Designation:</label></td>
+                                <td></td>
+                                <td>
+                                    <select id="designation_registration" class="form-control" name="designation" required>
+                                        <option>-- Select your Designation --</option>
+                                        <option id="co-curricular" value="7">Co-Curricular Organization</option>
+                                        <option id="extra-curricular" value="8">Extra-Curricular Organization</option>
+                                        <option id="faculty" value="9">Faculty</option>
+                                        <option id="student-orgnization" value="12">Student Organization Adviser</option>
+                                    </select><br>
+                                </td>
+                              </tr>
+
                               <tr>
                                 <td class="text-left"><label>School:</label></td>
                                 <td></td>
                                 <td>
                                   <select id="school" class="form-control" name="office" required>
-                                    <option readonly>-- Select your School --</option>
+                                    <option readonly >-- Select your School --</option>
                                       <option value="School of Architecture, Fine Arts and Design">School of Architecture, Fine Arts and Design</option>
                                       <option value="School of Arts and Sciences">School of Arts and Sciences</option>
                                       <option value="School of Education">School of Education</option>
@@ -716,15 +731,16 @@
                                       <option value="School of Law and Governance">School of Law and Governance</option>
                                       <option value="School of Business and Economics">School of Business and Economics</option>
                                       <option value="School of Engineering">School of Engineering</option>
+                                      <option value="Extra Curricular">Extra Curricular</option>
                                   </select><br>
                                 </td>
                               </tr>
-                              <tr>
+                              <tr class = "nigga">
                                 <td class="text-left"><label>Department:</label></td>
                                 <td></td>
                                 <td>
                                   <select id="department" class="form-control" name="department" required>
-                                      <option data-group="all" readonly>-- Select your Department --</option>
+                                      <option data-group="all" value = " " readonly>-- Select your Department --</option>
                                       <option disabled>-- School of Architecture, Fine Arts and Design --</option>
                                         <option data-group="School of Architecture, Fine Arts and Design" value="Architecture">Architecture</option>
                                         <option data-group="School of Architecture, Fine Arts and Design" value="Fine Arts">Fine Arts</option>
@@ -762,38 +778,27 @@
                                         <option data-group="School of Engineering" value="Electrical Engineering">Electrical Engineering</option>
                                         <option data-group="School of Engineering" value="Industrial Engineering">Industrial Engineering</option>
                                         <option data-group="School of Engineering" value="Mechanical Engineering">Mechanical Engineering</option>
+                                       <option disabled>-- Extra Curricular --</option>
+                                        <option value = "Extra Curricular">Extra Curricular</option>
                                   </select><br>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="text-left"><label>Designation:</label></td>
-                                <td></td>
-                                <td>
-                                    <select id="designation_registration" class="form-control" name="designation" required>
-                                        <option>-- Select your Designation --</option>
-                                        <option id="co-curricular" value="7">Co-Curricular Organization</option>
-                                        <option id="extra-curricular" value="8">Extra-Curricular Organization</option>
-                                        <option value="9">Faculty</option>
-                                        <option id="student-orgnization" value="12">Student Organization Adviser</option>
-                                    </select><br>
                                 </td>
                               </tr>
                               
                                 <tr>
-                                    <td class="text-left"><div class="organization" style="display:none;"><label>Organization:</label></div></td>
+                                    <td class="text-left"><label>Organization:</label></div></td>
                                     <td></td>
-                                    <td><div class="organization" style="display:none;"><input type="text" class="form-control" name="organization" placeholder="Type your organization" data-validation="alphanumeric" data-validation-allowing="-_. " required><br></div></td>
+                                    <td><input type="text" class="form-control" name="organization" id="organization" placeholder="Type your organization"><br></div></td>
                                 </tr>
 
                               <tr>
                                 <td class="text-left"><label>Email Address:</label></td>
                                 <td></td>
-                                <td><input type="email" class="form-control" name="email" placeholder="Type your email address" data-validation="email" required><br></td>
+                                <td><input type="email" class="form-control" name="email" id="email" placeholder="Type your email address" data-validation="email" required><br></td>
                               </tr>
                               <tr>
                                 <td class="text-left"><label>Contact Number:</label></td>
                                 <td></td>
-                                <td><input type="text" class="form-control" name="contact_num" placeholder="Type your cellphone number" data-validation="number" data-validation-allowing="+" data-validation-length="6-12" data-validation-error-msg="Phone number must contain 11 digits" required></td>
+                                <td><input type="text" class="form-control" name="contact_num" id="contact_num" placeholder="Type your cellphone number" data-validation="number" data-validation-allowing="+" data-validation-length="6-12" data-validation-error-msg="Phone number must contain 11 digits" required></td>
                               </tr>
                             </table>
                           </div>
@@ -809,17 +814,17 @@
                               <tr>
                                 <td class="text-left" width="30%"><label>Username:</label></td>
                                 <td width="2%"></td>
-                                <td><input type="text" class="form-control" name="username" placeholder="Type your username" data-validation="length alphanumeric" data-validation-allowing="-_." data-validation-length="6-12" data-validation-error-msg="User name has to be an alphanumeric value (6-12 chars)" required><br></td>
+                                <td><input type="text" class="form-control" name="username" id="username" placeholder="Type your username" data-validation="length alphanumeric" data-validation-allowing="-_." data-validation-length="6-12" data-validation-error-msg="User name has to be an alphanumeric value (6-12 chars)" required><br></td>
                               </tr>
                               <tr>
                                 <td class="text-left"><label>Password:</label></td>
                                 <td></td>
-                                <td><input type="password" class="form-control" name="password" placeholder="Type your password" data-validation="strength" data-validation-strength="2" required><br></td>
+                                <td><input type="password" class="form-control" name="password" id="password" placeholder="Type your password" required><br></td>
                               </tr>
                               <tr>
                                 <td class="text-left"><label>Confirm Password:</label></td>
                                 <td></td>
-                                <td><input type="password" class="form-control" name="password_confirmation" placeholder="Retype your password" data-validation="confirmation" required><br></td>
+                                <td><input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Retype your password" data-validation="confirmation" required><br></td>
                                 <input type="hidden" name="register" value="register"/>
                               </tr>
                               <tr>
@@ -850,8 +855,6 @@
         </div>
     </div>
 
-    <?php include('application/views/modals.php'); ?>
-
     <!-- jQuery -->
     <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 
@@ -874,7 +877,8 @@
     </script>
 
     <script type="text/javascript">
-        $("#organization").hide();
+        //$("#organization").hide();
+$( document ).ready(function() {
 
         $("#designation_registration").change(if_organization);
 
@@ -883,39 +887,85 @@
             var designation = $("#designation_registration").val();
             console.log(designation);
             
-            if (designation == "7" || designation == "8") {
-                $(".organization").show();
-            } else {
-                $(".organization").hide();
+            if (designation == "8") {
+                $('#department1, .nigga').hide();
+                $('#school').val('Extra Curricular');
+             }else if (designation == "7" || designation == "9" || designation == "12"){
+                $('#school, #department1').removeAttr('disabled');
             }
+               
         }
 
-        $("#register_button").click(function(e) {
-            e.preventDefault();
 
-            $.ajax({
-                type: "POST",
-                url: base_url + "index.php/Users/process_reg",
-                data: $("#registration").serialize(),
-                success: function() {
-                    $('#register').modal('hide');
-                    $('#register').on('hidden.bs.modal', function () {
-                        setTimeout(function(){
-                           location.reload(1);
-                        }, 5000);
-                    });
-                    $('#success_modal .modal-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button>\
-                          <h4 class="modal-title">ACCOUNT REGISTRATION</h4>');
-                    $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
-                          <strong>Registered!</strong> You have successfully registered for an account. Please wait for an E-mail regarding the approval of the account.</div>');
-                    $('#success_modal .modal-footer').html('<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>');
-                    $('#success_modal').modal('show');
-                },
-                error: function(data) {
-                     console.log(data);
-                }
-            });
+        $("#register_button").click(function() {
+            var error="You're wrong but don't give up";                     
+            //e.preventDefault();
+            if((error = validationProposalForm())){
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "index.php/Users/process_reg",
+                    data: $("#registration").serialize(),
+                    success: function() {
+                        
+                            $('#register').modal('hide');
+                            $('#register').on('hidden.bs.modal', function () {
+                                setTimeout(function(){
+                                location.reload(1);
+                                }, 5000);
+                            });
+                        $('#success_modal .modal-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button>\
+                              <h4 class="modal-title">ACCOUNT REGISTRATION</h4>');
+                        $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                              <strong>Registered!</strong> You have successfully registered for an account. Please wait for an E-mail regarding the approval of the account.</div>');
+                        $('#success_modal .modal-footer').html('<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>');
+                        $('#success_modal').modal('show');
+                    },
+                    error: function(data) {
+                         console.log(data);
+                    }
+                });
+            }else{
+                $('#success_modal .modal-body').html('<br><div>'+error+'!</div>');
+            }
         });
+        
+function validationProposalForm()
+{
+  if($("#firstname").val().length === 0){
+
+    return "First Name is required";
+
+  } else if($("#lastname").val().length === 0){
+
+    return "Last Name is required";
+
+  } else if($("#School").val().length === 0){
+
+    return "Office is required";
+
+  } else if($("#designation").val().length === 0){
+
+    return "Designation is required";
+
+  } else if($("#email").val().length === 0){
+    //var test = $("#rationale_and_contextualization").get(0);
+    return "Email is required";
+
+  } else if($("#contact_num").val().length === 0){
+
+    return "Contact Number is required";
+
+  } else if($("#username1").val().length === 0){
+
+    return "Username is required";
+
+  } else if($("#password").length === 0) {
+
+    return "Password is required";
+
+  }
+}
+    });
 
     </script>
 

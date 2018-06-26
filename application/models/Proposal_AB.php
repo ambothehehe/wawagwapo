@@ -209,7 +209,7 @@ $sql_pracounts =  "INSERT INTO practical_counts( manhours_prepare,manhours_comp,
          
         
 
-        $this->db->order_by("proposal_header.datetime_created", "desc");
+        //$this->db->order_by("proposal_header.datetime_created", "desc");
         $query = $this->db->get();
 
             if($query->num_rows() > 0) {
@@ -475,14 +475,11 @@ public function decisionApprove(){
 
         if($this->noted_by_stat == 0){
             $data = array(
-                            'noted_by_stat'=>'1',
-                            'status'=>'3'
+                            'noted_by_stat'=>'1'
                         );
-        }else if ($this->noted_by_faculty == 1 && $this->noted_by_stat == 1){
-            $data = array(
-                            'status'=>'3'
-                        );   
         }
+
+        
 
         $this->db->where('proposal_id', $this->id);
         $this->db->update('proposal_json', $data); 
@@ -492,13 +489,13 @@ public function decisionApprove(){
      public function noteProposalfac(){
         
        if($this->noted_by_faculty == 0){
+
             $data = array(
                             'noted_by_faculty'=>'1'
+
                         );
-        }else if ($this->noted_by_stat == 1 && $this->noted_by_faculty == 1){
-            $data = array(
-                            'status'=>'3'
-                        );   
+
+        //$this->db->set('status', 'status' + 20);
         }
 
         $this->db->where('proposal_id', $this->id);
@@ -507,12 +504,47 @@ public function decisionApprove(){
         return TRUE;
     }
 
+    
 // THIS IS THE REAL HARD END
 
     public function noteReport($fd_id){
 
         $data = array(
-                        'report_status'=>'4',
+                        'report_status'=>'3',
+                        'isSubmittedByChair' => 1,
+                    );
+
+        $this->db->where('fd_id', $fd_id);
+        $this->db->update('report_d', $data); 
+        return TRUE;
+    }
+
+    public function SOnoteReport($fd_id){
+
+        $data = array(
+                        'report_status'=>'6'
+                    );
+
+        $this->db->where('fd_id', $fd_id);
+        $this->db->update('report_d', $data); 
+        return TRUE;
+    }
+
+     public function SOnoteReporte($fe_id){
+
+        $data = array(
+                        'report_status'=>'6'
+                    );
+
+        $this->db->where('fe_id', $fe_id);
+        $this->db->update('report_e', $data); 
+        return TRUE;
+    }
+
+    public function noteOtherReportFaculty($fd_id){
+
+        $data = array(
+                        'isSubmittedByFaculty' => '1'
                     );
 
         $this->db->where('fd_id', $fd_id);
@@ -523,7 +555,8 @@ public function decisionApprove(){
     public function noteReporte($fe_id){
 
         $data = array(
-                        'report_status'=>'4',
+                        'report_status'=>'3',
+                        'isSubmittedByChair' => '1'
                     );
 
         $this->db->where('fe_id', $fe_id);
@@ -611,7 +644,16 @@ public function decisionApprove(){
     }
 
 
-     //public function facReturn(){
+     public function facReturn(){
+        $data = array(
+                        'status'=>'2',
+                        'noted_by_stat'=>'0'
+                    ); 
+
+        $this->db->where('proposal_id', $this->id);
+        $this->db->update('proposal_json', $data);
+        return TRUE;    
+     }
 
     public function soReturn(){
 
@@ -648,7 +690,8 @@ public function decisionApprove(){
     public function coordReturn(){
 		$data = array(
 					'status'=>'2',
-					'coordinator_stat'=>'0'
+					'coordinator_stat'=>'0',
+                    'noted_by_stat' => '0'
 				);
 
 		$this->db->where('proposal_id', $this->id);
@@ -703,7 +746,8 @@ public function decisionApprove(){
     public function deanReturn($proposal_id){
        
 		$data=array(
-			'status'=>'2'
+			'status'=>'2',
+            'noted_by_stat' => '0'
 		);	
 		$this->db->where('proposal_id',$proposal_id);
 		
@@ -736,7 +780,9 @@ public function decisionApprove(){
 	public function vpaaReturn($proposal_id)
 	{
 		$data=array(
-			'status'=>'30'
+			'status'=>'2',
+            'noted_by_stat' => '0',
+            'coordinator_stat' => '0'
 		);	
 		$this->db->where('proposal_id',$proposal_id);
 		
@@ -1073,6 +1119,25 @@ public function decisionApprove(){
         return $results;
 	}
 
+    public function LoadProposalsCoordinator($office){
+        $results = array();
+    
+        $this->db->select('*');
+
+        $where = "(status ='1' and noted_by_stat = '1' and noted_by_faculty='1')";
+
+        $this->db->from('propsal_json_full_info');
+        $this->db->where('status','3');
+        $this->db->where('office',$office);
+        $this->db->or_where($where);
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            $results = $query->result();
+        }
+        return $results;
+    }
+
 
 	public function loadReturnedProposal($user_id)
 	{
@@ -1186,11 +1251,13 @@ public function decisionApprove(){
 	public function LoadProposalsChair($department){
         $results = array();
     
+        $where = "(status='1') ";  
 
         $this->db->select('*');
 
         $this->db->from('proposal_json_full_info');
-		$this->db->where('status','1');
+		$this->db->where($where);
+        $this->db->where('noted_by_stat','0');
 		$this->db->where('department',$department);
 		$query = $this->db->get();
 		if($query->num_rows() > 0)
@@ -1222,11 +1289,13 @@ public function decisionApprove(){
 
         $results = array();
     
+        $where = "(status='1' or status='20' or status = '40') ";   
 
         $this->db->select('*');
 
-        $this->db->from('proposal_json_full_info');
-        $this->db->where('status','1');
+        $this->db->from('propsal_json_full_info');
+        $this->db->where($where);
+        $this->db->where('noted_by_faculty','0');
         $this->db->where('department',$department);
         $this->db->where_not_in('user_id', $user_id);
         $this->db->where('organization',$organization);
@@ -1239,21 +1308,7 @@ public function decisionApprove(){
         return $results;
     }
 	
-	public function LoadProposalsCoordinator($office){
-        $results = array();
-    
-        $this->db->select('*');
-
-        $this->db->from('proposal_json_full_info');
-		$this->db->where('status','3');
-		$this->db->where('office',$office);
-		$query = $this->db->get();
-		if($query->num_rows() > 0)
-		{
-			$results = $query->result();
-		}
-        return $results;
-    }
+	
 
     public function LoadReportECoordinator($office){
         $results = array();
@@ -1350,6 +1405,87 @@ public function decisionApprove(){
         return $results;
     }
 
+    //Retrieve Email of Faculty for Co-Curricular
+    public function getFacultyEmail($organization,$fkid){
+    
+        $conditions = array('user_account.organization' => $organization, 
+                        'user_account.designation_fkid' => $fkid 
+                    );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+
+    public function getSOAdviser($organization, $fkid){
+
+        $conditions = array('user_account.organization' => $organization,
+                        'user_account.designation_fkid' => $fkid
+
+            );
+
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+
+ //Retrieve Email of Rep for Chair
+
+    public function getRepEmail($department,$fkid){
+    
+        $conditions = array('user_account.department' => $department, 
+                        'user_account.designation_fkid' => $fkid 
+                    );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+
+     public function getDetails($fkid){
+      $conditions = array('user_designation.id' => $fkid
+                        
+                    );
+        $this->db->select('*');
+        $this->db->from('user_designation');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['designation'];
+    }
+
+    public function getSenderfkId($user_id){
+    
+        $conditions = array('user_account.user_id' => $user_id
+                    );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['designation_fkid'];
+    }
+
+    public function getSenderEmailNiceKa($user_id){
+    
+        $conditions = array('user_account.user_id' => $user_id
+                    );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+    
+
 //Send Email to the Chair
     public function getChairEmail($department,$fkid){
     
@@ -1364,6 +1500,20 @@ public function decisionApprove(){
         return $row['email'];
     }
 
+    //Send Email to Coord
+    public function getCoordEmail($office, $fkid){
+
+        $conditions = array('user_account.office' => $office,
+                        'user_account.designation_fkid' => $fkid
+            );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+            return $row['email'];
+    }
+
     public function getDeanEmail($office,$fkid){
     
         $conditions = array('user_account.office' => $office, 
@@ -1376,6 +1526,7 @@ public function decisionApprove(){
         foreach($query->result_array() as $row){}
         return $row['email'];
     }
+
 
     public function getReviewerEmail1($proposal_id,$reviewer1,$reviewer2){
         $conditions = array('reviewer_id' => $reviewer1,
@@ -1407,4 +1558,67 @@ public function decisionApprove(){
         foreach($result->result_array() as $rows){}
         return $rows['email'];
     }
+
+    //Retrieve Email of Admin for Coord and SO adviser
+
+    public function getAdminEmail($fkid){
+    
+        $conditions = array(
+                        'user_account.designation_fkid' => $fkid 
+                    );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+
+     public function getReturnEmail($proposal_id, $office, $user_id){
+
+        $conditions = array('proposal_id' => $proposal_id,
+                            'user_account.user_id' => $user_id
+                        );
+
+        $this->db->select('*');
+
+        $this->db->from('proposal_json_full_info');
+        $this->db->join('user_account','user_account.office = proposal_json_full_info.office');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+
+    public function getVPAAEmail($fkid){
+    
+        $conditions = array( 'user_account.designation_fkid' => $fkid 
+                    );
+        $this->db->select('*');
+        $this->db->from('user_account');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){}
+        return $row['email'];
+    }
+
+     public function getEmailProposalCreator($proposal_id, $user_id){
+
+        $conditions = array('proposal_id' => $proposal_id,
+                            'user_account.user_id' =>$user_id
+
+            );
+
+        $this->db->select('*');
+        $this->db->from('proposal_json_full_info');
+        $this->db->join('user_account'. 'user_account.office = proposal_json_full_info.office');
+        $this->db->where($conditions);
+        $query = $this->db->get();
+        foreach ($$quert->result_array as $row){}
+            return $row['email'];
+    }
+    
+    
+
 }

@@ -183,8 +183,15 @@ $("#form_a1").submit(function(e){
   	 	url: base_url + "Procedure_one/insertDraftProposal",
   	 	data:$('#form_a1').serialize(),
         success:function(data){
-        alert("Successful in creating a PPA Form");
-        setTimeout(window.location.replace("home"),5000);
+                //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>You have successfully created a PPA Form.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url;
+                });
+                //HOLY CODE MODAL
       },
   	 	error: function(data) {
   	 		console.log(data);
@@ -222,8 +229,16 @@ $("#save_a1").click(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a1').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
-        setTimeout(window.location.replace("home"),5000);
+        //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>PPA Form successfully saved as draft.</div>');
+                $('#success_modal .modal-footer').html('<button type="button" id = "formabutton" class="btn btn-primary" data-dismiss="modal">Okay</button>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url;
+                });
+                //HOLY CODE Modal
       },
       error: function(data) {
         console.log(data);
@@ -254,9 +269,15 @@ $("#form_a1_coord").submit(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a1_coord').serialize(),
         success:function(data){
-           
-        alert("Successful in creating a PPA Form");
-        setTimeout(window.location.replace("home"),5000);
+                //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>You have successfully created a PPA Form.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url;
+                });
+                //HOLY CODE MODAL
       },
       error: function(data) {
         console.log(data);
@@ -294,8 +315,15 @@ $("#save_a1_coord").click(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a1_coord').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
-        setTimeout(window.location.replace("home"),5000);
+       //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>PPA Form successfully created as a draft.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url;
+                });
+                //HOLY CODE MODAL
       },
       error: function(data) {
         console.log(data);
@@ -327,8 +355,15 @@ $("#form_a_coord").submit(function(e){
       data:$('#form_a_coord').serialize(),
         success:function(data){
            
-        alert("Successful in creating a PPA Form");
-        setTimeout(window.location.replace("home"),5000);
+        //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>You have successfully created a PPA Form.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url;
+                });
+                //HOLY CODE MODAL
       },
       error: function(data) {
         console.log(data);
@@ -366,8 +401,15 @@ $("#save_a_coord").click(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a_coord').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
-        setTimeout(window.location.replace("home"),5000);
+        // //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>PPA Form successfully created as a draft.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url;
+                });
+                //HOLY CODE MODAL
       },
       error: function(data) {
         console.log(data);
@@ -384,6 +426,7 @@ $("#form_a").submit(function(e){
   //var dataJSON=JSON.parse(data);
   //alert(dataJSON.title);
 
+
   var btn = document.activeElement.getAttribute('value');
   var button_type = "<input type='hidden' name='button_type' value='"+btn+"'/>";
 
@@ -398,14 +441,21 @@ $("#form_a").submit(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Form");
-        setTimeout(window.location.replace("home"),5000);
+                //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>You have successfully created a PPA Form.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url;
+                });
+                //HOLY CODE MODAL
       },
       error: function(data) {
         console.log(data);
       }
      }).done(function(){
-          console.log("done");
+        console.log("done");
      });
   }else{
     $('#exit').modal('hide');
@@ -437,8 +487,8 @@ $("#save").click(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_a').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
-        setTimeout(window.location.replace("home"),5000);
+        // alert("Successful in creating a PPA Draft");
+        //setTimeout(window.location.replace("home"),5000);
       },
       error: function(data) {
         console.log(data);
@@ -469,8 +519,15 @@ $("#form_c").submit(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_c').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Form");
-        setTimeout(window.location.replace("home"),5000);
+        //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>You have successfully created a PPA Form.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url;
+                });
+                //HOLY CODE MODAL
       },
       error: function(data) {
         console.log(data);
@@ -489,7 +546,7 @@ $("#form_c").submit(function(e){
 
 });
 
-$("#save_c").submit(function(e){
+$("#save_c").click(function(e){
   e.preventDefault();
   //var data = JSON.stringify($('#form_a1').serialize());
   //var dataJSON=JSON.parse(data);
@@ -507,8 +564,8 @@ $("#save_c").submit(function(e){
       url: base_url + "Procedure_one/insertDraftProposal",
       data:$('#form_c').serialize(),
       success:function(data){
-        alert("Successful in creating a PPA Draft");
-        setTimeout(window.location.replace("home"),5000);
+        // alert("Successful in creating a PPA Draft");
+        //setTimeout(window.location.replace("home"),5000);
       },
       error: function(data) {
         console.log(data);
@@ -527,13 +584,15 @@ $('#save_edit_profile_settings').submit(function(e) {
       url: base_url + "Users/editPersonalProfile",
       data: $('#save_edit_profile_settings').serialize(),
       success: function(data) {
-        //alert(data);
-        $('#success_modal .modal-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button>\
-              <h4 class="modal-title">EDIT PROFILE</h4>');
-        $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
-              <strong>Edited Profile!</strong> You have successfully edited your user profile.</div>');
-        $('#success_modal .modal-footer').html('<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>');
-        $('#success_modal').modal('show');
+                //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>You have successfully edited your user profile.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url + 'Coordinator/profile_settings';
+                });
+                //HOLY CODE MODAL
       },
       error: function(data) {
         console.log(data);
@@ -543,6 +602,7 @@ $('#save_edit_profile_settings').submit(function(e) {
        console.log("done");
     }); 
 });
+
 // Manage accounts processes and buttons
 $('#edit_profile').submit(function(e) {
     e.preventDefault();
@@ -552,13 +612,15 @@ $('#edit_profile').submit(function(e) {
       url: base_url + "Users/editUserProfile",
       data: $('#edit_profile').serialize(),
       success: function(data) {
-        $('#edit_profile_modal').modal('hide');
-        $('#success_modal .modal-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button>\
-              <h4 class="modal-title">EDIT PROFILE</h4>');
-        $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
-              <strong>Edited Profile!</strong> You have successfully edited a user profile.</div>');
-        $('#success_modal .modal-footer').html('<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>');
-        $('#success_modal').modal('show');
+                //HOLY CODE MODAL
+                $('#success_modal .modal-body').html('<br><div class="alert alert-success">\
+                                        <strong>Successful! </strong>You have successfully edited a user profile.</div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center"><button type="submit" id = "formabutton" class="btn btn-lg btn-success btn-block" name="submit" value="submit_a"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp OK</button></div>');
+                $('#success_modal').modal('show');
+
+                $('#formabutton').click(function () {
+                    location.href = base_url + 'Director/manage_accounts';
+                });
+                //HOLY CODE MODAL
       },
       error: function(data) {
         console.log(data);
@@ -568,12 +630,14 @@ $('#edit_profile').submit(function(e) {
     });
 });
 
-function launch_edit_profile_modal(id) {
+function launch_edit_profile_modal(id,fname,lname) {
 	$("#edit_profile_modal").modal('show');
     $.ajax({
         type: "POST",
         url: base_url + "Users/getUserInfo",
-        data: {id:id},
+        data: {id:id,
+               fname:fname,
+               lname:lname},
         success: function(data){
             var info = $.parseJSON(data);
             $('#edit_profile_modal #user_id').val(info[0].user_id);
@@ -582,6 +646,10 @@ function launch_edit_profile_modal(id) {
             $('#edit_profile_modal #office').val(info[0].office);
             $('#edit_profile_modal #department').val(info[0].department);
             $('#edit_profile_modal #organization').val(info[0].organization);
+
+            $('#edit_profile_modal #addedbyfirstname').val(fname);
+            $('#edit_profile_modal #addedbylastname').val(lname);
+
             $('#edit_profile_modal #username').val(info[0].username);
             $('#edit_profile_modal #old_password').val(info[0].password);
             $('#edit_profile_modal').modal('show', {backdrop: 'static'});
@@ -684,12 +752,14 @@ function launch_submitted_user_profile(id) {
         }
 
 // Accept Pending Users
-function accept_pending_user(id) {
+function accept_pending_user(id, fname, lname) {
 
     $.ajax({
             type: "POST",
             url: base_url + "Users/acceptUserApplication",
-            data: {id: id},
+            data: {id: id,
+                   fname: fname,
+                   lname: lname},
             success: function(data) {
                 $('#success_modal .modal-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button>\
                   <h4 class="modal-title">ACCEPT ACCOUNT APPLICATION</h4>');
@@ -846,7 +916,7 @@ function validationProposalFormA()
   } else {
     return true;
   }
-
+}
 function validationProposalFormC()
 {
   if($("#inclusive-date1").val().length === 0){
@@ -885,12 +955,10 @@ function validationProposalFormC()
 
     return "Nature of the program is required";
 
-  } else if($("input[name='proram_area[]']:checked").length === 0) {
+  } else if($("input[name='program_area[]']:checked").length === 0) {
 
     return "Program area is required";
   } else {
     return true;
   }
-}
-
 }

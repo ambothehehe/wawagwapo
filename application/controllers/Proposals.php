@@ -485,6 +485,8 @@ class Proposals extends CI_Controller
         $p->user_fkid=$this->input->post('user_id');
         $p->comment_category=$this->input->post('comment_category');
         $p->comment=$this->input->post('commentbox');
+        $p->privacy = $this->input->post('comment_privacy');
+
 		
 		//echo "Proposal ID:".$site_id;
 		//echo "User ID:".$p->user_fkid;
@@ -502,6 +504,7 @@ public function approved_proposals() {
 		$data['fname'] 	= $this->session->firstname;
 		$data['lname'] 	= $this->session->lastname;
 		$data['role']	= $this->session->designation;
+		$data['organization']	= $this->session->organization;
 		
 		$this->load->model('Proposal_AB');
 		//$data['proplist']=$this->Proposal_AB->LoadProposals();
@@ -514,58 +517,143 @@ public function approved_proposals() {
 
 public function vpaaApproveProposal(){
 		$this->load->model('Proposal_AB');
+		//$this->load->helper('array');
         $p= new Proposal_AB();
-        $p->id=$this->input->post('prop_id');
-       
         
-		    $result=$p->approveProposal();
-		
-            if(!$result){ 
-                echo mysqli_error($result);
-            }
-            else{
-               redirect('Vpaa/home','refresh');
-            }
-	}
+        if($this->input->post('recommend') == "ReturnProposal") { 
+			$result=$p->vpaaReturn($this->input->post('id'));
+			//$designation = array('Faculty' => '9','Coordinator' => '5','Representative' => '6')
+			$user_id = $this->input->post('senderId');
+			$data['email'] = $this->Proposal_AB->getReturnEmail($this->input->post('id'),$this->session->office,$user_id);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From VPAA');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();  
 
-	public function decisionmaking(){
-		$this->load->model('Proposal_AB');
-        $p= new Proposal_AB();
-        $p->id=$this->input->post('id');
-       $p->user_id=$this->input->post('user_id');
-       $p->reviewer_1=$this->input->post('reviewer_1');
-       $p->reviewer_2=$this->input->post('reviewer_2');
+			} else {
+		    $result=$p->vpaaApproveProposal($this->input->post('id'));
 
-        if($this->input->post('decision') == "DisapproveProposal") { 
-			$result=$p->decisionDisapprove();
-		} else {
-		    $result=$p->decisionApprove();
+		    $user_id = $this->input->post('user_id');
+
+		    $data['email']=$this->Proposal_AB->getSenderEmailNiceKa($user_id); 
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CESPPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification from the VPAA');
+			$this->email->message('Good day! Your proposal has been approved by the VPAA. Go check it out.');
+			$this->email->set_newline("\r\n");   
+
+			$result1 = $this->email->send();
 		}
-        
-            if(!$result){ 
-                echo mysqli_error($result);
-            }
-            else{
-            	if ($this->input->post('role') == "Coordinator") {
-            		redirect('Coordinator/home','refresh');
-            	} else{
-            		redirect('Director/home','refresh');
-            	}
-               
-            }
+
+        if(!$result){ 
+            $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+            redirect(site_url('Vpaa/home'), "refresh");
+        }else{
+			if($this->input->post('recommend') == "ReturnProposal") { 
+				$this->session->set_flashdata('success_msg',
+				'<strong>Proposal Has Been Returned!</strong> You have successfully Returned a proposal.');
+			}else{
+				$this->session->set_flashdata('success_msg',
+				'<strong>Proposal Has Been Approved!</strong> You have successfully Approved a proposal.');
+			}
+			redirect(site_url('Vpaa/home'), "refresh");
+        }
 	}
+	
 
 	public function soNotesProp(){
 		
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
         $p->id=$this->input->post('id');
+
+        $p->user_id=$this->input->post('user_id');
        
         					//name sa button like name = "note"
         if($this->input->post('noteSo') == "ReturnProposal") { 
 			$result=$p->soReturn();
+
+			$data['email'] = $this->Proposal_AB->getSenderEmailNiceKa($p->user_id);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Student Organization Adviser');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();
+
+
 		} else {
 		    $result=$p->noteProposalSo();
+		     $data['email']=$this->Proposal_AB->getAdminEmail(2);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Student Organization Adviser');
+			$this->email->message('Good day! The Student Organization Adviser is done reviewing the proposal. You may now view it.');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send(); 
+
 
 		}
         
@@ -580,6 +668,7 @@ public function vpaaApproveProposal(){
 				{
 					$this->session->set_flashdata('success_msg',
 					'<strong>Proposal Has Been Returned!</strong> You have successfully returned a proposal.');
+					redirect(site_url('StudentOrganization/home'), "refresh");
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
@@ -594,12 +683,80 @@ public function vpaaApproveProposal(){
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
         $p->id=$this->input->post('id');
+
+        $p->user_id=$this->input->post('user_id');
        
         					//name sa button like name = "note"
         if($this->input->post('note') == "ReturnProposal") { 
 			$result=$p->chairReturn();
+
+
+			$data['email'] = $this->Proposal_AB->getSenderEmailNiceKa($p->user_id);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From CHAIR');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+
+
 		} else {
 		    $result=$p->noteProposal();
+
+		    $data['email']=$this->Proposal_AB->getCoordEmail($this->session->office,5);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Chair');
+			$this->email->message('Good day! Mr. Chair is done reviewing the proposal. You may now view the reviewed.');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		//redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		//redirect(site_url());
+		  	}
 
 		}
         
@@ -614,30 +771,80 @@ public function vpaaApproveProposal(){
 				{
 					$this->session->set_flashdata('success_msg',
 					'<strong>Proposal Has Been Returned!</strong> You have successfully returned a proposal.');
+					redirect(site_url('Chair/home'), "refresh");
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
 					'<strong>Proposal Has Been Noted!</strong> You have successfully noted a proposal.');
+					redirect(site_url('Chair/home'), "refresh");
 				}
-				redirect(site_url('Chair/home'), "refresh");
+				//redirect(site_url('Chair/home'), "refresh");
             }
 	}
 
-	public function chairNotesPropFaculty(){
+	public function chairNotesPropOfCo(){
 		
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
         $p->id=$this->input->post('id');
+
+        $p->user_id=$this->input->post('user_id');
         $p->noted_by_faculty=$this->input->post('noted_by_faculty');
         $p->noted_by_stat=$this->input->post('noted_by_stat');
+        $p->status=$this->input->post('status');
        
-        					//name sa button like name = "note"
         if($this->input->post('notefc') == "ReturnProposal") { 
 			$result=$p->chairReturn();
+
+			$data['email']=$this->Proposal_AB->getSenderEmailNiceKa($this->input->post('user_id')); 
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From CHAIR');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send(); 
+
 		} else {
 			
 		    $result=$p->noteProposalChair();
-		    $result1=$p->noteProposalChair();
+		    $data['email']=$this->Proposal_AB->getCoordEmail($this->session->office,5);
+		    
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Chair');
+			$this->email->message('Good day! Mr. Chair is done reviewing the proposal. You may now view the reviewed.');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		    
 		}
         
             if(!$result){ 
@@ -651,6 +858,7 @@ public function vpaaApproveProposal(){
 				{
 					$this->session->set_flashdata('success_msg',
 					'<strong>Proposal Has Been Returned!</strong> You have successfully returned a proposal.');
+					redirect(site_url('Chair/home'), "refresh");
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
@@ -664,18 +872,85 @@ public function vpaaApproveProposal(){
 		
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
+
         $p->id=$this->input->post('id');
+
+       
+
         $p->noted_by_faculty=$this->input->post('noted_by_faculty');
         $p->noted_by_stat=$this->input->post('noted_by_stat');
-       
+        $p->status=$this->input->post('status');
+
+        echo ("$p->status");
         					//name sa button like name = "note"
         if($this->input->post('notefac') == "ReturnProposal") { 
-			$result=$p->facReturn();
-		} else {
 
-		    $result=$p->noteProposalfac();
-		    $result1=$p->noteProposalfac();
-		}
+			$result=$p->facReturn();
+
+			$p->user_id=$this->input->post('user_id');
+
+
+			$data['email']=$this->Proposal_AB->getSenderEmailNiceKa($this->input->post('user_id')); 
+
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Faculty');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		//redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		//redirect(site_url());
+		  	}
+
+
+			} else {
+
+				    $result=$p->noteProposalfac();
+
+				    $data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+				    
+					$this->load->library('email');
+					$config = Array('protocol' => 'smtp',
+					'smtp_host'    => 'ssl://smtp.gmail.com',
+					'smtp_port'    => '465',
+					'smtp_timeout' => '7',
+					'smtp_user'    => 'donotreply24xD@gmail.com',
+					'smtp_pass'    => 'wawa2015',
+					'charset'    => 'utf-8',
+					'mailtype' => 'text', // or html
+					'validation' => TRUE // bool whether to validate email or not
+					);
+					      
+					$this->email->initialize($config);
+					$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+					$this->email->to($data['email']); 
+					//$this->email->to('mariaclairetan143@gmail.com');
+					$this->email->subject('CES Proposal Notification From Chair');
+					$this->email->message('Good day! Mr. Chair is done reviewing the proposal. You may now view the reviewed.');
+					$this->email->set_newline("\r\n");   
+					$result = $this->email->send(); 
+
+			}
         
             if(!$result){ 
                 $this->session->set_flashdata('error_msg',
@@ -692,10 +967,246 @@ public function vpaaApproveProposal(){
             	else {
 					$this->session->set_flashdata('success_msg',
 					'<strong>Proposal Has Been Noted!</strong> You have successfully noted a proposal.');
+					
 				}
 				redirect(site_url('Faculty/home'), "refresh");
             }
 	}
+
+	public function facNotesReportd(){
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->reportd_id=$this->input->post('reportd_id');
+
+     	if($this->input->post('notereport') == "ProceedReport") { 
+			$result=$p->noteOtherReportFaculty($p->reportd_id);
+
+			 $data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Chair');
+			$this->email->message('Good day! Mr./Ms. Faculty is done creating the report. You may now view the reviewed.');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('Faculty/reports'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
+				}
+				redirect(site_url('Faculty/reports'), "refresh");
+            }
+	}
+
+	public function facNotesReporte(){
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->reporte_id=$this->input->post('reporte_id');
+
+     	if($this->input->post('notereport') == "ProceedReport") { 
+			$result=$p->noteReporte($p->reporte_id);
+
+			 $data['email']=$this->Proposal_AB->getChairEmail($this->session->department,4);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From Chair');
+			$this->email->message('Good day! Mr. Faculty is done creating a report. You may now view the reviewed.');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send(); 
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('Chair/reports'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
+				}
+				redirect(site_url('Faculty/reports'), "refresh");
+            }
+	}
+
+	public function SONotesReport(){
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->reportd_id=$this->input->post('reportd_id');
+
+     	if($this->input->post('notereport') == "ProceedReport") { 
+			$result=$p->SOnoteReport($p->reportd_id);
+
+			$data['email']=$this->Proposal_AB->getAdminEmail(2);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM STUDENT ORGANIZATION ADVISER');
+			$this->email->message('Good day! Mr./Ms. Chair has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('StudentOrganization/reports'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
+				}
+				redirect(site_url('StudentOrganization/reports'), "refresh");
+            }
+	}
+
+	public function SONotesReporte(){
+		$this->load->model('Proposal_AB');
+        $p= new Proposal_AB();
+        $p->reporte_id=$this->input->post('reporte_id');
+
+     	if($this->input->post('notereport') == "ProceedReport") { 
+			$result=$p->SOnoteReporte($p->reporte_id);
+
+			$data['email']=$this->Proposal_AB->getAdminEmail(2);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM Student Organization Adviser');
+			$this->email->message('Good day! Mr./Ms. Chair has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+		}
+        
+            if(!$result){ 
+                $this->session->set_flashdata('error_msg',
+					'<strong>Something Happened!</strong> An error occured while saving your changes.');
+
+				redirect(site_url('StudentOrganization/reports'), "refresh");
+            }
+            else{
+				if($this->input->post('note') == "ReturnProposal")
+				{
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+				}
+            	else {
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
+				}
+				redirect(site_url('StudentOrganization/reports'), "refresh");
+            }
+	}
+
+	
 
 	public function chairNotesReport(){
 		$this->load->model('Proposal_AB');
@@ -703,7 +1214,39 @@ public function vpaaApproveProposal(){
         $p->reportd_id=$this->input->post('reportd_id');
 
      	if($this->input->post('notereport') == "ProceedReport") { 
-		$result=$p->noteReport($p->reportd_id);
+			$result=$p->noteReport($p->reportd_id);
+
+			$data['email']=$this->Proposal_AB->getCoordEmail($this->session->office,5);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Chair has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
 		}
         
             if(!$result){ 
@@ -720,7 +1263,7 @@ public function vpaaApproveProposal(){
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Chair/reports'), "refresh");
             }
@@ -733,6 +1276,38 @@ public function vpaaApproveProposal(){
 
      	if($this->input->post('notereport') == "ProceedReport") { 
 			$result=$p->noteReporte($p->reporte_id);
+
+			$data['email']=$this->Proposal_AB->getCoordEmail($this->session->office,5);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Chair has done reviewing the Report form E. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
 		}
         
             if(!$result){ 
@@ -744,12 +1319,12 @@ public function vpaaApproveProposal(){
             else{
 				if($this->input->post('note') == "ReturnProposal")
 				{
-					// $this->session->set_flashdata('success_msg',
-					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Chair/reports'), "refresh");
             }
@@ -763,6 +1338,38 @@ public function vpaaApproveProposal(){
 
      	if($this->input->post('notereport') == "ProceedReport") { 
 		$result=$p->coordNoteReport($p->reportd_id);
+
+		$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
+		
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Coordinator has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
 		}
         
             if(!$result){ 
@@ -770,16 +1377,17 @@ public function vpaaApproveProposal(){
 					'<strong>Something Happened!</strong> An error occured while saving your changes.');
 
 				redirect(site_url('Coordinator/reports'), "refresh");
-            }
-            else{
+
+				
+		}else{
 				if($this->input->post('note') == "ReturnProposal")
 				{
-					// $this->session->set_flashdata('success_msg',
-					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Coordinator/reports'), "refresh");
             }
@@ -793,6 +1401,38 @@ public function vpaaApproveProposal(){
 
      	if($this->input->post('notereport') == "ProceedReport") { 
 		$result=$p->coordNoteReporte($p->reporte_id);
+
+			$data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Coordinator has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
 		}
         
             if(!$result){ 
@@ -804,12 +1444,12 @@ public function vpaaApproveProposal(){
             else{
 				if($this->input->post('note') == "ReturnProposal")
 				{
-					// $this->session->set_flashdata('success_msg',
-					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Coordinator/reports'), "refresh");
             }
@@ -823,23 +1463,55 @@ public function vpaaApproveProposal(){
 
      	if($this->input->post('notereport') == "ProceedReport") { 
 		$result=$p->deanNoteReport($p->reportd_id);
+
+		$data['email']=$this->Proposal_AB->getAdminEmail(2);
+		
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Dean has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
 		}
         
             if(!$result){ 
                 $this->session->set_flashdata('error_msg',
 					'<strong>Something Happened!</strong> An error occured while saving your changes.');
 
-				redirect(site_url('Coordinator/reports'), "refresh");
+				//redirect(site_url('Coordinator/reports'), "refresh");
             }
             else{
 				if($this->input->post('note') == "ReturnProposal")
 				{
-					// $this->session->set_flashdata('success_msg',
-					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Dean/reports'), "refresh");
             }
@@ -853,6 +1525,38 @@ public function vpaaApproveProposal(){
 
      	if($this->input->post('notereport') == "ProceedReport") { 
 		$result=$p->deanNoteReporte($p->reporte_id);
+
+		$data['email']=$this->Proposal_AB->getAdminEmail(2);
+		
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. Dean has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
 		}
         
             if(!$result){ 
@@ -864,12 +1568,12 @@ public function vpaaApproveProposal(){
             else{
 				if($this->input->post('note') == "ReturnProposal")
 				{
-					// $this->session->set_flashdata('success_msg',
-					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Dean/reports'), "refresh");
             }
@@ -889,17 +1593,48 @@ public function vpaaApproveProposal(){
                 $this->session->set_flashdata('error_msg',
 					'<strong>Something Happened!</strong> An error occured while saving your changes.');
 
-				redirect(site_url('Director/other_reports'), "refresh");
-            }
-            else{
+				//redirect(site_url('Director/other_reports'), "refresh");
+
+			$data['email']=$this->Proposal_AB->getVPAAEmail(1);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. CES DIRECTOR has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+            }else{
 				if($this->input->post('note') == "ReturnProposal")
 				{
-					// $this->session->set_flashdata('success_msg',
-					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Director/other_reports'), "refresh");
             }
@@ -913,6 +1648,40 @@ public function vpaaApproveProposal(){
 
      	if($this->input->post('notereport') == "ProceedReport") { 
 		$result=$p->adminNoteReporte($p->reporte_id);
+
+		$data['email']=$this->Proposal_AB->getVPAAEmail(1);
+		
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM chair');
+			$this->email->message('Good day! Mr./Ms. CES DIRECTOR has done reviewing the Report. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+
+
 		}
         
             if(!$result){ 
@@ -924,12 +1693,12 @@ public function vpaaApproveProposal(){
             else{
 				if($this->input->post('note') == "ReturnProposal")
 				{
-					// $this->session->set_flashdata('success_msg',
-					// '<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
+					$this->session->set_flashdata('success_msg',
+					'<strong>Report Has Been Returned!</strong> You have successfully returned a proposal.');
 				}
             	else {
 					$this->session->set_flashdata('success_msg',
-					'<strong>Report Has Been Sent!</strong> You have successfully sent a report.');
+					'<strong>Report Has Been Sent!</strong> You have successfully submitted a report.');
 				}
 				redirect(site_url('Director/other_reports'), "refresh");
             }
@@ -941,13 +1710,71 @@ public function vpaaApproveProposal(){
 		$this->load->model('Proposal_AB');
         $p= new Proposal_AB();
         $p->id=$this->input->post('id');
+        $p->user_id=$this->input->post('user_id');
+
+
         if($this->input->post('recommend') == "ReturnProposal") { 
 			$result=$p->coordReturn();
+
+			$data['email']=$this->Proposal_AB->getSenderEmailNiceKa($this->input->post('user_id')); 
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From COORDINATOR');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+
 		} else {
 		    $result=$p->recommendProposal();
+
+		    $data['email']=$this->Proposal_AB->getDeanEmail($this->session->office,3);
+		    
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification FROM COORDINATOR');
+			$this->email->message('Good day! Mr. Coordinator has done reviewing the proposal. You may now view');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
 		}
 
-        
             if(!$result){ 
                 $this->session->set_flashdata('error_msg',
 					'<strong>Something Happened!</strong> An error occured while saving your changes.');
@@ -975,9 +1802,57 @@ public function vpaaApproveProposal(){
         $p= new Proposal_AB();
         //$p->id=$this->input->post('id');
         if($this->input->post('vpaaEndorse') == "ReturnProposal") { 
+
 			$result=$p->directorReturn($this->input->post('id'));
+
+			$user_id = $this->input->post('user_id');
+
+			$data['email']=$this->Proposal_AB->getSenderEmailNiceKa($this->input->post('user_id'));
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From VPAA');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();
 		} else {
 		    $result=$p->vpaaEndorseProposal($this->input->post('id'));
+		    $data['email']=$this->Proposal_AB->getVPAAEmail(1);
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CESPPMS');
+			$this->email->to($data['email']); 
+			$this->email->subject('CES Proposal Notification FROM CES Director');
+			$this->email->message('Good day! The CES Director has sent a PPA Form that needs your approval. Go, check it out');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send(); 
+
+
 		}
 
         if(!$result){ 
@@ -1006,8 +1881,70 @@ public function vpaaApproveProposal(){
         
         if($this->input->post('recommend') == "ReturnProposal") { 
 			$result=$p->vpaaReturn($this->input->post('id'));
+
+
+		    $user_id = $this->input->post('user_id');
+
+
+			$data['email']=$this->Proposal_AB->getSenderEmailNiceKa($user_id); 
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From VPAA');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
 		} else {
 		    $result=$p->vpaaApproveProposal($this->input->post('id'));
+
+		    $user_id = $this->input->post('user_id');
+
+		    $data['email']=$this->Proposal_AB->getSenderEmailNiceKa($user_id); 
+
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CESPPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification from the VPAA');
+			$this->email->message('Good day! Your proposal has been approved by the VPAA. Go check it out.');
+			$this->email->set_newline("\r\n");   
+
+			$result1 = $this->email->send();
 		}
 
         if(!$result){ 
@@ -1031,19 +1968,88 @@ public function vpaaApproveProposal(){
 	
 	public function deanEndorseProp(){
 		$this->load->model('Proposal_AB');
+		//$this->load->helper('array');
+
         $p= new Proposal_AB();
         //$p->id=$this->input->post('id');
         if($this->input->post('recommend') == "ReturnProposal") { 
 			$result=$p->deanReturn($this->input->post('id'));
+
+			$user_id = $this->input->post('user_id');
+			
+			$data['email'] = $this->Proposal_AB->getSenderEmailNiceKa($this->input->post('user_id'));
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			//$this->email->to('mariaclairetan143@gmail.com');
+			$this->email->subject('CES Proposal Notification From DEAN');
+			$this->email->message('Good day! Your Proposal Has Been Returned');
+			$this->email->set_newline("\r\n");   
+			$results = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
 		} else {
 		    $result=$p->endorseProposal($this->input->post('id'));
+		    
+
+			$data['email']=$this->Proposal_AB->getAdminEmail(2);
+			
+			$this->load->library('email');
+			$config = Array('protocol' => 'smtp',
+			'smtp_host'    => 'ssl://smtp.gmail.com',
+			'smtp_port'    => '465',
+			'smtp_timeout' => '7',
+			'smtp_user'    => 'donotreply24xD@gmail.com',
+			'smtp_pass'    => 'wawa2015',
+			'charset'    => 'utf-8',
+			'mailtype' => 'text', // or html
+			'validation' => TRUE // bool whether to validate email or not
+			);
+			      
+			$this->email->initialize($config);
+			$this->email->from('donotreply24xD@gmail.com', 'CES PPMS');
+			$this->email->to($data['email']); 
+			$this->email->subject('CES Proposal Notification FROM DEAN');
+			$this->email->message('Good day! Mr. Representative have created a new proposal. You can now review');
+			$this->email->set_newline("\r\n");   
+			$result = $this->email->send();  
+		  	if(!$result)
+		  	{
+		  		// mail sent
+        		redirect(site_url());
+		  	}
+		  	else
+		  	{
+        		redirect(site_url());
+		  	}
+	
 		}
 
         if(!$result){ 
                 $this->session->set_flashdata('error_msg',
 					'<strong>Something Happened!</strong> An error occured while saving your changes.');
 
-                redirect(site_url('Dean/home'), "refresh");
+                //redirect(site_url('Dean/home'), "refresh");
         }
         else{
             if($this->input->post('recommend') == "ReturnProposal") { 
@@ -1056,6 +2062,7 @@ public function vpaaApproveProposal(){
 			redirect(site_url('Dean/home'), "refresh");
         }
 	}
+
 
 	public function proposal_log(){
 		$data['fname'] 	= $this->session->firstname;

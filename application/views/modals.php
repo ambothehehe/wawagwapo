@@ -11,7 +11,11 @@
             <h4 class="modal-title">EDIT ACCOUNT</h4>
           </div>
           <div class="modal-body">
+
+            <!-- ARA BAI -->
             <form id="edit_profile">
+              <!-- ARA BAI -->
+
               <div class="container">
                   <div class="row">
                     <div class="col-md-3">
@@ -63,6 +67,14 @@
                       </div> 
                     </div>
                   </div>
+
+                  <!-- HIDDEN UPDATER INFOS -->
+
+                  <input type="hidden" class="form-control" id="addedbyfirstname" name="addedbyfirstname" ></input>
+                  <input type="hidden" class="form-control" id="addedbylastname" name="addedbylastname"></input>
+
+                  <!-- HIDDEN UPDATER INFOS -->
+
                   <div class="row">
                     <div class="col-md-3">
                       <h5>Username:</h5>

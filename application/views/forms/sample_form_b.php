@@ -21,7 +21,7 @@
 
                    <div id="printArea">
 						<div>
-							<h1>USC-CES FORM A <small>CESw Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
+							<h1>USC-CES FORM A <small>CES Program/Project/Activity Proposal (<u>Concept Note</u>)</small></h1>
 							<hr>
 							<div class="panel" align="center" >
 								<div class="panel-body"><p>
@@ -50,11 +50,19 @@
 									<div id="rationale_comment" class="collapse">
 									  <div class="panel panel-body panel-danger">
 									  <?php $i = 0; foreach ($comments as $comment) {
-										if($comment->comment_category == "Rationale and Contextualization"){ $i++;  ?>
-										<label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
+										if($comment->comment_category == "Rationale and Contextualization"){ 
+											if($comment->privacy == $roleId || $comment->user_fkid == $user_id  || $comment->privacy == 0){$i++;  ?>
+													
+				
+										<?php if($comment->privacy == 0){?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;"> <?php echo $comment->comment_category; ?> Can be Seen by: Everyone</label>
+										<?php }else{?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: <?php echo $privacyDesignation->getDetails($comment->privacy);?></label>
+										
+										<?php }?>
 										<p class="text-justify"><?php echo $comment->comment;?></p>
 										
-										<?php } }?>
+										<?php }} }?>
 										<?php if($i === 0): 
 												echo "0 comment";
 											  endif;
@@ -71,16 +79,24 @@
 										<button type="button" class="btn btn-xs btn-danger" id="btn-goals-comment"><span class="glyphicon glyphicon-comment"></span>&nbsp; Show/Hide Comment <span class="badge"></span></button>
 										<div id="goals_comment" class="collapse">
 										  <div class="panel panel-body panel-danger">
-										   <?php $i=0; foreach ($comments as $comment) { 
-											if($comment->comment_category == "Goal, Objectives, and Outcomes"){ $i++;  ?>
-											<label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
-											<p class="text-justify"><?php echo $comment->comment;?></p>
-											
-											<?php } } ?>
-											<?php if($i === 0): 
+										    <?php $i = 0; foreach ($comments as $comment) {
+										if($comment->comment_category == "Goal, Objectives, and Outcomes"){ 
+											if($comment->privacy == $roleId || $comment->user_fkid == $user_id  || $comment->privacy == 0){$i++;  ?>
+													
+				
+										<?php if($comment->privacy == 0){?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: Everyone</label>
+										<?php }else{?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: <?php echo $privacyDesignation->getDetails($comment->privacy);?></label>
+										
+										<?php }?>
+										<p class="text-justify"><?php echo $comment->comment;?></p>
+										
+										<?php }} }?>
+										<?php if($i === 0): 
 												echo "0 comment";
 											  endif;
-											?>
+										?>
 										  </div>
 										</div>
 									</div>
@@ -94,17 +110,24 @@
 										<button type="button" class="btn btn-xs btn-danger" id="btn-participants-comment" ><span class="glyphicon glyphicon-comment"></span>&nbsp; Show/Hide Comment <span class="badge"></span></button>
 										<div id="participants_comment" class="collapse">
 										  <div class="panel panel-body panel-danger">
-											<?php $i = 0; foreach ($comments as $comment) {
-											if($comment->comment_category == "Participants, Partners and Beneficiaries"){ $i++;  ?>
-											  
-											<label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
-											<p class="text-justify"><?php echo $comment->comment;?></p>
-											
-											<?php } } ?>
-											<?php if($i === 0): 
+											 <?php $i = 0; foreach ($comments as $comment) {
+										if($comment->comment_category == "Participants, Partners and Beneficiaries"){ 
+											if($comment->privacy == $roleId || $comment->user_fkid == $user_id  || $comment->privacy == 0){$i++;  ?>
+													
+				
+										<?php if($comment->privacy == 0){?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: Everyone</label>
+										<?php }else{?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: <?php echo $privacyDesignation->getDetails($comment->privacy);?></label>
+										
+										<?php }?>
+										<p class="text-justify"><?php echo $comment->comment;?></p>
+										
+										<?php }} }?>
+										<?php if($i === 0): 
 												echo "0 comment";
 											  endif;
-											?>
+										?>
 										  </div>
 										</div>
 									</div>
@@ -136,16 +159,24 @@
 										<button type="button" class="btn btn-xs btn-danger" id="btn-actoutline-comment"><span class="glyphicon glyphicon-comment"></span>&nbsp; Show/Hide Comment</button>
 										<div id="actoutline_comment" class="collapse">
 										  <div class="panel panel-body panel-danger">
-											<?php $i= 0;  foreach ($comments as $comment) {
-											if($comment->comment_category == "Outline of Activities"){ $i++; ?>
-											<label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
-											<p class="text-justify"><?php echo $comment->comment;?></p>
-											
-											<?php } } ?>
-											<?php if($i === 0): 
+											 <?php $i = 0; foreach ($comments as $comment) {
+										if($comment->comment_category == "Outline Activities"){ 
+											if($comment->privacy == $roleId || $comment->user_fkid == $user_id  || $comment->privacy == 0){$i++;  ?>
+													
+				
+										<?php if($comment->privacy == 0){?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: Everyone</label>
+										<?php }else{?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: <?php echo $privacyDesignation->getDetails($comment->privacy);?></label>
+										
+										<?php }?>
+										<p class="text-justify"><?php echo $comment->comment;?></p>
+										
+										<?php }} }?>
+										<?php if($i === 0): 
 												echo "0 comment";
 											  endif;
-										    ?>
+										?>
 											
 										  </div>
 										</div>										
@@ -221,16 +252,24 @@
 								<button type="button" class="btn btn-xs btn-danger" id="btn-budreq-comment"><span class="glyphicon glyphicon-comment"></span>&nbsp Show/Hide Comment</button>
 								<div id="budreq_comment" class="collapse">
 								  <div class="panel panel-body panel-danger">
-								   <?php $i=0; foreach ($comments as $comment) {  
-									if($comment->comment_category == "Budgetary Requirements"){ $i++; ?>
-									<label class="text-danger"><?php echo $comment->firstname?> <?php echo $comment->lastname?>- <?php echo $comment->department?> (<?php echo $comment->designation;?>)</label>
-									<p class="text-justify"><?php echo $comment->comment;?></p>
-									
-									<?php } } ?>
-									<?php if($i === 0): 
-											echo "0 comment";
-										  endif;
-									?>
+								    <?php $i = 0; foreach ($comments as $comment) {
+										if($comment->comment_category == "Budgetary Requirements"){ 
+											if($comment->privacy == $roleId || $comment->user_fkid == $user_id  || $comment->privacy == 0){$i++;  ?>
+													
+				
+										<?php if($comment->privacy == 0){?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: Everyone</label>
+										<?php }else{?>
+										<label class="text-danger" style ="font-size:12px;color:gray ;">Can be Seen by: <?php echo $privacyDesignation->getDetails($comment->privacy);?></label>
+										
+										<?php }?>
+										<p class="text-justify"><?php echo $comment->comment;?></p>
+										
+										<?php }} }?>
+										<?php if($i === 0): 
+												echo "0 comment";
+											  endif;
+										?>
 								  </div>
 								</div>
                             </div>
@@ -238,7 +277,7 @@
 							</div> <!-- panel -->
 						</div>
 
-						<?php if($specprop->form_type != "2") { ?>
+						<?php if($specprop->form_type != "2" && $specprop->form_type != "3") { ?>
 						<h1>USC-CES FORM B <small>CES Program/Project/Activity Proposal (<u>Details</u>)</small></h1>
                         <hr>
 						
@@ -937,7 +976,7 @@
 
      
                  <?php if($role === "Department Chair" || $role === "Coordinator" || $role === "School Dean" || $role === "Faculty"){?>
-                 <div class="detailBox" style="right:0; bottom:0;float:right; position:fixed; background-color:#F3F2F2; margin:2px;">
+                 <div class="detailBox"  style="right:0; bottom:0;height: 290px;float:right; position:fixed; background-color:#F3F2F2; margin:2px;">
                 
                 <div class="commentBox">            
                     <p class="taskDescription">Choose a specific part and type in your comments and suggestions for the proposal</p>
@@ -952,6 +991,14 @@
 	                            <input type="hidden" name="prop_id" value="<?php echo $id?>">
                               </div>
                               <div class="form-group">
+                              	<select class="form-control" NAME="comment_privacy">
+                              	
+                              <option  disabled>- -Who can see this?- -</option>
+                              <option value="0">Everyone</option>
+                              <option value ="<?php echo $prevId?>"><?php  echo $rolePrev;?> (<?php echo $prevId?>)</option>
+                              <option value = "<?php echo $nextId?>"><?php  echo $roleNext;?>(<?php echo $nextId?>)</option>
+                             </select>
+                            
                               <select class="form-control" NAME="comment_category">
                               	
                               <option disabled>--Form A--</option>
@@ -971,8 +1018,9 @@
                                   <textarea class="form-control boxsize" type="text" placeholder="Your comments" name="commentbox" value="" required></textarea>
                               </div>
                               <div class="form-group">
-                                  <button class="btn btn-info" name="commentsubmit" id="commentsubmit">Add</button>
+                                  <button class="btn btn-info" style ="margin-top: 10px;" name="commentsubmit" id="commentsubmit">Add</button>
                               </div>
+
                       <?php echo form_close();?>
                 </div>
               </div>
@@ -987,7 +1035,9 @@
     <div style="float:left; padding:2px; padding-top:10px;">
     <?php echo form_open('Proposals/chairNotesProp');
     ?>
+    
     <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+	<input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ; ?>">
 
     <button type="submit" class="btn btn-danger btn-md" name="note" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 
@@ -999,7 +1049,9 @@
     <div style="float:left; padding:2px; padding-top:10px;">
     <?php echo form_open('Proposals/soNotesProp');
     ?>
+
     <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+	<input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ; ?>">
 
     <button type="submit" class="btn btn-danger btn-md" name="noteSo" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 
@@ -1011,7 +1063,10 @@
 		
 		<div style="float:left; padding:2px; padding-top:10px;">
 			<?php echo form_open('Proposals/coordRecommendsProp');?>
+
 			<input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+			<input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ; ?>">
+
 			<button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 			<button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Endorse to Dean&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 			<?php form_close();?>
@@ -1020,9 +1075,11 @@
  <?php } else if($role == "Faculty") { ?>
 		
 		<div style="float:left; padding:2px; padding-top:10px;">
-		    <?php echo form_open('Proposals/chairNotesProp');
+		    <?php echo form_open('Proposals/facultyNotesProp');
 		    ?>
+
 		    <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+			<input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ; ?>">
 
 		    <button type="submit" class="btn btn-danger btn-md" name="note" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 
@@ -1031,7 +1088,10 @@
  <?php } else if($role == "School Dean") { ?>
 		<div style="float:left; padding:2px; padding-top:10px;">
 			<?php echo form_open('Proposals/deanEndorseProp');?>
+
 			<input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+			<input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ; ?>">
+
 			<button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 			<button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Endorse to Director&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 			<?php form_close();?>
@@ -1043,6 +1103,9 @@
 			<?php form_close();?>
 			<?php if(intval($proposal[0]->status) < 10):?>
                 <a href="<?php echo base_url() ?>index.php/Director/choose_review_committee/<?php echo $id; ?>" style="text-decoration:none">
+
+				<input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ; ?>">
+
                  <button type="button" class="btn btn-success btn-block btn-lg">Choose Review Committee&nbsp <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                 </a>
 			<?php endif;?>
@@ -1051,7 +1114,10 @@
 		<?php if($proposal[0]->status == "11"):  ?>
 		<div style="float:left; padding:2px; padding-top:10px;">
 			<?php echo form_open('Proposals/vpaaApproveProp');?>
+
 			<input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>">
+			<input class="form-control" type="hidden" name="user_id" value="<?php echo $specprop->user_id; ; ?>">
+
 			<button type="submit" class="btn btn-danger btn-md" name="recommend" value="ReturnProposal"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span>&nbsp Return to Proponent</button>
 			<button type="submit" class="btn btn-primary btn-md" name="recommend" value="ProceedProposal">Approve Proposal&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
 			<?php form_close();?>

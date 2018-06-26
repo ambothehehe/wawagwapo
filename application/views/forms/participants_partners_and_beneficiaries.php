@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="form-group">
-              <textarea class="form-control" rows="5" id="participants_partners_and_beneficiaries" name="participants_partners_and_beneficiaries" data-toggle="tooltip" placeholder="Type Here..."></textarea>  
+              <textarea class="form-control" rows="5" id="participants_partners_and_beneficiaries" name="participants_partners_and_beneficiaries" data-toggle="tooltip" placeholder="****  Type Here...  ****"></textarea>  
             </div>
         </div>
     </div>

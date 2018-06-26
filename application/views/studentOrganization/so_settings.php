@@ -27,7 +27,9 @@
             <div class="container-fluid">
               <?php include('application/views/messages.php'); ?>
                 <div class="row tab-content">
+
                 <form action="" method="post" id="save_edit_profile_settings" >
+                  
                     <!-- Account Settings -->
                     <div class="container" style="width: 90%">
 
@@ -135,6 +137,11 @@
                             </div>
                           </div>
 
+                          <!-- HIDDEN SA UPDATED BY -->
+
+                          <input type="hidden" class="form-control" name="updated_by" value="<?php echo($user['firstname']);?> <?php echo($user['lastname']);?>" required>
+
+                          <!-- HIDDEN SA UPDATED BY -->
                         </div>
 
                       </div>

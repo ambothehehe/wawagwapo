@@ -135,6 +135,12 @@
                             </div>
                           </div>
 
+                          <!-- HIDDEN SA UPDATED BY -->
+
+                          <input type="hidden" class="form-control" name="updated_by" value="<?php echo($user['firstname']);?> <?php echo($user['lastname']);?>" required>
+
+                          <!-- HIDDEN SA UPDATED BY -->
+                          
                         </div>
 
                       </div>
